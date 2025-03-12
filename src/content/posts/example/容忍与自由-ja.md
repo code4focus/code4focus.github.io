@@ -5,9 +5,7 @@ tags: ["胡適","きんだいぶんがく"]
 lang: ja
 abbrlink: tolerance-freedom
 ---
-import { Image } from 'astro:assets';
-
-<Image src="https://image.radishzz.cc/picsmaller/02.webp" inferSize alt="这是图片的说明文字" />
+![这是图片的说明文字](https://image.radishzz.cc/picsmaller/02.webp)
 
 今から17、18年前、私は母校コニヤース大学の歴史学修士ジョージ・リンカーン・バー氏と最後に会った。 私たちは、生前に執筆を準備していた『自由の歴史』を書かずに亡くなった英国の歴史家アクトン卿について話していた。 その日、バー氏は多くの会話を交わしたが、その中で私が今でも忘れられない一文があった。 年を取れば取るほど、自由よりも寛容の方が大切だと感じるようになる」と。
 

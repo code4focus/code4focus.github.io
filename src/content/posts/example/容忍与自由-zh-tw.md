@@ -5,9 +5,7 @@ tags: ["胡適","近代文學"]
 lang: zh-tw
 abbrlink: tolerance-freedom
 ---
-import { Image } from 'astro:assets';
-
-<Image src="https://image.radishzz.cc/picsmaller/02.webp" inferSize alt="这是图片的说明文字" />
+![这是图片的说明文字](https://image.radishzz.cc/picsmaller/02.webp)
 
 十七八年前，我最後一次會見我的母校康耐兒大學的史學大師布爾先生（George Lincoln Burr）。我們談到英國史學大師阿克頓（Lord Acton）一生準備要著作一部《自由之史》，沒有寫成他就死了。布爾先生那天談話很多，有一句話我至今沒有忘記。他說，「我年紀越大，越感覺到容忍（tolerance）比自由更重要」。
 

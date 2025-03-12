@@ -5,9 +5,7 @@ tags: ["鲁迅","近代文学"]
 lang: zh
 abbrlink: hometown
 ---
-import { Image } from 'astro:assets';
-
-<Image src="https://image.radishzz.cc/picsmaller/03.webp" inferSize alt="这是图片的说明文字" />
+![这是图片的说明文字](https://image.radishzz.cc/picsmaller/03.webp)
 
 我冒了严寒，回到相隔二千馀里，别了二十馀年的故乡去。
 
