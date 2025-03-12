@@ -1,5 +1,5 @@
 ---
-title: Universal Post
+title: Universal Article
 published: 2025-03-12
 ---
 这是一篇多语言通用文章，会在所有语言版本的首页中显示。
