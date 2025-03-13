@@ -5,6 +5,7 @@ updated: 2025-03-12
 tags: ["指南"]
 pin: 1
 lang: zh
+abbrlink: markdown-style-guide
 ---
 
 FROM https://github.com/saicaca/fuwari
