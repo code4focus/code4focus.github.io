@@ -3,8 +3,8 @@ title: Markdown Style Guide
 published: 2025-03-08
 updated: 2025-03-12
 tags: ["Guide"]
+draft: true
 pin: 1
-lang: en
 abbrlink: markdown-style-guide
 ---
 
