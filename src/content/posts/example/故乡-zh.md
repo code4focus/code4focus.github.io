@@ -3,9 +3,10 @@ title: 故乡
 published: 1921-01-10
 tags: ["鲁迅","近代文学"]
 lang: zh
-abbrlink: hometown
+abbrlink: my-native-heath
 ---
-![这是图片的说明文字](https://image.radishzz.cc/picsmaller/03.webp)
+
+![Here's the description of the picture](https://image.radishzz.cc/picsmaller/03.webp)
 
 我冒了严寒，回到相隔二千馀里，别了二十馀年的故乡去。
 

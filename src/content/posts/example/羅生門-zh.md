@@ -5,7 +5,7 @@ tags: ["芥川龙之介","近代文学"]
 lang: zh
 abbrlink: rashomon
 ---
-![这是图片的说明文字](https://image.radishzz.cc/picsmaller/06.webp)
+![Here's the description of the picture](https://image.radishzz.cc/picsmaller/06.webp)
 
 是一日的傍晚的事。有一个家将，在罗生门下待著雨住。
 

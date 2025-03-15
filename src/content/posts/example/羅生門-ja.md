@@ -5,7 +5,8 @@ tags: ["芥川龍之介","きんだいぶんがく"]
 lang: ja
 abbrlink: rashomon
 ---
-![这是图片的说明文字](https://image.radishzz.cc/picsmaller/06.webp)
+
+![Here's the description of the picture](https://image.radishzz.cc/picsmaller/06.webp)
 
 或日の暮方の事である。一人の下人が、羅生門の下で雨やみを待つてゐた。
 
