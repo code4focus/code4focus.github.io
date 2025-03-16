@@ -6,8 +6,6 @@ lang: es
 abbrlink: tolerance-freedom
 ---
 
-![Here's the description of the picture](https://image.radishzz.cc/picsmaller/02.webp)
-
 Hace diecisiete o dieciocho años conocí por última vez al señor George Lincoln Burr, un gran historiador de mi alma mater, la Universidad de Cornell. Hablamos del historiador británico Lord Acton, quien planeó escribir una Historia de la Libertad a lo largo de su vida, pero murió antes de poder terminarla. El señor Bull habló mucho ese día y hay una frase que nunca he olvidado. Dijo: "Cuanto mayor me hago, más siento que la tolerancia es más importante que la libertad".
 
 El señor Bull murió hace más de diez años, pero cuanto más pienso en ello, más siento que es un lema indeleble. Yo mismo tengo la misma sensación de que "cuanto mayor me hago, más siento que la tolerancia es más importante que la libertad". A veces incluso siento que la tolerancia es la raíz de toda libertad: sin tolerancia, no hay libertad.

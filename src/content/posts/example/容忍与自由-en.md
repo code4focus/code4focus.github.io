@@ -6,8 +6,6 @@ lang: en
 abbrlink: tolerance-freedom
 ---
 
-![Here's the description of the picture](https://image.radishzz.cc/picsmaller/02.webp)
-
 Seventeen or eighteen years ago, I met for the last time the historian George Lincoln Burr from my alma mater, Cornell University. We talked about how the British historian Lord Acton planned to write a history of liberty, but died before he finished it. Mr. Burr talked a lot that day, and there was one sentence I still remember. He said, "The older I get, the more I feel that tolerance is more important than freedom."
 
 Mr. Bull has been dead for more than ten years. The more I think about his words, the more I feel that they are an indelible motto. I myself also have the feeling that "the older I get, the more I feel that tolerance is more important than freedom." Sometimes I even feel that tolerance is the root of all freedom: without tolerance, there is no freedom.
