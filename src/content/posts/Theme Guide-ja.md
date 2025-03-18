@@ -8,4 +8,4 @@ lang: ja
 abbrlink: theme-guide
 ---
 
-Retypeset は [Astro](https://astro.build/) フレームワークをベースにした静的ブログテーマで、[Typography](https://astro-theme-typography.vercel.app/) からインスピレーションを得ています。新しい視覚的標準を確立し、すべてのページのレイアウトを再考することで、紙の本のような読書体験を提供し、タイポグラフィの美しさを蘇らせます。細部へのこだわりと、洗練された空間デザインが特徴です。
+Retypeset、日本語では「再組版」と呼ばれる、[Astro](https://astro.build/) フレームワークをベースにした静的ブログテーマで、[Typography](https://astro-theme-typography.vercel.app/) からインスピレーションを得ています。新しい視覚的な規範を確立し、すべてのページのレイアウトを再構成することで、紙の書籍のような読書体験を提供し、版面の美しさを蘇らせます。細部にまでこだわり、限られたスペースの中に洗練された優雅さを表現しています。
