@@ -1,9 +1,8 @@
 ---
 title: Markdown Style Guide
 published: 2025-03-08
-updated: 2025-03-12
+updated: 2025-03-20
 tags: ["Guide"]
-draft: true
 pin: 1
 lang: en
 abbrlink: markdown-style-guide
@@ -15,17 +14,17 @@ Here is a sample of some basic Markdown syntax that can be used when writing Mar
 
 The following HTML `<h1>`—`<h6>` elements represent six levels of section headings. `<h1>` is the highest section level while `<h6>` is the lowest.
 
-# H1
+# Heading 1 Preview
 
-## H2
+## Heading 2 Preview
 
-### H3
+### Heading 3 Preview
 
-#### H4
+#### Heading 4 Preview
 
-##### H5
+##### Heading 5 Preview
 
-###### H6
+###### Heading 6 Preview
 
 ## Paragraph
 
