@@ -118,32 +118,16 @@ we can use 3 backticks ``` in new line and write snippet and close with 3 backti
 ### Output
 
 ```html
----
-// Your component script here!
-import Banner from '../components/Banner.astro';
-import ReactPokemonComponent from '../components/ReactPokemonComponent.jsx';
-const myFavoritePokemon = [/* ... */];
-const { title } = Astro.props;
----
-<!-- HTML comments supported! -->
-{/* JS comment syntax is also valid! */}
-
-<Banner />
-<h1>Hello, world!</h1>
-
-<!-- Use props and other variables from the component script: -->
-<p>{title}</p>
-
-<!-- Include other UI framework components with a `client:` directive to hydrate: -->
-<ReactPokemonComponent client:visible />
-
-<!-- Mix HTML with JavaScript expressions, similar to JSX: -->
-<ul>
-  {myFavoritePokemon.map((data) => <li>{data.name}</li>)}
-</ul>
-
-<!-- Use a template directive to build class names from multiple strings or even objects! -->
-<p class:list={["add", "dynamic", {classNames: true}]} />
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Example HTML5 Document</title>
+  </head>
+  <body>
+    <p>Test</p>
+  </body>
+</html>
 ```
 
 ## List Types
