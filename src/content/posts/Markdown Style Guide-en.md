@@ -42,7 +42,7 @@ Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sap
 
 ### Output
 
-![Alt text](./full/or/relative/path/of/image)
+![blog placeholder](/blog-placeholder.jpg)
 
 ## Blockquotes
 
@@ -53,13 +53,13 @@ The blockquote element represents content that is quoted from another source, op
 #### Syntax
 
 ```markdown
-> Tiam, ad mint andaepu dandae nostion secatur sequo quae.<br>
+> Tiam, ad mint andaepu dandae nostion secatur sequo quae.
 > **Note** that you can use _Markdown syntax_ within a blockquote.
 ```
 
 #### Output
 
-> Tiam, ad mint andaepu dandae nostion secatur sequo quae.<br>
+> Tiam, ad mint andaepu dandae nostion secatur sequo quae.
 > **Note** that you can use _Markdown syntax_ within a blockquote.
 
 ### Blockquote with attribution
@@ -188,30 +188,51 @@ we can use 3 backticks ``` in new line and write snippet and close with 3 backti
   - Milk
   - Cheese
 
-## Other Elements — abbr, sub, sup, kbd, mark
+## Other Elements
 
 ### Syntax
 
 ```markdown
-<abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format.
-
 H<sub>2</sub>O
 
 X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
 
+<abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format (hover for 2s).
+
 Press <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>Delete</kbd> to end the session.
+
+Students often make some <u title="spelling">speling</u> mistakes (hover for 2s).
+
+There is <del>nothing</del> no code either good or bad, but running it makes it so.
 
 Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.
 ```
 
 ### Output
 
-<abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format.
-
 H<sub>2</sub>O
 
 X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
 
+<abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format (hover for 2s).
+
 Press <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>Delete</kbd> to end the session.
 
+Students often make some <u title="spelling">speling</u> mistakes (hover for 2s).
+
+There is <del>nothing</del> no code either good or bad, but running it makes it so.
+
 Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.
+
+<!-- <details>
+  <summary>
+    I have keys but no doors. I have space but no room. You can enter but can’t
+    leave. What am I?
+  </summary>
+  A keyboard.
+</details>
+
+<figure>
+  <img src="https://image.radishzz.cc/picsmaller/03.webp">
+  <figcaption text-center="">Node Modules Inspector - Overview</figcaption>
+</figure> -->

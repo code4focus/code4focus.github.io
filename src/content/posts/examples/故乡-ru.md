@@ -5,6 +5,7 @@ tags: ["Лу Синь","Современная литература"]
 lang: ru
 abbrlink: my-native-heath
 ---
+
 ![Here's the description of the picture](https://image.radishzz.cc/picsmaller/03.webp)
 
 Было очень холодно, когда после более чем двадцатилетнего отсутствия я отправился навестить свою родную пустошь, расположенную более чем в двух тысячах ли отсюда.
