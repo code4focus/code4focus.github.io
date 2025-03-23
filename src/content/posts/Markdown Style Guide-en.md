@@ -1,14 +1,14 @@
 ---
 title: Markdown Style Guide
 published: 2025-03-08
-updated: 2025-03-20
+updated: 2025-03-23
 tags: ["Guide"]
 pin: 1
 lang: en
 abbrlink: markdown-style-guide
 ---
 
-Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
+Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Retypeset.
 
 ## Headings
 
@@ -42,7 +42,7 @@ Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sap
 
 ### Output
 
-![Image Placeholder](/blog-placeholder.jpg)
+![Image Placeholder](/image-placeholder.jpg)
 
 ## Blockquotes
 
@@ -53,13 +53,13 @@ The blockquote element represents content that is quoted from another source, op
 #### Syntax
 
 ```markdown
-> Tiam, ad mint andaepu dandae nostion secatur sequo quae.
+> Tiam, ad mint andaepu dandae nostion secatur sequo quae.<br>
 > **Note** that you can use _Markdown syntax_ within a blockquote.
 ```
 
 #### Output
 
-> Tiam, ad mint andaepu dandae nostion secatur sequo quae.
+> Tiam, ad mint andaepu dandae nostion secatur sequo quae.<br>
 > **Note** that you can use _Markdown syntax_ within a blockquote.
 
 ### Blockquote with attribution
@@ -197,11 +197,11 @@ H<sub>2</sub>O
 
 X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
 
-<abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format (hover for 2s).
+<abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format.
+
+Good writers always check for <u title="spelling">speling</u> mistakes.
 
 Press <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>Delete</kbd> to end the session.
-
-Students often make some <u title="spelling">speling</u> mistakes (hover for 2s).
 
 There is <del>nothing</del> no code either good or bad, but running it makes it so.
 
@@ -216,7 +216,7 @@ X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
 
 <abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format.
 
-Students often make some <u title="spelling">speling</u> mistakes.
+Good writers always check for <u title="spelling">speling</u> mistakes.
 
 Press <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>Delete</kbd> to end the session.
 
