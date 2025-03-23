@@ -37,12 +37,12 @@ Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sap
 ### Syntax
 
 ```markdown
-![Alt text](./full/or/relative/path/of/image)
+![Alt Text](./full/or/relative/path/of/image)
 ```
 
 ### Output
 
-![blog placeholder](/blog-placeholder.jpg)
+![Image Placeholder](/blog-placeholder.jpg)
 
 ## Blockquotes
 
@@ -214,11 +214,11 @@ H<sub>2</sub>O
 
 X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
 
-<abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format (hover for 2s).
+<abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format.
+
+Students often make some <u title="spelling">speling</u> mistakes.
 
 Press <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>Delete</kbd> to end the session.
-
-Students often make some <u title="spelling">speling</u> mistakes (hover for 2s).
 
 There is <del>nothing</del> no code either good or bad, but running it makes it so.
 
