@@ -96,9 +96,9 @@ The blockquote element represents content that is quoted from another source, op
 
 ## Code Blocks
 
-### Syntax
+we can use 3 backticks ``` in new line and write snippet and close with 3 backticks on new line and to highlight language specific syntax, write one word of language name after first 3 backticks, for eg. html, javascript, css, markdown, typescript, txt, bash.
 
-we can use 3 backticks ``` in new line and write snippet and close with 3 backticks on new line and to highlight language specific syntax, write one word of language name after first 3 backticks, for eg. html, javascript, css, markdown, typescript, txt, bash
+### Syntax
 
 ````markdown
 ```html
@@ -226,7 +226,7 @@ Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and ot
 
 <!-- <details>
   <summary>
-    I have keys but no doors. I have space but no room. You can enter but can’t
+    I have keys but no doors. I have space but no room. You can enter but can't
     leave. What am I?
   </summary>
   A keyboard.
