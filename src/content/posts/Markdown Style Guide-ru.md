@@ -8,31 +8,53 @@ lang: ru
 abbrlink: markdown-style-guide
 ---
 
-Вот примеры базового синтаксиса Markdown, который можно использовать при написании контента в Retypeset.
+Вот несколько примеров базового синтаксиса Markdown и их стилистических эффектов в теме Retypeset.
 
 ## Заголовки
 
-Следующие HTML-элементы `<h1>`—`<h6>` представляют шесть уровней заголовков разделов. `<h1>` — самый высокий уровень раздела, а `<h6>` — самый низкий.
+Чтобы создать заголовок, добавьте знаки решётки `#` перед словом или фразой. Количество знаков решётки должно соответствовать уровню заголовка.
+
+### Синтаксис
+
+```
+# Заголовок 1
+## Заголовок 2
+### Заголовок 3
+#### Заголовок 4
+##### Заголовок 5
+###### Заголовок 6
+```
+
+### Результат
 
 # Заголовок 1
-
 ## Заголовок 2
-
 ### Заголовок 3
-
 #### Заголовок 4
-
 ##### Заголовок 5
-
 ###### Заголовок 6
 
-## Абзац
+## Абзацы
+
+Для создания абзацев используйте пустую строку для разделения одной или нескольких строк текста.
+
+### Синтаксис
+
+```
+Xerum, quo qui aut unt expliquam qui dolut labo. Aque venitatiusda cum, voluptionse latur sitiae dolessi aut parist aut dollo enim qui voluptate ma dolestendit peritin re plis aut quas inctum laceat est volestemque commosa as cus endigna tectur, offic to cor sequas etum rerum idem sintibus eiur? Quianimin porecus evelectur, cum que nis nust voloribus ratem aut omnimi, sitatur? Quiatem. Nam, omnis sum am facea corem alique molestrunt et eos evelece arcillit ut aut eos eos nus, sin conecerem erum fuga. Ri oditatquam, ad quibus unda veliamenimin cusam et facea ipsamus es exerum sitate dolores editium rerore eost, temped molorro ratiae volorro te reribus dolorer sperchicium faceata tiustia prat.
+
+Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sapicia is sinveli squiatum, core et que aut hariosam ex eat.
+```
+
+### Результат
 
 Xerum, quo qui aut unt expliquam qui dolut labo. Aque venitatiusda cum, voluptionse latur sitiae dolessi aut parist aut dollo enim qui voluptate ma dolestendit peritin re plis aut quas inctum laceat est volestemque commosa as cus endigna tectur, offic to cor sequas etum rerum idem sintibus eiur? Quianimin porecus evelectur, cum que nis nust voloribus ratem aut omnimi, sitatur? Quiatem. Nam, omnis sum am facea corem alique molestrunt et eos evelece arcillit ut aut eos eos nus, sin conecerem erum fuga. Ri oditatquam, ad quibus unda veliamenimin cusam et facea ipsamus es exerum sitate dolores editium rerore eost, temped molorro ratiae volorro te reribus dolorer sperchicium faceata tiustia prat.
 
 Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sapicia is sinveli squiatum, core et que aut hariosam ex eat.
 
 ## Изображения
+
+Чтобы добавить изображение, добавьте восклицательный знак `!`, за которым следует альтернативный текст в квадратных скобках `[]` и путь или URL к изображению в круглых скобках `()`.
 
 ### Синтаксис
 
@@ -46,57 +68,67 @@ Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sap
 
 ## Цитаты
 
-Элемент цитирования представляет контент, цитируемый из другого источника, с возможным указанием источника внутри элемента `footer` или `cite`, а также с возможными встроенными изменениями, такими как аннотации и сокращения.
+Чтобы создать цитату, добавьте `>` перед абзацем. Чтобы создать цитату с несколькими абзацами, добавьте символ `>` к пустым строкам между абзацами. Для цитирования источников вы можете использовать теги `<cite>` или `<footer>` для библиографических ссылок, а сноски могут быть вставлены с помощью синтаксиса `[^1]` или `[^note]`.
 
-### Цитата без указания авторства
+### Цитата с несколькими абзацами
 
 #### Синтаксис
 
 ```markdown
-> Tiam, ad mint andaepu dandae nostion secatur sequo quae.<br>
+> Tiam, ad mint andaepu dandae nostion secatur sequo quae.
+>
 > **Обратите внимание**, что внутри цитаты можно использовать _синтаксис Markdown_.
 ```
 
 #### Результат
 
-> Tiam, ad mint andaepu dandae nostion secatur sequo quae.<br>
+> Tiam, ad mint andaepu dandae nostion secatur sequo quae.
+>
 > **Обратите внимание**, что внутри цитаты можно использовать _синтаксис Markdown_.
 
-### Цитата с указанием авторства
+### Цитата с указанием источников
 
 #### Синтаксис
 
 ```markdown
-> Не общайтесь путем совместного использования памяти, а делитесь памятью через общение.<br>
+> Не общайтесь путём разделения памяти, разделяйте память путём общения.
+>
 > — <cite>Роб Пайк[^1]</cite>
+
+[^1]: Приведённая выше цитата взята из [выступления](https://www.youtube.com/watch?v=PAAkCSZUG1c) Роба Пайка на Gopherfest, 18 ноября 2015 года.
 ```
 
 #### Результат
 
-> Не общайтесь путем совместного использования памяти, а делитесь памятью через общение.<br>
+> Не общайтесь путём разделения памяти, разделяйте память путём общения.
+>
 > — <cite>Роб Пайк[^1]</cite>
 
-[^1]: Приведенная выше цитата взята из [выступления](https://www.youtube.com/watch?v=PAAkCSZUG1c) Роба Пайка на Gopherfest 18 ноября 2015 года.
+[^1]: Приведённая выше цитата взята из [выступления](https://www.youtube.com/watch?v=PAAkCSZUG1c) Роба Пайка на Gopherfest, 18 ноября 2015 года.
 
 ## Таблицы
+
+Чтобы добавить таблицу, используйте три или более дефиса `---` для создания заголовка каждого столбца и вертикальные линии `|` для разделения столбцов.
 
 ### Синтаксис
 
 ```markdown
-| Курсив   | Жирный     | Код   |
-| -------- | ---------- | ----- |
-| _курсив_ | **жирный** | `код` |
+| Курсив     | Жирный      | Код    |
+| ---------- | ----------- | ------ |
+| _курсив_   | **жирный**  | `код`  |
+| _курсив_   | **жирный**  | `код`  |
 ```
 
 ### Результат
 
-| Курсив   | Жирный     | Код   |
-| -------- | ---------- | ----- |
-| _курсив_ | **жирный** | `код` |
+| Курсив     | Жирный      | Код    |
+| ---------- | ----------- | ------ |
+| _курсив_   | **жирный**  | `код`  |
+| _курсив_   | **жирный**  | `код`  |
 
 ## Блоки кода
 
-Мы можем использовать 3 обратные кавычки ``` в новой строке, написать фрагмент кода и закрыть 3 обратными кавычками в новой строке. Для подсветки синтаксиса конкретного языка укажите название языка после первых 3 обратных кавычек, например: html, javascript, css, markdown, typescript, txt, bash.
+Чтобы создать блок кода, добавьте три обратных апострофа ```` ``` ```` в начале и конце вашего кода. Вы можете указать язык программирования после открывающих обратных апострофов, чтобы указать, как раскрашивать и стилизовать ваш код, например: html, javascript, css, markdown и т.д.
 
 ### Синтаксис
 
@@ -154,15 +186,15 @@ Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sap
 
 ```markdown
 - Пункт списка
-- Еще один пункт
-- И еще один пункт
+- Графический элемент
+- И ещё один пункт
 ```
 
 #### Результат
 
 - Пункт списка
-- Еще один пункт
-- И еще один пункт
+- Графический элемент
+- И ещё один пункт
 
 ### Вложенный список
 
@@ -190,7 +222,7 @@ Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sap
 
 ## Другие элементы
 
-Включая верхний индекс `<sup>`, нижний индекс `<sub>`, аббревиатуру `<abbr>`, зачеркнутый текст `<del>`, волнистое подчеркивание `<u>`, ввод с клавиатуры `<kbd>` и выделение `<mark>`.
+Включая верхний индекс `<sup>`, нижний индекс `<sub>`, аббревиатуру `<abbr>`, зачёркнутый текст `<del>`, волнистое подчёркивание `<u>`, ввод с клавиатуры `<kbd>` и выделение `<mark>`.
 
 ### Синтаксис
 

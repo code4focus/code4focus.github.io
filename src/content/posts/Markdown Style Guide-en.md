@@ -8,7 +8,7 @@ lang: en
 abbrlink: markdown-style-guide
 ---
 
-Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Retypeset.
+Here are some basic Markdown syntax examples and their stylistic effects in Retypeset.
 
 ## Headings
 
@@ -54,23 +54,23 @@ Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sap
 
 ## Images
 
+To add an image, add an exclamation mark `!`, followed by alt text in brackets `[]`, and the path or URL to the image asset in parentheses `()`.
+
 ### Syntax
 
 ```markdown
-![Image Description](./full/or/relative/path/of/image.webp)
-![Image Description](https://example.com/image.webp)
+![Image Description](./full/or/relative/path/of/image)
 ```
 
 ### Output
 
 ![Image Description](/image-placeholder)
-![Image Description](/image-placeholder)
 
 ## Blockquotes
 
-To create a blockquote, add a > in front of a paragraph. Blockquotes can contain multiple paragraphs. 
+To create a blockquote, add a `>` in front of a paragraph. To create a blockquote with multiple paragraphs, add a `>` symbol to the empty lines between paragraphs. To cite sources, you can use the `<cite>` or `<footer>` tags for bibliographic references, while footnotes may be inserted using the `[^1]` or `[^note]` syntax.
 
-### Blockquote without attribution
+### Blockquote with multiple paragraphs
 
 #### Syntax
 
@@ -86,7 +86,7 @@ To create a blockquote, add a > in front of a paragraph. Blockquotes can contain
 >
 > **Note** that you can use _Markdown syntax_ within a blockquote.
 
-### Blockquote with attribution
+### Blockquote with citing sources
 
 #### Syntax
 
@@ -94,6 +94,8 @@ To create a blockquote, add a > in front of a paragraph. Blockquotes can contain
 > Don't communicate by sharing memory, share memory by communicating.
 >
 > — <cite>Rob Pike[^1]</cite>
+
+[^1]: The above quote is excerpted from Rob Pike's [talk](https://www.youtube.com/watch?v=PAAkCSZUG1c) during Gopherfest, November 18, 2015.
 ```
 
 #### Output
