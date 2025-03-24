@@ -1,7 +1,7 @@
 ---
 title: 通用文章 Universal Article
 published: 2025-03-24
-lang: ''
+# lang: ''
 ---
 
 ```markdown
