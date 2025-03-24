@@ -12,21 +12,41 @@ Here is a sample of some basic Markdown syntax that can be used when writing Mar
 
 ## Headings
 
-The following HTML `<h1>`—`<h6>` elements represent six levels of section headings. `<h1>` is the highest section level while `<h6>` is the lowest.
+To create a heading, add number signs `#` in front of a word or phrase. The number of number signs you use should correspond to the heading level.
+
+### Syntax
+
+```
+# Heading 1
+## Heading 2
+### Heading 3
+#### Heading 4
+##### Heading 5
+###### Heading 6
+```
+
+### Output
 
 # Heading 1
-
 ## Heading 2
-
 ### Heading 3
-
 #### Heading 4
-
 ##### Heading 5
-
 ###### Heading 6
 
 ## Paragraph
+
+To create paragraphs, use a blank line to separate one or more lines of text.
+
+### Syntax
+
+```
+Xerum, quo qui aut unt expliquam qui dolut labo. Aque venitatiusda cum, voluptionse latur sitiae dolessi aut parist aut dollo enim qui voluptate ma dolestendit peritin re plis aut quas inctum laceat est volestemque commosa as cus endigna tectur, offic to cor sequas etum rerum idem sintibus eiur? Quianimin porecus evelectur, cum que nis nust voloribus ratem aut omnimi, sitatur? Quiatem. Nam, omnis sum am facea corem alique molestrunt et eos evelece arcillit ut aut eos eos nus, sin conecerem erum fuga. Ri oditatquam, ad quibus unda veliamenimin cusam et facea ipsamus es exerum sitate dolores editium rerore eost, temped molorro ratiae volorro te reribus dolorer sperchicium faceata tiustia prat.
+
+Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sapicia is sinveli squiatum, core et que aut hariosam ex eat.
+```
+
+### Output
 
 Xerum, quo qui aut unt expliquam qui dolut labo. Aque venitatiusda cum, voluptionse latur sitiae dolessi aut parist aut dollo enim qui voluptate ma dolestendit peritin re plis aut quas inctum laceat est volestemque commosa as cus endigna tectur, offic to cor sequas etum rerum idem sintibus eiur? Quianimin porecus evelectur, cum que nis nust voloribus ratem aut omnimi, sitatur? Quiatem. Nam, omnis sum am facea corem alique molestrunt et eos evelece arcillit ut aut eos eos nus, sin conecerem erum fuga. Ri oditatquam, ad quibus unda veliamenimin cusam et facea ipsamus es exerum sitate dolores editium rerore eost, temped molorro ratiae volorro te reribus dolorer sperchicium faceata tiustia prat.
 
@@ -37,29 +57,33 @@ Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sap
 ### Syntax
 
 ```markdown
-![Image Description](./full/or/relative/path/of/image)
+![Image Description](./full/or/relative/path/of/image.webp)
+![Image Description](https://example.com/image.webp)
 ```
 
 ### Output
 
 ![Image Description](/image-placeholder)
+![Image Description](/image-placeholder)
 
 ## Blockquotes
 
-The blockquote element represents content that is quoted from another source, optionally with a citation which must be within a `footer` or `cite` element, and optionally with in-line changes such as annotations and abbreviations.
+To create a blockquote, add a > in front of a paragraph. Blockquotes can contain multiple paragraphs. 
 
 ### Blockquote without attribution
 
 #### Syntax
 
 ```markdown
-> Tiam, ad mint andaepu dandae nostion secatur sequo quae.<br>
+> Tiam, ad mint andaepu dandae nostion secatur sequo quae.
+>
 > **Note** that you can use _Markdown syntax_ within a blockquote.
 ```
 
 #### Output
 
-> Tiam, ad mint andaepu dandae nostion secatur sequo quae.<br>
+> Tiam, ad mint andaepu dandae nostion secatur sequo quae.
+>
 > **Note** that you can use _Markdown syntax_ within a blockquote.
 
 ### Blockquote with attribution
@@ -67,24 +91,29 @@ The blockquote element represents content that is quoted from another source, op
 #### Syntax
 
 ```markdown
-> Don't communicate by sharing memory, share memory by communicating.<br>
+> Don't communicate by sharing memory, share memory by communicating.
+>
 > — <cite>Rob Pike[^1]</cite>
 ```
 
 #### Output
 
-> Don't communicate by sharing memory, share memory by communicating.<br>
+> Don't communicate by sharing memory, share memory by communicating.
+>
 > — <cite>Rob Pike[^1]</cite>
 
 [^1]: The above quote is excerpted from Rob Pike's [talk](https://www.youtube.com/watch?v=PAAkCSZUG1c) during Gopherfest, November 18, 2015.
 
 ## Tables
 
+To add a table, use three or more hyphens `---` to create each column’s header, and use pipes `|` to separate each column.
+
 ### Syntax
 
 ```markdown
 | Italics   | Bold     | Code   |
 | --------- | -------- | ------ |
+| _italics_ | **bold** | `code` |
 | _italics_ | **bold** | `code` |
 ```
 
@@ -93,10 +122,11 @@ The blockquote element represents content that is quoted from another source, op
 | Italics   | Bold     | Code   |
 | --------- | -------- | ------ |
 | _italics_ | **bold** | `code` |
+| _italics_ | **bold** | `code` |
 
 ## Code Blocks
 
-we can use 3 backticks ``` in new line and write snippet and close with 3 backticks on new line and to highlight language specific syntax, write one word of language name after first 3 backticks, for eg. html, javascript, css, markdown, typescript, txt, bash.
+To create a code block, add three backticks ```` ``` ```` at the start and end of your code. You can indicate the programming language being used after the opening backticks to indicate how to color and style your code, for eg. html, javascript, css, markdown etc.
 
 ### Syntax
 
