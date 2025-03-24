@@ -190,6 +190,8 @@ we can use 3 backticks ``` in new line and write snippet and close with 3 backti
 
 ## Other Elements
 
+Including `<sup>` superscript, `<sub>` subscript, `<abbr>` abbreviation, `<del>` strikethrough, `<u>` wavy underline, `<kbd>` keyboard input, and `<mark>` highlight.
+
 ### Syntax
 
 ```markdown
