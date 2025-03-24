@@ -37,12 +37,12 @@ Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sap
 ### Syntax
 
 ```markdown
-![Alt Text](./full/or/relative/path/of/image)
+![Image Description](./full/or/relative/path/of/image)
 ```
 
 ### Output
 
-![Image Placeholder](/image-placeholder.jpg)
+![Image Description](/image-placeholder)
 
 ## Blockquotes
 
@@ -225,16 +225,3 @@ Press <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>Delete</kbd> to end the session.
 There is <del>nothing</del> no code either good or bad, but running it makes it so.
 
 Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.
-
-<!-- <details>
-  <summary>
-    I have keys but no doors. I have space but no room. You can enter but can't
-    leave. What am I?
-  </summary>
-  A keyboard.
-</details>
-
-<figure>
-  <img src="https://image.radishzz.cc/picsmaller/03.webp">
-  <figcaption text-center="">Node Modules Inspector - Overview</figcaption>
-</figure> -->

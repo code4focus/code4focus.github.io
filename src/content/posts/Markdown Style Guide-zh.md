@@ -34,8 +34,6 @@ HTML 的 `<h1>` 至 `<h6>` 标签对应六个等级的标题。`<h1>` 为最高�
 
 ## 图片
 
-使用相对路径 `../assets/image.jpg` 或绝对路径 `https://example.com/image.jpg` 来引用图片。
-
 ### 语法
 
 ```markdown
@@ -44,7 +42,7 @@ HTML 的 `<h1>` 至 `<h6>` 标签对应六个等级的标题。`<h1>` 为最高�
 
 ### 效果
 
-![图片占位符](/image-placeholder.jpg)
+![图片描述](/image-placeholder)
 
 ## 块引用
 
