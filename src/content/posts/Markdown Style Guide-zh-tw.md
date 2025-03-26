@@ -8,7 +8,7 @@ lang: zh-tw
 abbrlink: markdown-style-guide
 ---
 
-以下是一些基本的 Markdown 語法示例，以及在 Retypeset 主題中的樣式效果。
+以下是一些基本的 Markdown 語法示例，及其在 Retypeset 主題中的樣式效果。
 
 ## 標題
 

@@ -2,7 +2,7 @@
 title: 主题上手指南
 published: 2025-01-26
 updated: 2025-03-12
-tags: ["博客主题","指南"]
+tags: [博客主题, 指南]
 pin: 99
 lang: zh
 abbrlink: theme-guide
@@ -185,10 +185,98 @@ preload: {
   // 图床地址
   imageHostURL: 'https://image.radishzz.cc'
   // 定制 google analytics js
-  // 适用于路由 google analytics js 到自定义域名的情况
+  // 适用于路由 google analytics js 到自定义域名的用户
   customGoogleAnalyticsJS: ''
   // 定制 umami analytics js
-  // 适用于自部署 umami，或路由 umami analytics js 到自定义域名的情况
+  // 适用于自部署 umami，或路由 umami analytics js 到自定义域名的用户
   customUmamiAnalyticsJS: 'https://js.radishzz.cc/jquery.min.js'
 }
 ```
+
+## 创建新文章
+
+在 `src/content/posts/` 目录中新建以 `.md` 或 `.mdx` 为后缀的文件，并在文件顶部添加 Front Matter 元数据。
+
+### Front Matter
+
+```markdown
+---
+# 必填
+title: 主题上手指南
+published: 2025-01-26
+
+# 可选
+description: 自动选取文章前 120 字作为描述。
+updated: 2025-03-26
+tags: [博客主题, 指南]
+
+# 进阶，可选
+draft: true/false
+pin: 1-99
+toc: true/false
+lang: zh/zh-tw/ja/en/es/ru
+abbrlink: theme-guide
+---
+```
+
+### 进阶配置介绍
+
+#### draft
+
+是否标记文章为草稿。设为 true 时无法发布文章，仅供本地开发预览。默认为 false。
+
+#### pin
+
+是否置顶文章。数字越大，文章的置顶优先级越高。默认为 0，即不置顶。
+
+#### toc
+
+是否开启目录。尚未实现该功能。
+
+#### lang
+
+指定文章语言。只能指定一种语言，不指定则默认显示在所有语言路径下。
+
+```md
+# src/config.ts
+# locale: 'en'
+# moreLocales: ['es', 'ru']
+
+# lang: ''
+src/content/posts/apple.md    -> example.com/posts/apple/
+                              -> example.com/es/posts/apple/
+                              -> example.com/ru/posts/apple/
+# lang: en
+src/content/posts/apple.md    -> example.com/posts/apple/
+# lang: es
+src/content/posts/banana.md   -> example.com/es/posts/banana/
+# lang: ru
+src/content/posts/orange.md   -> example.com/ru/posts/orange/
+
+```
+
+#### abbrlink
+
+自定义文章 URL。
+
+```md
+# src/config.ts
+# locale: 'en'
+# moreLocales: ['es', 'ru']
+# lang: 'es'
+
+# abbrlink: ''
+src/content/posts/apple.md           ->  example.com/es/posts/apple/
+src/content/posts/guide/apple.md     ->  example.com/es/posts/guide/apple/
+src/content/posts/2025/03/apple.md   ->  example.com/es/posts/2025/03/apple/
+
+# abbrlink: 'banana'
+src/content/posts/apple.md           ->  example.com/es/posts/banana/
+src/content/posts/guide/apple.md     ->  example.com/es/posts/banana/
+src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
+```
+
+### 自动化配置介绍
+
+自动计算文章阅读时间。自动为每篇文章生成 Open Graph 图片。相同 abbrlink 的文章会自动共享 Waline 评论，且不受 lang 配置影响。
+

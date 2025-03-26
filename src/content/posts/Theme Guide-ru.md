@@ -192,3 +192,90 @@ preload: {
   customUmamiAnalyticsJS: 'https://js.radishzz.cc/jquery.min.js'
 }
 ```
+
+## Создание Новой Статьи
+
+Создайте новый файл с расширением `.md` или `.mdx` в директории `src/content/posts/` и добавьте метаданные Front Matter в верхней части файла.
+
+### Front Matter
+
+```markdown
+---
+# Обязательно
+title: Руководство по теме
+published: 2025-01-26
+
+# Опционально
+description: Первые 240 символов статьи будут автоматически выбраны в качестве описания.
+updated: 2025-03-26
+tags: ["Тема блога", "Руководство"]
+
+# Расширенные настройки, опционально
+draft: true/false
+pin: 1-99
+toc: true/false
+lang: en/es/ru/zh/zh-tw/ja
+abbrlink: theme-guide
+---
+```
+
+### Расширенная Конфигурация
+
+#### draft
+
+Помечает статью как черновик. Если установлено значение true, статья не может быть опубликована и доступна только для предварительного просмотра при локальной разработке. По умолчанию - false.
+
+#### pin
+
+Закрепляет статью вверху. Чем выше число, тем выше приоритет закрепленной статьи. По умолчанию - 0, что означает отсутствие закрепления.
+
+#### toc
+
+Включает оглавление. Эта функция еще не реализована.
+
+#### lang
+
+Указывает язык статьи. Можно указать только один язык. Если не указано, статья будет отображаться во всех языковых путях по умолчанию.
+
+```md
+# src/config.ts
+# locale: 'en'
+# moreLocales: ['es', 'ru']
+
+# lang: ''
+src/content/posts/apple.md    -> example.com/posts/apple/
+                              -> example.com/es/posts/apple/
+                              -> example.com/ru/posts/apple/
+# lang: en
+src/content/posts/apple.md    -> example.com/posts/apple/
+# lang: es
+src/content/posts/banana.md   -> example.com/es/posts/banana/
+# lang: ru
+src/content/posts/orange.md   -> example.com/ru/posts/orange/
+
+```
+
+#### abbrlink
+
+Настраивает URL статьи.
+
+```md
+# src/config.ts
+# locale: 'en'
+# moreLocales: ['es', 'ru']
+# lang: 'es'
+
+# abbrlink: ''
+src/content/posts/apple.md           ->  example.com/es/posts/apple/
+src/content/posts/guide/apple.md     ->  example.com/es/posts/guide/apple/
+src/content/posts/2025/03/apple.md   ->  example.com/es/posts/2025/03/apple/
+
+# abbrlink: 'banana'
+src/content/posts/apple.md           ->  example.com/es/posts/banana/
+src/content/posts/guide/apple.md     ->  example.com/es/posts/banana/
+src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
+```
+
+### Автоматические Функции
+
+Автоматически рассчитывает время чтения статьи. Автоматически генерирует изображения Open Graph для каждой статьи. Статьи с одинаковым abbrlink будут автоматически совместно использовать комментарии Waline, независимо от настройки lang.

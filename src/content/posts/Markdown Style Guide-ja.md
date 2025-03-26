@@ -8,7 +8,7 @@ lang: ja
 abbrlink: markdown-style-guide
 ---
 
-以下は Retypeset テーマで使用できる基本的な Markdown 構文の例とそのスタイル効果です。
+以下は基本的な Markdown 構文の例と、Retypeset テーマでのスタイル効果です。
 
 ## 見出し
 

@@ -192,3 +192,90 @@ preload: {
   customUmamiAnalyticsJS: 'https://js.radishzz.cc/jquery.min.js'
 }
 ```
+
+## Creación de un Nuevo Artículo
+
+Crea un nuevo archivo con extensión `.md` o `.mdx` en el directorio `src/content/posts/`, y añade los metadatos Front Matter en la parte superior del archivo.
+
+### Front Matter
+
+```markdown
+---
+# Obligatorio
+title: Guía del Tema
+published: 2025-01-26
+
+# Opcional
+description: Los primeros 240 caracteres del artículo se seleccionarán automáticamente como descripción.
+updated: 2025-03-26
+tags: ["Tema de Blog", "Guía"]
+
+# Avanzado, opcional
+draft: true/false
+pin: 1-99
+toc: true/false
+lang: en/es/ru/zh/zh-tw/ja
+abbrlink: theme-guide
+---
+```
+
+### Configuración Avanzada
+
+#### draft
+
+Marca el artículo como borrador. Cuando se establece como true, el artículo no se puede publicar y solo está disponible para vista previa en desarrollo local. El valor predeterminado es false.
+
+#### pin
+
+Fija el artículo en la parte superior. Cuanto mayor sea el número, mayor será la prioridad del artículo fijado. El valor predeterminado es 0, lo que significa que no está fijado.
+
+#### toc
+
+Habilita la tabla de contenidos. Esta función aún no está implementada.
+
+#### lang
+
+Especifica el idioma del artículo. Solo se puede especificar un idioma. Si no se especifica, el artículo se mostrará en todas las rutas de idioma por defecto.
+
+```md
+# src/config.ts
+# locale: 'en'
+# moreLocales: ['es', 'ru']
+
+# lang: ''
+src/content/posts/apple.md    -> example.com/posts/apple/
+                              -> example.com/es/posts/apple/
+                              -> example.com/ru/posts/apple/
+# lang: en
+src/content/posts/apple.md    -> example.com/posts/apple/
+# lang: es
+src/content/posts/banana.md   -> example.com/es/posts/banana/
+# lang: ru
+src/content/posts/orange.md   -> example.com/ru/posts/orange/
+
+```
+
+#### abbrlink
+
+Personaliza la URL del artículo.
+
+```md
+# src/config.ts
+# locale: 'en'
+# moreLocales: ['es', 'ru']
+# lang: 'es'
+
+# abbrlink: ''
+src/content/posts/apple.md           ->  example.com/es/posts/apple/
+src/content/posts/guide/apple.md     ->  example.com/es/posts/guide/apple/
+src/content/posts/2025/03/apple.md   ->  example.com/es/posts/2025/03/apple/
+
+# abbrlink: 'banana'
+src/content/posts/apple.md           ->  example.com/es/posts/banana/
+src/content/posts/guide/apple.md     ->  example.com/es/posts/banana/
+src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
+```
+
+### Funciones Automatizadas
+
+Calcula automáticamente el tiempo de lectura del artículo. Genera automáticamente imágenes Open Graph para cada artículo. Los artículos con el mismo abbrlink compartirán automáticamente comentarios de Waline, independientemente de la configuración de lang.

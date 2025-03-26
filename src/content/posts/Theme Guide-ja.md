@@ -188,7 +188,94 @@ preload: {
   // アナリティクス JavaScript をカスタムドメインにルーティングするユーザー向け
   customGoogleAnalyticsJS: ''
   // カスタム Umami Analytics JS
-  // Umami を自己デプロイしたり、アナリティクス JavaScript をカスタムドメインにルーティングするユーザー向け
+  // Umamiを自己デプロイしたり、アナリティクス JavaScript をカスタムドメインにルーティングするユーザー向け
   customUmamiAnalyticsJS: 'https://js.radishzz.cc/jquery.min.js'
 }
 ```
+
+## 新しい記事の作成
+
+`src/content/posts/` ディレクトリに `.md` または `.mdx` 拡張子を持つ新しいファイルを作成し、ファイルの先頭に Front Matter メタデータを追加します。
+
+### Front Matter
+
+```markdown
+---
+# 必須
+title: テーマ使用ガイド
+published: 2025-01-26
+
+# 任意
+description: 記事の最初の120文字が自動的に説明として選択されます。
+updated: 2025-03-26
+tags: ["ブログテーマ", "ガイド"]
+
+# 高度な設定（任意）
+draft: true/false
+pin: 1-99
+toc: true/false
+lang: zh/zh-tw/ja/en/es/ru
+abbrlink: theme-guide
+---
+```
+
+### 高度な設定の説明
+
+#### draft
+
+記事を下書きとしてマークします。true に設定すると、記事は公開されず、ローカル開発プレビューでのみ利用可能です。デフォルトは false です。
+
+#### pin
+
+記事をトップに固定します。数字が大きいほど、固定された記事の優先度が高くなります。デフォルトは 0 で、固定されていないことを意味します。
+
+#### toc
+
+目次を有効にします。この機能はまだ実装されていません。
+
+#### lang
+
+記事の言語を指定します。一つの言語のみ指定できます。指定しない場合、記事はデフォルトですべての言語パスに表示されます。
+
+```md
+# src/config.ts
+# locale: 'en'
+# moreLocales: ['es', 'ru']
+
+# lang: ''
+src/content/posts/apple.md    -> example.com/posts/apple/
+                              -> example.com/es/posts/apple/
+                              -> example.com/ru/posts/apple/
+# lang: en
+src/content/posts/apple.md    -> example.com/posts/apple/
+# lang: es
+src/content/posts/banana.md   -> example.com/es/posts/banana/
+# lang: ru
+src/content/posts/orange.md   -> example.com/ru/posts/orange/
+
+```
+
+#### abbrlink
+
+記事のURLをカスタマイズします。
+
+```md
+# src/config.ts
+# locale: 'en'
+# moreLocales: ['es', 'ru']
+# lang: 'es'
+
+# abbrlink: ''
+src/content/posts/apple.md           ->  example.com/es/posts/apple/
+src/content/posts/guide/apple.md     ->  example.com/es/posts/guide/apple/
+src/content/posts/2025/03/apple.md   ->  example.com/es/posts/2025/03/apple/
+
+# abbrlink: 'banana'
+src/content/posts/apple.md           ->  example.com/es/posts/banana/
+src/content/posts/guide/apple.md     ->  example.com/es/posts/banana/
+src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
+```
+
+### 自動化機能の説明
+
+記事の読書時間を自動的に計算します。各記事のOpen Graph画像を自動的に生成します。同じabbrlinkを持つ記事は、lang設定に関係なく、Walineコメントを自動的に共有します。

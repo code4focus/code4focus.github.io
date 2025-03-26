@@ -185,10 +185,97 @@ preload: {
   // 圖床地址
   imageHostURL: 'https://image.radishzz.cc'
   // 定制 google analytics js
-  // 適用於路由 google analytics js 到自定義域名的情況
+  // 適用於路由 google analytics js 到自定義域名的用戶
   customGoogleAnalyticsJS: ''
   // 定制 umami analytics js
-  // 適用於自部署 umami，或路由 umami analytics js 到自定義域名的情況
+  // 適用於自部署 umami，或路由 umami analytics js 到自定義域名的用戶
   customUmamiAnalyticsJS: 'https://js.radishzz.cc/jquery.min.js'
 }
 ```
+
+## 創建新文章
+
+在 `src/content/posts/` 目錄中新建以 `.md` 或 `.mdx` 為後綴的文件，並在文件頂部添加 Front Matter 元數據。
+
+### Front Matter
+
+```markdown
+---
+# 必填
+title: 主題上手指南
+published: 2025-01-26
+
+# 可選
+description: 自動選取文章前 120 字作為描述。
+updated: 2025-03-26
+tags: ["部落格主題", "指南"]
+
+# 進階，可選
+draft: true/false
+pin: 1-99
+toc: true/false
+lang: zh/zh-tw/ja/en/es/ru
+abbrlink: theme-guide
+---
+```
+
+### 進階配置介紹
+
+#### draft
+
+是否標記文章為草稿。設為 true 時無法發佈文章，僅供本地開發預覽。預設為 false。
+
+#### pin
+
+是否置頂文章。數字越大，文章的置頂優先級越高。預設為 0，即不置頂。
+
+#### toc
+
+是否開啟目錄。尚未實現該功能。
+
+#### lang
+
+指定文章語言。只能指定一種語言，不指定則預設顯示在所有語言路徑下。
+
+```md
+# src/config.ts
+# locale: 'en'
+# moreLocales: ['es', 'ru']
+
+# lang: ''
+src/content/posts/apple.md    -> example.com/posts/apple/
+                              -> example.com/es/posts/apple/
+                              -> example.com/ru/posts/apple/
+# lang: en
+src/content/posts/apple.md    -> example.com/posts/apple/
+# lang: es
+src/content/posts/banana.md   -> example.com/es/posts/banana/
+# lang: ru
+src/content/posts/orange.md   -> example.com/ru/posts/orange/
+
+```
+
+#### abbrlink
+
+自定義文章 URL。
+
+```md
+# src/config.ts
+# locale: 'en'
+# moreLocales: ['es', 'ru']
+# lang: 'es'
+
+# abbrlink: ''
+src/content/posts/apple.md           ->  example.com/es/posts/apple/
+src/content/posts/guide/apple.md     ->  example.com/es/posts/guide/apple/
+src/content/posts/2025/03/apple.md   ->  example.com/es/posts/2025/03/apple/
+
+# abbrlink: 'banana'
+src/content/posts/apple.md           ->  example.com/es/posts/banana/
+src/content/posts/guide/apple.md     ->  example.com/es/posts/banana/
+src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
+```
+
+### 自動化配置介紹
+
+自動計算文章閱讀時間。自動為每篇文章生成 Open Graph 圖片。相同 abbrlink 的文章會自動共享 Waline 評論，且不受 lang 配置影響。
