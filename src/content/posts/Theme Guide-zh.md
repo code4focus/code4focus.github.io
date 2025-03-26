@@ -12,192 +12,183 @@ Retypeset 是一款基于 [Astro](https://astro.build/) 框架的静态博客主
 
 ## 主题配置
 
-以下是 Retypeset 的主题配置文件 [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts)（待翻译）。
+以下为 Retypeset 的主题配置介绍。通过修改配置文件 [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) 来自定义你的博客。
 
-### Site
+### 站点信息
 
-```typescript
+```ts
 site: {
-  // site title
+  // 站点标题
   title: 'Retypeset'
-  // site subtitle
+  // 站点副标题
   subtitle: 'Revive the beauty of typography'
-  // site description
-  description: 'Retypeset is a static blog theme based on the Astro framework. Inspired by Typography...'
+  // 站点介绍
+  description: 'Retypeset is a static blog theme...'
+  // 使用 src/i18n/ui.ts 中的多语言标题/副标题/站点描述，替换以上静态配置
   i18nTitle: true // true, false
-  // author name
+  // 作者名称
   author: 'radishzz'
-  // site url
+  // 站点地址
   url: 'https://retypeset.radishzz.cc'
-  // favicon url
-  // recommended formats: svg, png or ico
-  favicon: '/icon/favicon.svg' // or https://example.com/favicon.svg
+  // 站点图标
+  // 推荐格式: svg, png, ico
+  favicon: '/icon/favicon.svg' // 或 https://example.com/favicon.svg
 }
 ```
 
-### Color
+### 主题配色
 
-```typescript
+```ts
 color: {
-  // default theme mode
+  // 默认主题
   mode: 'light' // light, dark
+  // 亮色模式
   light: {
-    // primary color
-    // used for title, hover, etc
-    // oklch color picker: https://oklch.com/
+    // 高亮颜色
+    // 用于站点标题、鼠标悬停效果等
     primary: 'oklch(25% 0.005 298)'
-    // secondary color
-    // used for post text
+    // 次要颜色
+    // 用于普通文本
     secondary: 'oklch(40% 0.005 298)'
-    // background color
+    // 背景色
     background: 'oklch(96% 0.005 298)'
-  };
+  }
+  // 暗色模式
   dark: {
-    // primary color
-    // used for title, hover, etc
-    // oklch color picker: https://oklch.com/
+    // 高亮颜色
+    // 用于标题、hover等
     primary: 'oklch(92% 0.005 298)'
-    // secondary color
-    // used for post text
+    // 次要颜色
+    // 用于普通文本
     secondary: 'oklch(77% 0.005 298)'
-    // background color
+    // 背景色
     background: 'oklch(22% 0.005 298)'
   }
 }
 ```
 
-### Font
+### 全局设置
 
-```typescript
+```ts
 global: {
-  // default language
+  // 默认语言
+  // 站点根路径 ‘/’ 的语言
   locale: 'zh' // zh, zh-tw, ja, en, es, ru
-  // more languages
-  // not fill in the locale code above again
+  // 更多语言
+  // 生成 ‘/ja/' '/en/’ 等多语言路径
+  // 不要重复填写默认语言
   moreLocales: ['zh-tw', 'ja', 'en', 'es', 'ru'] // ['zh', 'zh-tw', 'ja', 'en', 'es', 'ru']
-  // font styles for post text
+  // 字体样式
   fontStyle: 'sans' // sans, serif
-  // date format for posts
+  // 文章日期格式
   dateFormat: 'YYYY-MM-DD' // YYYY-MM-DD, MM-DD-YYYY, DD-MM-YYYY, MONTH DAY YYYY, DAY MONTH YYYY
-  // gap between title and subtitle
+  // 标题与副标题之间的距离
   titleGap: 2 // 1, 2, 3
 }
 ```
 
-### Comment
+### 评论服务
 
-```typescript
+```ts
 comment: {
-  // enable comment system
+  // 开启评论
   enabled: true // true, false
-  // waline comment system
-  // https://waline.js.org/en/
+  // waline 评论
   waline: {
-    // server url
+    // 服务器地址
     serverURL: 'https://retypeset-comment.radishzz.cc'
-    // emoji url
+    // emoji 表情地址
     emoji: [
-      'https://unpkg.com/@waline/emojis@1.2.0/tw-emoji',
-      // 'https://unpkg.com/@waline/emojis@1.2.0/bmoji',
-      // more emojis: https://waline.js.org/en/guide/features/emoji.html
+      'https://unpkg.com/@waline/emojis@1.2.0/tw-emoji'
+      // 'https://unpkg.com/@waline/emojis@1.2.0/bmoji'
+      // 更多表情: https://waline.js.org/en/guide/features/emoji.html
     ]
-    // gif search
+    // gif 搜索
     search: false // true, false
-    // image uploader
-    // bug: unable to hide image uploader icon
+    // 图片上传
     imageUploader: false // true, false
   }
 }
 ```
 
-### SEO
+### 搜索引擎优化
 
-```typescript
+```ts
 seo: {
   // @twitter ID
   twitterID: '@radishzz_'
-  // site verification
+  // 站点验证
   verification: {
-    // google search console
-    // https://search.google.com/search-console
+    // google 搜索控制台
     google: 'AUCrz5F1e5qbnmKKDXl2Sf8u6y0kOpEO1wLs6HMMmlM'
-    // bing webmaster tools
-    // https://www.bing.com/webmasters
+    // bing 网站管理员工具
     bing: '64708CD514011A7965C84DDE1D169F87'
-    // yandex webmaster
-    // https://webmaster.yandex.com
+    // yandex 网站管理员
     yandex: ''
-    // baidu search
-    // https://ziyuan.baidu.com
+    // baidu 站长工具
     baidu: ''
-  };
-  // google analytics
-  // https://analytics.google.com
+  }
+  // google 网站分析
   googleAnalyticsID: ''
-  // umami analytics
-  // https://cloud.umami.is
+  // umami 网站分析
   umamiAnalyticsID: '520af332-bfb7-4e7c-9386-5f273ee3d697'
-  // follow verification
-  // https://follow.is/
+  // follow 验证
   follow: {
-    // feed ID
+    // 订阅 ID
     feedID: ''
-    // user ID
+    // 用户 ID
     userID: ''
-  };
-  // apiflash access key
-  // automatically generate website screenshots for open graph images
-  // get your access key at: https://apiflash.com/
+  }
+  // apiflash access key 访问密钥
+  // 自动生成网站截图用于 open graph
+  // 获取访问密钥: https://apiflash.com/
   apiflashKey: ''
 }
 ```
 
-### Footer
+### 自定义页脚
 
-```typescript
+```ts
 footer: {
-  // social links
+  // 社交链接
   links: [
     {
       name: 'RSS',
-      url: '/rss.xml' // rss.xml, atom.xml
+      url: '/rss.xml', // rss.xml, atom.xml
     },
     {
       name: 'GitHub',
-      url: 'https://github.com/radishzzz/astro-theme-retypeset'
+      url: 'https://github.com/radishzzz/astro-theme-retypeset',
     },
     {
       name: 'Twitter',
-      url: 'https://x.com/radishzz_'
+      url: 'https://x.com/radishzz_',
     },
     // {
-    //   name: 'Email';
-    //   url: 'https://example@gmail.com'
+    //   name: 'Email',
+    //   url: 'https://example@gmail.com',
     // }
-  ];
-  // year of website start
+  ]
+  // 建站年份
   startYear: 2024
 }
 ```
 
-### Preload
+### 资源预加载
 
-```typescript
+```ts
 preload: {
-  // link prefetch
-  // docs: https://docs.astro.build/en/guides/prefetch/#prefetch-strategies
+  // 链接预加载策略
   linkPrefetch: 'viewport' // hover, tap, viewport, load
-  // comment server url
+  // 评论服务器地址
   commentURL: 'https://retypeset-comment.radishzz.cc'
-  // image hosting url
+  // 图床地址
   imageHostURL: 'https://image.radishzz.cc'
-  // custom google analytics js
-  // for users who route analytics javascript to a customized domain
-  // See https://gist.github.com/xiaopc/0602f06ca465d76bd9efd3dda9393738
+  // 定制 google analytics js
+  // 适用于路由 google analytics js 到自定义域名的情况
   customGoogleAnalyticsJS: ''
-  // custom umami analytics js
-  // for users who deploy umami on their own, or route analytics javascript to a customized domain
-  // see https://github.com/umami-software/umami/discussions/1026
+  // 定制 umami analytics js
+  // 适用于自部署 umami，或路由 umami analytics js 到自定义域名的情况
   customUmamiAnalyticsJS: 'https://js.radishzz.cc/jquery.min.js'
 }
 ```
