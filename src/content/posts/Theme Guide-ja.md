@@ -76,7 +76,7 @@ global: {
   locale: 'zh' // zh, zh-tw, ja, en, es, ru
   // その他の言語
   // '/ja/' '/en/' などの多言語パスを生成
-  // デフォルト言語を重複して入力しないでください
+  // デフォルト言語を重複して入力しないでください、空の配列 [] も可能です
   moreLocales: ['zh-tw', 'ja', 'en', 'es', 'ru'] // ['zh', 'zh-tw', 'ja', 'en', 'es', 'ru']
   // フォントスタイル
   fontStyle: 'sans' // sans, serif
@@ -252,7 +252,6 @@ src/content/posts/apple.md    -> example.com/posts/apple/
 src/content/posts/banana.md   -> example.com/es/posts/banana/
 # lang: ru
 src/content/posts/orange.md   -> example.com/ru/posts/orange/
-
 ```
 
 #### abbrlink

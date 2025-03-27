@@ -76,7 +76,7 @@ global: {
   locale: 'zh' // zh, zh-tw, ja, en, es, ru
   // 更多語言
   // 生成 '/ja/' '/en/' 等多語言路徑
-  // 不要重複填寫默認語言
+  // 不要重複填寫默認語言，可以為空 []
   moreLocales: ['zh-tw', 'ja', 'en', 'es', 'ru'] // ['zh', 'zh-tw', 'ja', 'en', 'es', 'ru']
   // 字體樣式
   fontStyle: 'sans' // sans, serif
@@ -252,7 +252,6 @@ src/content/posts/apple.md    -> example.com/posts/apple/
 src/content/posts/banana.md   -> example.com/es/posts/banana/
 # lang: ru
 src/content/posts/orange.md   -> example.com/ru/posts/orange/
-
 ```
 
 #### abbrlink

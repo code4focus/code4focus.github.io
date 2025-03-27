@@ -76,7 +76,7 @@ global: {
   locale: 'zh' // zh, zh-tw, ja, en, es, ru
   // more languages
   // Generate multi-language paths such as '/es/' '/ru/'
-  // not fill in the locale code above again
+  // do not include the default language again, can be an empty array []
   moreLocales: ['zh-tw', 'ja', 'en', 'es', 'ru'] // ['zh', 'zh-tw', 'ja', 'en', 'es', 'ru']
   // font style
   fontStyle: 'sans' // sans, serif
@@ -252,7 +252,6 @@ src/content/posts/apple.md    -> example.com/posts/apple/
 src/content/posts/banana.md   -> example.com/es/posts/banana/
 # lang: ru
 src/content/posts/orange.md   -> example.com/ru/posts/orange/
-
 ```
 
 #### abbrlink

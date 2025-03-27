@@ -76,7 +76,7 @@ global: {
   locale: 'zh' // zh, zh-tw, ja, en, es, ru
   // más idiomas
   // Genera rutas multilingües como '/es/' '/ru/'
-  // no rellenar de nuevo el código de localización anterior
+  // no incluir el idioma predeterminado nuevamente, puede ser un array vacío []
   moreLocales: ['zh-tw', 'ja', 'en', 'es', 'ru'] // ['zh', 'zh-tw', 'ja', 'en', 'es', 'ru']
   // estilo de fuente
   fontStyle: 'sans' // sans, serif
@@ -252,7 +252,6 @@ src/content/posts/apple.md    -> example.com/posts/apple/
 src/content/posts/banana.md   -> example.com/es/posts/banana/
 # lang: ru
 src/content/posts/orange.md   -> example.com/ru/posts/orange/
-
 ```
 
 #### abbrlink

@@ -76,7 +76,7 @@ global: {
   locale: 'zh' // zh, zh-tw, ja, en, es, ru
   // 更多语言
   // 生成 ‘/ja/' '/en/’ 等多语言路径
-  // 不要重复填写默认语言
+  // 不要重复填写默认语言，可以为空 []
   moreLocales: ['zh-tw', 'ja', 'en', 'es', 'ru'] // ['zh', 'zh-tw', 'ja', 'en', 'es', 'ru']
   // 字体样式
   fontStyle: 'sans' // sans, serif
@@ -252,7 +252,6 @@ src/content/posts/apple.md    -> example.com/posts/apple/
 src/content/posts/banana.md   -> example.com/es/posts/banana/
 # lang: ru
 src/content/posts/orange.md   -> example.com/ru/posts/orange/
-
 ```
 
 #### abbrlink
@@ -279,4 +278,3 @@ src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
 ### 自动化配置介绍
 
 自动计算文章阅读时间。自动为每篇文章生成 Open Graph 图片。相同 abbrlink 的文章会自动共享 Waline 评论，且不受 lang 配置影响。
-
