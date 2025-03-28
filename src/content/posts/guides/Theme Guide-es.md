@@ -231,7 +231,7 @@ Fija el artículo en la parte superior. Cuanto mayor sea el número, mayor será
 
 #### toc
 
-Habilita la tabla de contenidos. Esta función aún no está implementada.
+¿Generar índice? Si se establece en false, se desactiva la generación automática. Valor predeterminado: true.
 
 #### lang
 
@@ -243,15 +243,15 @@ Especifica el idioma del artículo. Solo se puede especificar un idioma. Si no s
 # moreLocales: ['es', 'ru']
 
 # lang: ''
-src/content/posts/apple.md    -> example.com/posts/apple/
-                              -> example.com/es/posts/apple/
-                              -> example.com/ru/posts/apple/
+src/content/posts/apple.md   -> example.com/posts/apple/
+                             -> example.com/es/posts/apple/
+                             -> example.com/ru/posts/apple/
 # lang: en
-src/content/posts/apple.md    -> example.com/posts/apple/
+src/content/posts/apple.md   -> example.com/posts/apple/
 # lang: es
-src/content/posts/banana.md   -> example.com/es/posts/banana/
+src/content/posts/apple.md   -> example.com/es/posts/apple/
 # lang: ru
-src/content/posts/orange.md   -> example.com/ru/posts/orange/
+src/content/posts/apple.md   -> example.com/ru/posts/apple/
 ```
 
 #### abbrlink

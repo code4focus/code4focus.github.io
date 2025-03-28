@@ -231,7 +231,7 @@ Pins the article to the top. The higher the number, the higher the priority of t
 
 #### toc
 
-Enables the table of contents. This feature is not yet implemented.
+Generate table of contents. Set to false to disable automatic generation. Default is true.
 
 #### lang
 
@@ -243,15 +243,15 @@ Specifies the article language. Only one language can be specified. If not speci
 # moreLocales: ['es', 'ru']
 
 # lang: ''
-src/content/posts/apple.md    -> example.com/posts/apple/
-                              -> example.com/es/posts/apple/
-                              -> example.com/ru/posts/apple/
+src/content/posts/apple.md   -> example.com/posts/apple/
+                             -> example.com/es/posts/apple/
+                             -> example.com/ru/posts/apple/
 # lang: en
-src/content/posts/apple.md    -> example.com/posts/apple/
+src/content/posts/apple.md   -> example.com/posts/apple/
 # lang: es
-src/content/posts/banana.md   -> example.com/es/posts/banana/
+src/content/posts/apple.md   -> example.com/es/posts/apple/
 # lang: ru
-src/content/posts/orange.md   -> example.com/ru/posts/orange/
+src/content/posts/apple.md   -> example.com/ru/posts/apple/
 ```
 
 #### abbrlink

@@ -231,7 +231,7 @@ abbrlink: theme-guide
 
 #### toc
 
-Включает оглавление. Эта функция еще не реализована.
+Генерировать оглавление. При значении false автоматическая генерация отключается. По умолчанию: true.
 
 #### lang
 
@@ -243,15 +243,15 @@ abbrlink: theme-guide
 # moreLocales: ['es', 'ru']
 
 # lang: ''
-src/content/posts/apple.md    -> example.com/posts/apple/
-                              -> example.com/es/posts/apple/
-                              -> example.com/ru/posts/apple/
+src/content/posts/apple.md   -> example.com/posts/apple/
+                             -> example.com/es/posts/apple/
+                             -> example.com/ru/posts/apple/
 # lang: en
-src/content/posts/apple.md    -> example.com/posts/apple/
+src/content/posts/apple.md   -> example.com/posts/apple/
 # lang: es
-src/content/posts/banana.md   -> example.com/es/posts/banana/
+src/content/posts/apple.md   -> example.com/es/posts/apple/
 # lang: ru
-src/content/posts/orange.md   -> example.com/ru/posts/orange/
+src/content/posts/apple.md   -> example.com/ru/posts/apple/
 ```
 
 #### abbrlink

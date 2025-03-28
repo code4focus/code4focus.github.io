@@ -231,7 +231,7 @@ abbrlink: theme-guide
 
 #### toc
 
-目次を有効にします。この機能はまだ実装されていません。
+目次を自動生成するかどうか。false に設定すると自動生成が無効になり、デフォルトは true。
 
 #### lang
 
@@ -243,15 +243,15 @@ abbrlink: theme-guide
 # moreLocales: ['es', 'ru']
 
 # lang: ''
-src/content/posts/apple.md    -> example.com/posts/apple/
-                              -> example.com/es/posts/apple/
-                              -> example.com/ru/posts/apple/
+src/content/posts/apple.md   -> example.com/posts/apple/
+                             -> example.com/es/posts/apple/
+                             -> example.com/ru/posts/apple/
 # lang: en
-src/content/posts/apple.md    -> example.com/posts/apple/
+src/content/posts/apple.md   -> example.com/posts/apple/
 # lang: es
-src/content/posts/banana.md   -> example.com/es/posts/banana/
+src/content/posts/apple.md   -> example.com/es/posts/apple/
 # lang: ru
-src/content/posts/orange.md   -> example.com/ru/posts/orange/
+src/content/posts/apple.md   -> example.com/ru/posts/apple/
 ```
 
 #### abbrlink
