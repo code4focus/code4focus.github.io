@@ -231,7 +231,7 @@ abbrlink: theme-guide
 
 #### toc
 
-是否生成目錄。設為 false 時停用自動生成，預設為 true。
+是否生成目錄。預設為 true。
 
 #### lang
 

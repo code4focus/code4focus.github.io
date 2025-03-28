@@ -231,7 +231,7 @@ abbrlink: theme-guide
 
 #### toc
 
-目次を自動生成するかどうか。false に設定すると自動生成が無効になり、デフォルトは true。
+目次を自動生成するかどうか。デフォルトは true。
 
 #### lang
 

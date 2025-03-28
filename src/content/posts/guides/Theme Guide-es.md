@@ -231,7 +231,7 @@ Fija el artículo en la parte superior. Cuanto mayor sea el número, mayor será
 
 #### toc
 
-¿Generar índice? Si se establece en false, se desactiva la generación automática. Valor predeterminado: true.
+¿Generar índice? Valor predeterminado: true.
 
 #### lang
 

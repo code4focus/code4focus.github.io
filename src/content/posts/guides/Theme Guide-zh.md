@@ -231,7 +231,7 @@ abbrlink: theme-guide
 
 #### toc
 
-是否生成目录。设为 false 时关闭自动生成，默认为 true。
+是否生成目录。默认为 true。
 
 #### lang
 

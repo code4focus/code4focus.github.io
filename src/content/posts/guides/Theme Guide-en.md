@@ -231,7 +231,7 @@ Pins the article to the top. The higher the number, the higher the priority of t
 
 #### toc
 
-Generate table of contents. Set to false to disable automatic generation. Default is true.
+Generate table of contents. Default is true.
 
 #### lang
 
