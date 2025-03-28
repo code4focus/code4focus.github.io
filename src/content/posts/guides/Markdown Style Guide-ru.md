@@ -4,6 +4,7 @@ published: 2025-03-08
 updated: 2025-03-23
 tags: ["Руководство"]
 pin: 1
+toc: false
 lang: ru
 abbrlink: markdown-style-guide
 ---
