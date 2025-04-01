@@ -84,6 +84,8 @@ global: {
   dateFormat: 'YYYY-MM-DD' // YYYY-MM-DD, MM-DD-YYYY, DD-MM-YYYY, MONTH DAY YYYY, DAY MONTH YYYY
   // gap between title and subtitle
   titleGap: 2 // 1, 2, 3
+  // enable KaTeX for mathematical formulas rendering
+  katex: true // true, false
 }
 ```
 

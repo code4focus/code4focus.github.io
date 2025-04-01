@@ -84,6 +84,8 @@ global: {
   dateFormat: 'YYYY-MM-DD' // YYYY-MM-DD, MM-DD-YYYY, DD-MM-YYYY, MONTH DAY YYYY, DAY MONTH YYYY
   // промежуток между заголовком и подзаголовком
   titleGap: 2 // 1, 2, 3
+  // включить KaTeX для отображения математических формул
+  katex: true // true, false
 }
 ```
 
@@ -192,7 +194,6 @@ preload: {
   customUmamiAnalyticsJS: 'https://js.radishzz.cc/jquery.min.js'
 }
 ```
-
 ## Создание Новой Статьи
 
 Создайте новый файл с расширением `.md` или `.mdx` в директории `src/content/posts/` и добавьте метаданные Front Matter в верхней части файла.

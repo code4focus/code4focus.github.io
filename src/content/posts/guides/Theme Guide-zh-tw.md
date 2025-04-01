@@ -56,7 +56,7 @@ color: {
   // 暗色模式
   dark: {
     // 高亮顏色
-    // 用於標題、hover等
+    // 用於站點標題、滑鼠懸停效果等
     primary: 'oklch(92% 0.005 298)'
     // 次要顏色
     // 用於普通文本
@@ -84,6 +84,8 @@ global: {
   dateFormat: 'YYYY-MM-DD' // YYYY-MM-DD, MM-DD-YYYY, DD-MM-YYYY, MONTH DAY YYYY, DAY MONTH YYYY
   // 標題與副標題之間的距離
   titleGap: 2 // 1, 2, 3
+  // 啟用 KaTeX 數學公式渲染
+  katex: true // true, false
 }
 ```
 
