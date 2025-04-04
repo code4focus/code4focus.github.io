@@ -102,7 +102,7 @@ i18n 对我来说是必需的。因为我之前发过一篇英文的 [三星优�
 ![草图](https://image.radishzz.cc/birth-of-retypeset/draft-02.webp)
 
 <figure>
-  <img src="https://image.radishzz.cc/birth-of-retypeset/draft-02.webp" alt="草图" />
+  <img src="https://image.radishzz.cc/birth-of-retypeset/draft-03.webp" alt="草图" />
   <figcaption>尝试不同配色，包括渐变</figcaption>
 </figure>
 
@@ -151,7 +151,7 @@ iPhone 上总是会出现一些奇怪的 BUG，例如切换页面时背景会闪
 以及两位朋友：
 
 - [Moeyua](https://github.com/moeyua) 原主题作者，提供 PR 与故事的开始
-- [Xat](https://github.com/withxat) 热心老哥，在发帖求助两个月后主动联系我，提供 PR 与提供意见参考
+- [Xat](https://github.com/withxat) 热心老哥，在发帖求助两个月后主动联系我，提供 PR 与意见参考
 
 <figure>
   <img src="https://image.radishzz.cc/birth-of-retypeset/xat-help.webp" alt="草图" />
