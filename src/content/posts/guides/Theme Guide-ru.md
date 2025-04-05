@@ -41,7 +41,7 @@ site: {
 ```ts
 color: {
   // режим темы по умолчанию
-  mode: 'light' // light, dark
+  mode: 'light' // light, dark, auto
   // светлый режим
   light: {
     // основной цвет

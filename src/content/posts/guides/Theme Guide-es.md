@@ -25,7 +25,7 @@ site: {
   // descripción del sitio
   description: 'Retypeset is a static blog theme...'
   // usar título/subtítulo/descripción en varios idiomas desde src/i18n/ui.ts en lugar de los estáticos anteriores
-  i18nTitle: true // true, false
+  i18nTitle: true // light, dark, auto
   // nombre del autor
   author: 'radishzz'
   // url del sitio

@@ -41,7 +41,7 @@ site: {
 ```ts
 color: {
   // 默认主题
-  mode: 'light' // light, dark
+  mode: 'light' // light, dark, auto
   // 亮色模式
   light: {
     // 高亮颜色

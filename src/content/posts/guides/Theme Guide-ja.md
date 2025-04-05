@@ -25,7 +25,7 @@ site: {
   // サイト説明
   description: 'Retypeset is a static blog theme...'
   // 上記の静的設定の代わりに src/i18n/ui.ts の多言語タイトル/サブタイトル/説明を使用
-  i18nTitle: true // true, false
+  i18nTitle: true // light, dark, auto
   // 著者名
   author: 'radishzz'
   // サイトURL
