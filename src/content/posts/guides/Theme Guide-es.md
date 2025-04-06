@@ -41,7 +41,7 @@ site: {
 ```ts
 color: {
   // modo de tema predeterminado
-  mode: 'light' // light, dark
+  mode: 'light' // light, dark, auto
   // modo claro
   light: {
     // color primario

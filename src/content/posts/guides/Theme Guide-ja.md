@@ -41,7 +41,7 @@ site: {
 ```ts
 color: {
   // デフォルトテーマモード
-  mode: 'light' // light, dark
+  mode: 'light' // light, dark, auto
   // ライトモード
   light: {
     // プライマリカラー
