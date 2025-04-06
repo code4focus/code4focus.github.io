@@ -25,7 +25,7 @@ site: {
   // site description
   description: 'Retypeset is a static blog theme...'
   // use i18n title/subtitle/description from src/i18n/ui.ts instead of static ones above
-  i18nTitle: true // light, dark, auto
+  i18nTitle: true // true, false
   // author name
   author: 'radishzz'
   // site url
@@ -41,7 +41,7 @@ site: {
 ```ts
 color: {
   // default theme mode
-  mode: 'light' // light, dark
+  mode: 'light' // light, dark, auto
   // light mode
   light: {
     // primary color
