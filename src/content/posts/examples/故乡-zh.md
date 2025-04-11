@@ -1,7 +1,9 @@
 ---
 title: 故乡
 published: 1921-01-10
-tags: ["鲁迅","近代文学"]
+tags:
+  - 鲁迅
+  - 近代文学
 lang: zh
 abbrlink: my-native-heath
 ---

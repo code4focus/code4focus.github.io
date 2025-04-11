@@ -1,7 +1,9 @@
 ---
 title: 故郷
 published: 1921-01-10
-tags: ["ろじん","きんだいぶんがく"]
+tags:
+  - ろじん
+  - きんだいぶんがく
 lang: ja
 abbrlink: my-native-heath
 ---

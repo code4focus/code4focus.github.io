@@ -1,7 +1,9 @@
 ---
 title: 羅生門
 published: 1915-11-05
-tags: ["芥川龍之介","近代文學"]
+tags:
+  - 芥川龍之介
+  - 近代文學
 lang: zh-tw
 abbrlink: rashomon
 ---

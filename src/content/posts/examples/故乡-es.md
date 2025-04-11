@@ -1,7 +1,9 @@
 ---
 title: Mi Pueblo Natal
 published: 1921-01-10
-tags: ["Lu Xun","Literatura Moderna"]
+tags:
+  - Lu Xun
+  - Literatura Moderna
 lang: es
 abbrlink: my-native-heath
 ---

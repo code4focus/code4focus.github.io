@@ -1,7 +1,9 @@
 ---
 title: Rashomon
 published: 1915-11-05
-tags: ["Ryunosuke Akutagawa","Modern Literature"]
+tags:
+  - Ryunosuke Akutagawa
+  - Modern Literature
 lang: en
 abbrlink: rashomon
 ---

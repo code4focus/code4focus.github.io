@@ -2,7 +2,9 @@
 title: Guía del Tema
 published: 2025-01-26
 updated: 2025-03-12
-tags: ["Tema de Blog","Guía"]
+tags:
+  - Tema de Blog
+  - Guía
 pin: 99
 lang: es
 abbrlink: theme-guide
@@ -210,7 +212,9 @@ published: 2025-01-26
 # Opcional
 description: Los primeros 240 caracteres del artículo se seleccionarán automáticamente como descripción.
 updated: 2025-03-26
-tags: ["Tema de Blog", "Guía"]
+tags:
+  - Tema de Blog
+  - Guía
 
 # Avanzado, opcional
 draft: true/false

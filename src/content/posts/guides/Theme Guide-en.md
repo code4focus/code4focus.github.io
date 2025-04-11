@@ -2,7 +2,9 @@
 title: Theme Guide
 published: 2025-01-26
 updated: 2025-03-12
-tags: ["Blog Theme","Guide"]
+tags:
+  - Blog Theme
+  - Guide
 pin: 99
 lang: en
 abbrlink: theme-guide
@@ -210,7 +212,9 @@ published: 2025-01-26
 # Optional
 description: The first 240 characters of the article will be automatically selected as the description.
 updated: 2025-03-26
-tags: ["Blog Theme", "Guide"]
+tags:
+  - Blog Theme
+  - Guide
 
 # Advanced, optional
 draft: true/false

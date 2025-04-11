@@ -2,7 +2,9 @@
 title: テーマ使用ガイド
 published: 2025-01-26
 updated: 2025-03-12
-tags: ["ブログテーマ","ガイド"]
+tags:
+  - ブログテーマ
+  - ガイド
 pin: 99
 lang: ja
 abbrlink: theme-guide
@@ -210,7 +212,9 @@ published: 2025-01-26
 # 任意
 description: 記事の最初の120文字が自動的に説明として選択されます。
 updated: 2025-03-26
-tags: ["ブログテーマ", "ガイド"]
+tags:
+  - ブログテーマ
+  - ガイド
 
 # 高度な設定（任意）
 draft: true/false

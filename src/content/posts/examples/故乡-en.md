@@ -1,7 +1,9 @@
 ---
 title: My Native Heath
 published: 1921-01-10
-tags: ["Lu Xun","Modern Literature"]
+tags:
+  - Lu Xun
+  - Modern Literature
 lang: en
 abbrlink: my-native-heath
 ---

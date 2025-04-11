@@ -2,7 +2,9 @@
 title: 主题上手指南
 published: 2025-01-26
 updated: 2025-03-12
-tags: [博客主题, 指南]
+tags:
+  - 博客主题
+  - 指南
 pin: 99
 lang: zh
 abbrlink: theme-guide
@@ -210,7 +212,9 @@ published: 2025-01-26
 # 可选
 description: 自动选取文章前 120 字作为描述。
 updated: 2025-03-26
-tags: [博客主题, 指南]
+tags:
+  - 博客主题
+  - 指南
 
 # 进阶，可选
 draft: true/false

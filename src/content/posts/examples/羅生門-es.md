@@ -1,7 +1,9 @@
 ---
 title: Rashōmon
 published: 1915-11-05
-tags: ["Ryunosuke Akutagawa","Literatura Moderna"]
+tags:
+  - Ryunosuke Akutagawa
+  - Literatura Moderna
 lang: es
 abbrlink: rashomon
 ---

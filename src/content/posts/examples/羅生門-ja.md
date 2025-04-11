@@ -1,7 +1,9 @@
 ---
 title: 羅生門
 published: 1915-11-05
-tags: ["芥川龍之介","きんだいぶんがく"]
+tags:
+  - 芥川龍之介
+  - きんだいぶんがく
 lang: ja
 abbrlink: rashomon
 ---
