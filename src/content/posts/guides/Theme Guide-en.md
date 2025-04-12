@@ -1,7 +1,7 @@
 ---
 title: Theme Guide
 published: 2025-01-26
-updated: 2025-03-12
+updated: 2025-04-13
 tags:
   - Blog Theme
   - Guide
@@ -58,10 +58,8 @@ color: {
   // dark mode
   dark: {
     // primary color
-    // used for title, hover, etc
     primary: 'oklch(92% 0.005 298)'
     // secondary color
-    // used for post text
     secondary: 'oklch(77% 0.005 298)'
     // background color
     background: 'oklch(22% 0.005 298)'
@@ -199,7 +197,7 @@ preload: {
 
 ## Creating a New Post
 
-Create a new file with `.md` or `.mdx` extension in the `src/content/posts/` directory, and add Front Matter metadata at the top of the file.
+Create a new file with `.md` or `.mdx` extension in the `src/content/posts/` directory, and add `Front Matter` metadata at the top of the file.
 
 ### Front Matter
 
@@ -210,13 +208,13 @@ title: Theme Guide
 published: 2025-01-26
 
 # Optional
-description: The first 240 characters of the article will be automatically selected as the description.
+description: The first 240 characters of the article will be automatically selected as the excerpt.
 updated: 2025-03-26
 tags:
   - Blog Theme
   - Guide
 
-# Advanced, optional
+# Advanced, Optional
 draft: true/false
 pin: 1-99
 toc: true/false
@@ -237,7 +235,7 @@ Pins the article to the top. The higher the number, the higher the priority of t
 
 #### toc
 
-Generate table of contents. Default is true.
+Generate table of contents. Shows h2 to h4 headings. Default is true.
 
 #### lang
 
@@ -281,6 +279,83 @@ src/content/posts/guide/apple.md     ->  example.com/es/posts/banana/
 src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
 ```
 
-### Automated Features
+## Additional Configuration
 
-Automatically calculates article reading time. Automatically generates Open Graph images for each article. Articles with the same abbrlink will automatically share Waline comments, regardless of the lang configuration.
+Beyond the configuration file `src/config.ts`, there are some configuration options scattered in other files.
+
+### Syntax Highlighting
+
+Code block syntax highlighting themes.
+
+```ts
+// src/astro.config.ts
+
+shikiConfig: {
+  // available themes: https://shiki.style/themes
+  // background color follows the blog theme by default, not the syntax highlighting theme
+  themes: {
+    light: 'github-light' // light theme
+    dark: 'github-dark' // dark theme
+  }
+}
+```
+### Article Excerpt
+
+Character limit for automatic article excerpts.
+
+```ts
+// src/utils/description.ts
+
+const EXCERPT_LENGTHS: Record<ExcerptScene, {
+  cjk: number // Chinese, Japanese, Korean
+  other: number // Other languages
+}> = {
+  list: { // Homepage
+    cjk: 120, // Excerpt limit is 120 characters
+    other: 240, // Excerpt limit is 240 characters
+  },
+}
+```
+
+### Open Graph
+
+Styling for Open Graph social images.
+
+```ts
+// src/pages/og/[...image].ts
+
+getImageOptions: (_path, page) => ({
+  logo: {
+    path: './public/icon/og-logo.png', // required local path and PNG format
+    size: [250], // logo width
+  },
+  font: {
+    title: { // title
+      families: ['Noto Sans SC'], // font
+      weight: 'Bold', // weight
+      color: [34, 33, 36], // color
+      lineHeight: 1.5, // line height
+    },
+  },
+  fonts: [ // font paths (local or remote)
+    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Bold.otf',
+    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Regular.otf',
+  ],
+  bgGradient: [[242, 241, 245]], // background color
+  // more configurations: https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas
+})
+```
+
+### RSS Feed
+
+Color scheme for the RSS feed page.
+
+```html
+<!-- public/rss-style.xsl -->
+
+<style type="text/css">
+body{margin:0;color:oklch(25% 0.005 298)} /* font color */
+.bg-white{background-color:oklch(0.96 0.005 298)!important} /* background color */
+.text-gray{color:oklch(0.25 0.005 298 / 75%)!important} /* secondary font color */
+</style>
+```

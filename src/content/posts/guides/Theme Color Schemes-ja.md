@@ -8,11 +8,11 @@ lang: ja
 abbrlink: theme-color-schemes
 ---
 
-Retypesetは、[OKLCH](https://oklch.com/)カラースペースに基づいてテーマカラーを定義し、デフォルトでは印刷スタイルの白黒グレーの配色を採用しています。
+Retypesetは、[OKLCH](https://oklch.com/)カラースペースに基づいてテーマカラーを定義し、デフォルトでは印刷スタイルを模した白黒グレーの配色を採用しています。
 
-個性的なニーズを満たすため、いくつかのカラースキームを作成しました。[src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts)でデフォルトカラーを置き換え、**開発サーバーを再起動**して新しい配色を適用できます。
+個性的なニーズに応えるため、テーマ用にいくつかの配色スキームを作成しました。[src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) でデフォルトの配色を置き換え、**開発サーバーを再起動**して新しい配色をプレビューできます。
 
-## 若葱色
+## 葱白色
 
 ![Light mode](../../../assets/1-light.jpeg)
 ![Dark mode](../../../assets/1-dark.jpeg)
@@ -30,7 +30,7 @@ dark: {
 },
 ```
 
-## 濡羽色
+## 烏青
 
 ![Light mode](../../../assets/2-light.jpeg)
 ![Dark mode](../../../assets/2-dark.jpeg)
@@ -48,7 +48,7 @@ dark: {
 },
 ```
 
-## 藍墨色
+## 墨藍
 
 ![Light mode](../../../assets/4-light.jpeg)
 ![Dark mode](../../../assets/4-dark.jpeg)
@@ -66,7 +66,7 @@ dark: {
 },
 ```
 
-## 糯色
+## 米色
 
 ![Light mode](../../../assets/3-light.jpeg)
 ![Dark mode](../../../assets/3-dark.jpeg)
@@ -82,4 +82,4 @@ dark: {
   secondary: 'oklch(0.80 0.017 59.39)',
   background: 'oklch(0.23 0 0)',
 },
-``` 
+```

@@ -1,7 +1,7 @@
 ---
 title: 主題上手指南
 published: 2025-01-26
-updated: 2025-03-12
+updated: 2025-04-13
 tags:
   - 部落格主題
   - 指南
@@ -24,7 +24,7 @@ site: {
   title: 'Retypeset'
   // 站點副標題
   subtitle: 'Revive the beauty of typography'
-  // 站點介紹
+  // 站點描述
   description: 'Retypeset is a static blog theme...'
   // 使用 src/i18n/ui.ts 中的多語言標題/副標題/站點描述，替換以上靜態配置
   i18nTitle: true // true, false
@@ -58,10 +58,8 @@ color: {
   // 暗色模式
   dark: {
     // 高亮顏色
-    // 用於站點標題、滑鼠懸停效果等
     primary: 'oklch(92% 0.005 298)'
     // 次要顏色
-    // 用於普通文本
     secondary: 'oklch(77% 0.005 298)'
     // 背景色
     background: 'oklch(22% 0.005 298)'
@@ -199,7 +197,7 @@ preload: {
 
 ## 創建新文章
 
-在 `src/content/posts/` 目錄中新建以 `.md` 或 `.mdx` 為後綴的文件，並在文件頂部添加 Front Matter 元數據。
+在 `src/content/posts/` 目錄中新建以 `.md` 或 `.mdx` 為後綴的文件，並在文件頂部添加 `Front Matter` 元數據。
 
 ### Front Matter
 
@@ -210,7 +208,7 @@ title: 主題上手指南
 published: 2025-01-26
 
 # 可選
-description: 自動選取文章前 120 字作為描述。
+description: 自動選取文章前 120 字作為摘要。
 updated: 2025-03-26
 tags:
   - 部落格主題
@@ -237,7 +235,7 @@ abbrlink: theme-guide
 
 #### toc
 
-是否生成目錄。預設為 true。
+是否生成目錄。顯示 h2 至 h4 標題。預設為 true。
 
 #### lang
 
@@ -281,6 +279,84 @@ src/content/posts/guide/apple.md     ->  example.com/es/posts/banana/
 src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
 ```
 
-### 自動化配置介紹
+## 更多配置
 
-自動計算文章閱讀時間。自動為每篇文章生成 Open Graph 圖片。相同 abbrlink 的文章會自動共享 Waline 評論，且不受 lang 配置影響。
+除了配置文件 `src/config.ts` 外，還有一些配置項分散在其它文件中。
+
+### 語法高亮
+
+代碼塊的語法高亮主題。
+
+```ts
+// src/astro.config.ts
+
+shikiConfig: {
+  // 可選主題：https://shiki.style/themes
+  // 背景色默認跟隨部落格主題，而非語法高亮主題
+  themes: {
+    light: 'github-light' // 亮色主題
+    dark: 'github-dark' // 暗色主題
+  }
+}
+```
+
+### 文章摘要
+
+文章自動摘要的字符限制。
+
+```ts
+// src/utils/description.ts
+
+const EXCERPT_LENGTHS: Record<ExcerptScene, {
+  cjk: number // 中文、日文、韓文
+  other: number // 其他語言
+}> = {
+  list: { // 首頁
+    cjk: 120, // 摘要限制為 120 字
+    other: 240, // 摘要限制為 240 字
+  },
+}
+```
+
+### Open Graph
+
+Open Graph 社交圖片的樣式。
+
+```ts
+// src/pages/og/[...image].ts
+
+getImageOptions: (_path, page) => ({
+  logo: {
+    path: './public/icon/og-logo.png', // 本地路徑的 PNG 圖片
+    size: [250], // logo 寬度
+  },
+  font: {
+    title: { // 標題
+      families: ['Noto Sans SC'], // 字體
+      weight: 'Bold', // 字重
+      color: [34, 33, 36], // 顏色
+      lineHeight: 1.5, // 行高
+    },
+  },
+  fonts: [ // 字體路徑（本地或遠程）
+    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Bold.otf',
+    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Regular.otf',
+  ],
+  bgGradient: [[242, 241, 245]], // 背景色
+  // 更多配置：https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas
+})
+```
+
+### RSS 訂閱
+
+RSS 訂閱頁面的配色。
+
+```html
+<!-- public/rss-style.xsl -->
+
+<style type="text/css">
+body{margin:0;color:oklch(25% 0.005 298)} /* 字體顏色 */
+.bg-white{background-color:oklch(0.96 0.005 298)!important} /* 背景顏色 */
+.text-gray{color:oklch(0.25 0.005 298 / 75%)!important} /* 次要字體顏色 */
+</style>
+```

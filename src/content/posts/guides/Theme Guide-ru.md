@@ -1,7 +1,7 @@
 ---
 title: Руководство по теме
 published: 2025-01-26
-updated: 2025-03-12
+updated: 2025-04-13
 tags:
   - Тема блога
   - Руководство
@@ -58,10 +58,8 @@ color: {
   // темный режим
   dark: {
     // основной цвет
-    // используется для заголовков, эффекта наведения и т.д.
     primary: 'oklch(92% 0.005 298)'
     // вторичный цвет
-    // используется для текста постов
     secondary: 'oklch(77% 0.005 298)'
     // цвет фона
     background: 'oklch(22% 0.005 298)'
@@ -196,9 +194,10 @@ preload: {
   customUmamiAnalyticsJS: 'https://js.radishzz.cc/jquery.min.js'
 }
 ```
+
 ## Создание Новой Статьи
 
-Создайте новый файл с расширением `.md` или `.mdx` в директории `src/content/posts/` и добавьте метаданные Front Matter в верхней части файла.
+Создайте новый файл с расширением `.md` или `.mdx` в директории `src/content/posts/` и добавьте метаданные `Front Matter` в верхней части файла.
 
 ### Front Matter
 
@@ -209,13 +208,13 @@ title: Руководство по теме
 published: 2025-01-26
 
 # Опционально
-description: Первые 240 символов статьи будут автоматически выбраны в качестве описания.
+description: Первые 240 символов статьи будут автоматически выбраны в качестве выдержки.
 updated: 2025-03-26
 tags:
   - Тема блога
   - Руководство
 
-# Расширенные настройки, опционально
+# Расширенные настройки, Опционально
 draft: true/false
 pin: 1-99
 toc: true/false
@@ -236,7 +235,7 @@ abbrlink: theme-guide
 
 #### toc
 
-Генерировать оглавление. По умолчанию: true.
+Генерировать оглавление. Показывает заголовки от h2 до h4. По умолчанию: true.
 
 #### lang
 
@@ -280,6 +279,84 @@ src/content/posts/guide/apple.md     ->  example.com/es/posts/banana/
 src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
 ```
 
-### Автоматические Функции
+## Дополнительная конфигурация
 
-Автоматически рассчитывает время чтения статьи. Автоматически генерирует изображения Open Graph для каждой статьи. Статьи с одинаковым abbrlink будут автоматически совместно использовать комментарии Waline, независимо от настройки lang.
+Помимо файла конфигурации `src/config.ts`, существуют некоторые параметры конфигурации, разбросанные в других файлах.
+
+### Подсветка синтаксиса
+
+Темы подсветки синтаксиса для блоков кода.
+
+```ts
+// src/astro.config.ts
+
+shikiConfig: {
+  // доступные темы: https://shiki.style/themes
+  // цвет фона по умолчанию следует теме блога, а не теме подсветки синтаксиса
+  themes: {
+    light: 'github-light' // светлая тема
+    dark: 'github-dark' // темная тема
+  }
+}
+```
+
+### Отрывок статьи
+
+Лимит символов для автоматических отрывков статей.
+
+```ts
+// src/utils/description.ts
+
+const EXCERPT_LENGTHS: Record<ExcerptScene, {
+  cjk: number // Китайский, Японский, Корейский
+  other: number // Другие языки
+}> = {
+  list: { // Главная страница
+    cjk: 120, // Лимит отрывка 120 символов
+    other: 240, // Лимит отрывка 240 символов
+  },
+}
+```
+
+### Open Graph
+
+Стилизация для социальных изображений Open Graph.
+
+```ts
+// src/pages/og/[...image].ts
+
+getImageOptions: (_path, page) => ({
+  logo: {
+    path: './public/icon/og-logo.png', // требуется локальный путь и формат PNG
+    size: [250], // ширина логотипа
+  },
+  font: {
+    title: { // заголовок
+      families: ['Noto Sans SC'], // шрифт
+      weight: 'Bold', // вес
+      color: [34, 33, 36], // цвет
+      lineHeight: 1.5, // высота строки
+    },
+  },
+  fonts: [ // пути к шрифтам (локальные или удаленные)
+    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Bold.otf',
+    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Regular.otf',
+  ],
+  bgGradient: [[242, 241, 245]], // цвет фона
+  // дополнительные настройки: https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas
+})
+```
+
+### RSS-лента
+
+Цветовая схема для страницы RSS-ленты.
+
+```html
+<!-- public/rss-style.xsl -->
+
+<style type="text/css">
+body{margin:0;color:oklch(25% 0.005 298)} /* цвет шрифта */
+.bg-white{background-color:oklch(0.96 0.005 298)!important} /* цвет фона */
+.text-gray{color:oklch(0.25 0.005 298 / 75%)!important} /* вторичный цвет шрифта */
+</style>
+```

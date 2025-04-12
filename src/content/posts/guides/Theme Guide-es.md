@@ -1,7 +1,7 @@
 ---
 title: Guía del Tema
 published: 2025-01-26
-updated: 2025-03-12
+updated: 2025-04-13
 tags:
   - Tema de Blog
   - Guía
@@ -58,10 +58,8 @@ color: {
   // modo oscuro
   dark: {
     // color primario
-    // usado para títulos, hover, etc
     primary: 'oklch(92% 0.005 298)'
     // color secundario
-    // usado para texto de publicaciones
     secondary: 'oklch(77% 0.005 298)'
     // color de fondo
     background: 'oklch(22% 0.005 298)'
@@ -199,7 +197,7 @@ preload: {
 
 ## Creación de un Nuevo Artículo
 
-Crea un nuevo archivo con extensión `.md` o `.mdx` en el directorio `src/content/posts/`, y añade los metadatos Front Matter en la parte superior del archivo.
+Crea un nuevo archivo con extensión `.md` o `.mdx` en el directorio `src/content/posts/`, y añade los metadatos `Front Matter` en la parte superior del archivo.
 
 ### Front Matter
 
@@ -210,13 +208,13 @@ title: Guía del Tema
 published: 2025-01-26
 
 # Opcional
-description: Los primeros 240 caracteres del artículo se seleccionarán automáticamente como descripción.
+description: Los primeros 240 caracteres del artículo se seleccionarán automáticamente como extracto.
 updated: 2025-03-26
 tags:
   - Tema de Blog
   - Guía
 
-# Avanzado, opcional
+# Avanzado, Opcional
 draft: true/false
 pin: 1-99
 toc: true/false
@@ -237,7 +235,7 @@ Fija el artículo en la parte superior. Cuanto mayor sea el número, mayor será
 
 #### toc
 
-¿Generar índice? Valor predeterminado: true.
+Genera tabla de contenidos. Muestra encabezados h2 a h4. El valor predeterminado es true.
 
 #### lang
 
@@ -281,6 +279,84 @@ src/content/posts/guide/apple.md     ->  example.com/es/posts/banana/
 src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
 ```
 
-### Funciones Automatizadas
+## Configuración Adicional
 
-Calcula automáticamente el tiempo de lectura del artículo. Genera automáticamente imágenes Open Graph para cada artículo. Los artículos con el mismo abbrlink compartirán automáticamente comentarios de Waline, independientemente de la configuración de lang.
+Más allá del archivo de configuración `src/config.ts`, hay algunas opciones de configuración dispersas en otros archivos.
+
+### Resaltado de Sintaxis
+
+Temas de resaltado de sintaxis para bloques de código.
+
+```ts
+// src/astro.config.ts
+
+shikiConfig: {
+  // temas disponibles: https://shiki.style/themes
+  // el color de fondo sigue el tema del blog por defecto, no el tema de resaltado de sintaxis
+  themes: {
+    light: 'github-light' // tema claro
+    dark: 'github-dark' // tema oscuro
+  }
+}
+```
+
+### Extracto de Artículo
+
+Límite de caracteres para extractos automáticos de artículos.
+
+```ts
+// src/utils/description.ts
+
+const EXCERPT_LENGTHS: Record<ExcerptScene, {
+  cjk: number // Chino, Japonés, Coreano
+  other: number // Otros idiomas
+}> = {
+  list: { // Página principal
+    cjk: 120, // Límite de extracto es 120 caracteres
+    other: 240, // Límite de extracto es 240 caracteres
+  },
+}
+```
+
+### Open Graph
+
+Estilo para imágenes sociales Open Graph.
+
+```ts
+// src/pages/og/[...image].ts
+
+getImageOptions: (_path, page) => ({
+  logo: {
+    path: './public/icon/og-logo.png', // ruta local requerida y formato PNG
+    size: [250], // ancho del logo
+  },
+  font: {
+    title: { // título
+      families: ['Noto Sans SC'], // fuente
+      weight: 'Bold', // peso
+      color: [34, 33, 36], // color
+      lineHeight: 1.5, // altura de línea
+    },
+  },
+  fonts: [ // rutas de fuentes (locales o remotas)
+    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Bold.otf',
+    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Regular.otf',
+  ],
+  bgGradient: [[242, 241, 245]], // color de fondo
+  // más configuraciones: https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas
+})
+```
+
+### Canal RSS
+
+Esquema de colores para la página de feed RSS.
+
+```html
+<!-- public/rss-style.xsl -->
+
+<style type="text/css">
+body{margin:0;color:oklch(25% 0.005 298)} /* color de fuente */
+.bg-white{background-color:oklch(0.96 0.005 298)!important} /* color de fondo */
+.text-gray{color:oklch(0.25 0.005 298 / 75%)!important} /* color de fuente secundario */
+</style>
+```

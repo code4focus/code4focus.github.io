@@ -1,7 +1,7 @@
 ---
 title: テーマ使用ガイド
 published: 2025-01-26
-updated: 2025-03-12
+updated: 2025-04-13
 tags:
   - ブログテーマ
   - ガイド
@@ -58,10 +58,8 @@ color: {
   // ダークモード
   dark: {
     // プライマリカラー
-    // サイトタイトル、ホバー効果などに使用
     primary: 'oklch(92% 0.005 298)'
     // セカンダリカラー
-    // 通常テキストに使用
     secondary: 'oklch(77% 0.005 298)'
     // 背景色
     background: 'oklch(22% 0.005 298)'
@@ -199,7 +197,7 @@ preload: {
 
 ## 新しい記事の作成
 
-`src/content/posts/` ディレクトリに `.md` または `.mdx` 拡張子を持つ新しいファイルを作成し、ファイルの先頭に Front Matter メタデータを追加します。
+`src/content/posts/` ディレクトリに `.md` または `.mdx` 拡張子を持つ新しいファイルを作成し、ファイルの先頭に `Front Matter` メタデータを追加します。
 
 ### Front Matter
 
@@ -210,7 +208,7 @@ title: テーマ使用ガイド
 published: 2025-01-26
 
 # 任意
-description: 記事の最初の120文字が自動的に説明として選択されます。
+description: 記事の最初の120文字が自動的に要約として選択されます。
 updated: 2025-03-26
 tags:
   - ブログテーマ
@@ -237,7 +235,7 @@ abbrlink: theme-guide
 
 #### toc
 
-目次を自動生成するかどうか。デフォルトは true。
+目次を自動生成するかどうか。h2からh4までの見出しを表示します。デフォルトは true。
 
 #### lang
 
@@ -281,6 +279,84 @@ src/content/posts/guide/apple.md     ->  example.com/es/posts/banana/
 src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
 ```
 
-### 自動化機能の説明
+## その他の設定
 
-記事の読書時間を自動的に計算します。各記事のOpen Graph画像を自動的に生成します。同じabbrlinkを持つ記事は、lang設定に関係なく、Walineコメントを自動的に共有します。
+設定ファイル `src/config.ts` 以外にも、他のファイルに散らばっている設定オプションがあります。
+
+### シンタックスハイライト
+
+コードブロックのシンタックスハイライトテーマ。
+
+```ts
+// src/astro.config.ts
+
+shikiConfig: {
+  // 利用可能なテーマ: https://shiki.style/themes
+  // 背景色はデフォルトでシンタックスハイライトテーマではなく、ブログテーマに従います
+  themes: {
+    light: 'github-light' // ライトテーマ
+    dark: 'github-dark' // ダークテーマ
+  }
+}
+```
+
+### 記事の抜粋
+
+記事の自動抜粋の文字数制限。
+
+```ts
+// src/utils/description.ts
+
+const EXCERPT_LENGTHS: Record<ExcerptScene, {
+  cjk: number // 中国語、日本語、韓国語
+  other: number // その他の言語
+}> = {
+  list: { // ホームページ
+    cjk: 120, // 抜粋は120文字まで
+    other: 240, // 抜粋は240文字まで
+  },
+}
+```
+
+### Open Graph
+
+Open Graph ソーシャル画像のスタイル。
+
+```ts
+// src/pages/og/[...image].ts
+
+getImageOptions: (_path, page) => ({
+  logo: {
+    path: './public/icon/og-logo.png', // ローカルパスのPNG形式が必要
+    size: [250], // ロゴの幅
+  },
+  font: {
+    title: { // タイトル
+      families: ['Noto Sans SC'], // フォント
+      weight: 'Bold', // 太さ
+      color: [34, 33, 36], // 色
+      lineHeight: 1.5, // 行の高さ
+    },
+  },
+  fonts: [ // フォントパス（ローカルまたはリモート）
+    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Bold.otf',
+    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Regular.otf',
+  ],
+  bgGradient: [[242, 241, 245]], // 背景色
+  // その他の設定: https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas
+})
+```
+
+### RSSフィード
+
+RSSフィードページのカラースキーム。
+
+```html
+<!-- public/rss-style.xsl -->
+
+<style type="text/css">
+body{margin:0;color:oklch(25% 0.005 298)} /* フォントカラー */
+.bg-white{background-color:oklch(0.96 0.005 298)!important} /* 背景色 */
+.text-gray{color:oklch(0.25 0.005 298 / 75%)!important} /* セカンダリフォントカラー */
+</style>
+```

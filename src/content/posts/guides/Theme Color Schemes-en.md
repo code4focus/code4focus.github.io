@@ -8,11 +8,11 @@ lang: en
 abbrlink: theme-color-schemes
 ---
 
-Retypeset defines theme color schemes based on the [OKLCH](https://oklch.com/) color space, with a default print-style black, white, and gray color scheme.
+Retypeset defines theme color schemes based on the [OKLCH](https://oklch.com/) color space, with a default black, white, and gray color scheme that simulates a print style.
 
-To meet personalization needs, I've created several color schemes for the theme. You can replace the default colors in [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) and **restart the development server** to apply the new color scheme.
+To meet personalization needs, I've created several color schemes for the theme. You can replace the default color scheme in [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) and **restart the development server** to preview the new color scheme.
 
-## Pale Scallion
+## Scallion White
 
 ![Light mode](../../../assets/1-light.jpeg)
 ![Dark mode](../../../assets/1-dark.jpeg)
@@ -30,7 +30,7 @@ dark: {
 },
 ```
 
-## Crow's Wing
+## Raven Teal
 
 ![Light mode](../../../assets/2-light.jpeg)
 ![Dark mode](../../../assets/2-dark.jpeg)
@@ -48,7 +48,7 @@ dark: {
 },
 ```
 
-## Inkstone Indigo
+## Ink Blue
 
 ![Light mode](../../../assets/4-light.jpeg)
 ![Dark mode](../../../assets/4-dark.jpeg)
@@ -66,7 +66,7 @@ dark: {
 },
 ```
 
-## Rice Paper Glow
+## Ecru
 
 ![Light mode](../../../assets/3-light.jpeg)
 ![Dark mode](../../../assets/3-dark.jpeg)
@@ -82,4 +82,4 @@ dark: {
   secondary: 'oklch(0.80 0.017 59.39)',
   background: 'oklch(0.23 0 0)',
 },
-``` 
+```

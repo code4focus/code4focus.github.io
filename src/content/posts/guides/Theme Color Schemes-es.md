@@ -8,9 +8,9 @@ lang: es
 abbrlink: theme-color-schemes
 ---
 
-Retypeset define los esquemas de color del tema basados en el espacio de color [OKLCH](https://oklch.com/), con un esquema predeterminado de estilo de impresión en negro, blanco y gris.
+Retypeset define los esquemas de color del tema basados en el espacio de color [OKLCH](https://oklch.com/), con un esquema predeterminado de colores negro, blanco y gris que simula un estilo de impresión.
 
-Para satisfacer las necesidades de personalización, he creado varios esquemas de color para el tema. Puedes reemplazar los colores predeterminados en [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) y **reiniciar el servidor de desarrollo** para aplicar el nuevo esquema de color.
+Para satisfacer las necesidades de personalización, he creado varios esquemas de colores para el tema. Puedes reemplazar el esquema de colores predeterminado en [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) y **reiniciar el servidor de desarrollo** para previsualizar el nuevo esquema de colores.
 
 ## Blanco Cebollino
 
@@ -66,7 +66,7 @@ dark: {
 },
 ```
 
-## Amarillo Arroz
+## Beige
 
 ![Light mode](../../../assets/3-light.jpeg)
 ![Dark mode](../../../assets/3-dark.jpeg)
@@ -82,4 +82,4 @@ dark: {
   secondary: 'oklch(0.80 0.017 59.39)',
   background: 'oklch(0.23 0 0)',
 },
-``` 
+```

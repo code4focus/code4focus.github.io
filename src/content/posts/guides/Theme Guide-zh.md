@@ -1,7 +1,7 @@
 ---
 title: 主题上手指南
 published: 2025-01-26
-updated: 2025-03-12
+updated: 2025-04-13
 tags:
   - 博客主题
   - 指南
@@ -24,7 +24,7 @@ site: {
   title: 'Retypeset'
   // 站点副标题
   subtitle: 'Revive the beauty of typography'
-  // 站点介绍
+  // 站点描述
   description: 'Retypeset is a static blog theme...'
   // 使用 src/i18n/ui.ts 中的多语言标题/副标题/站点描述，替换以上静态配置
   i18nTitle: true // true, false
@@ -58,10 +58,8 @@ color: {
   // 暗色模式
   dark: {
     // 高亮颜色
-    // 用于站点标题、鼠标悬停效果等
     primary: 'oklch(92% 0.005 298)'
     // 次要颜色
-    // 用于普通文本
     secondary: 'oklch(77% 0.005 298)'
     // 背景色
     background: 'oklch(22% 0.005 298)'
@@ -74,10 +72,10 @@ color: {
 ```ts
 global: {
   // 默认语言
-  // 站点根路径 ‘/’ 的语言
+  // 站点根路径 '/' 的语言
   locale: 'zh' // zh, zh-tw, ja, en, es, ru
   // 更多语言
-  // 生成 ‘/ja/' '/en/’ 等多语言路径
+  // 生成 '/ja/' '/en/' 等多语言路径
   // 不要重复填写默认语言，可以为空 []
   moreLocales: ['zh-tw', 'ja', 'en', 'es', 'ru'] // ['zh', 'zh-tw', 'ja', 'en', 'es', 'ru']
   // 字体样式
@@ -199,7 +197,7 @@ preload: {
 
 ## 创建新文章
 
-在 `src/content/posts/` 目录中新建以 `.md` 或 `.mdx` 为后缀的文件，并在文件顶部添加 Front Matter 元数据。
+在 `src/content/posts/` 目录中新建以 `.md` 或 `.mdx` 为后缀的文件，并在文件顶部添加 `Front Matter` 元数据。
 
 ### Front Matter
 
@@ -210,7 +208,7 @@ title: 主题上手指南
 published: 2025-01-26
 
 # 可选
-description: 自动选取文章前 120 字作为描述。
+description: 自动选取文章前 120 字作为摘要。
 updated: 2025-03-26
 tags:
   - 博客主题
@@ -237,7 +235,7 @@ abbrlink: theme-guide
 
 #### toc
 
-是否生成目录。默认为 true。
+是否生成目录。显示 h2 至 h4 标题。默认为 true。
 
 #### lang
 
@@ -281,6 +279,84 @@ src/content/posts/guide/apple.md     ->  example.com/es/posts/banana/
 src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
 ```
 
-### 自动化配置介绍
+## 更多配置
 
-自动计算文章阅读时间。自动为每篇文章生成 Open Graph 图片。相同 abbrlink 的文章会自动共享 Waline 评论，且不受 lang 配置影响。
+除了配置文件 `src/config.ts` 外，还有一些配置项分散在其它文件中。
+
+### 语法高亮
+
+代码块的语法高亮主题。
+
+```ts
+// src/astro.config.ts
+
+shikiConfig: {
+  // 可选主题：https://shiki.style/themes
+  // 背景色默认跟随博客主题，而非语法高亮主题
+  themes: {
+    light: 'github-light' // 亮色主题
+    dark: 'github-dark' // 暗色主题
+  }
+}
+```
+
+### 文章摘要
+
+文章自动摘要的字符限制。
+
+```ts
+// src/utils/description.ts
+
+const EXCERPT_LENGTHS: Record<ExcerptScene, {
+  cjk: number // 中文、日文、韩文
+  other: number // 其他语言
+}> = {
+  list: { // 首页
+    cjk: 120, // 摘要限制为 120 字
+    other: 240, // 摘要限制为 240 字
+  },
+}
+```
+
+### Open Graph
+
+Open Graph 社交图片的样式。
+
+```ts
+// src/pages/og/[...image].ts
+
+getImageOptions: (_path, page) => ({
+  logo: {
+    path: './public/icon/og-logo.png', // 本地路径的 PNG 图片
+    size: [250], // logo 宽度
+  },
+  font: {
+    title: { // 标题
+      families: ['Noto Sans SC'], // 字体
+      weight: 'Bold', // 字重
+      color: [34, 33, 36], // 颜色
+      lineHeight: 1.5, // 行高
+    },
+  },
+  fonts: [ // 字体路径（本地或远程）
+    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Bold.otf',
+    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Regular.otf',
+  ],
+  bgGradient: [[242, 241, 245]], // 背景色
+  // 更多配置：https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas
+})
+```
+
+### RSS 订阅
+
+RSS 订阅页面的配色。
+
+```html
+<!-- public/rss-style.xsl -->
+
+<style type="text/css">
+body{margin:0;color:oklch(25% 0.005 298)} /* 字体颜色 */
+.bg-white{background-color:oklch(0.96 0.005 298)!important} /* 背景颜色 */
+.text-gray{color:oklch(0.25 0.005 298 / 75%)!important} /* 次要字体颜色 */
+</style>
+```

@@ -97,7 +97,7 @@ abbrlink: markdown-style-guide
 >
 > —— <cite>『秋の夜』[^1]</cite>
 
-[^1]: [『秋の夜』](https://zh.wikisource.org/wiki/%E7%A7%8B%E5%A4%9C_(%E9%AD%AF%E8%BF%85))は魯迅の散文詩集『野草』の最初の散文詩で、1924年に書かれました。
+[^1]: 『[秋の夜](https://zh.wikisource.org/wiki/%E7%A7%8B%E5%A4%9C_(%E9%AD%AF%E8%BF%85))』は魯迅の散文詩集『野草』の最初の散文詩で、1924年に書かれました。
 ```
 
 #### 効果
@@ -106,7 +106,7 @@ abbrlink: markdown-style-guide
 >
 > —— <cite>『秋の夜』[^1]</cite>
 
-[^1]: [『秋の夜』](https://zh.wikisource.org/wiki/%E7%A7%8B%E5%A4%9C_(%E9%AD%AF%E8%BF%85))は魯迅の散文詩集『野草』の最初の散文詩で、1924年に書かれました。
+[^1]: 『[秋の夜](https://zh.wikisource.org/wiki/%E7%A7%8B%E5%A4%9C_(%E9%AD%AF%E8%BF%85))』は魯迅の散文詩集『野草』の最初の散文詩で、1924年に書かれました。
 
 ## 表
 
