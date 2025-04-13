@@ -10,7 +10,7 @@ lang: ja
 abbrlink: theme-guide
 ---
 
-Retypesetは[Astro](https://astro.build/)フレームワークをベースにした静的ブログテーマで、日本語では「再編集」を意味します。このガイドではRetypesetテーマの設定方法、新しい記事の作成方法、その他の設定オプションについて説明します。
+Retypesetは、日本語では「再組版」と呼ばれる、[Astro](https://astro.build/) フレームワークをベースにした静的ブログテーマです。このガイドではRetypesetテーマの設定方法、新しい記事の作成方法、その他の設定オプションについて説明します。
 
 ## テーマ設定
 
@@ -223,7 +223,7 @@ abbrlink: theme-guide
 ---
 ```
 
-### 高度な設定の説明
+### 高度な設定
 
 #### draft
 
@@ -355,7 +355,7 @@ RSSフィードページスタイル。
 <!-- public/rss-style.xsl -->
 
 <style type="text/css">
-body{margin:0;color:oklch(25% 0.005 298)} /* フォントカラー */
+body{color:oklch(25% 0.005 298)} /* フォントカラー */
 .bg-white{background-color:oklch(0.96 0.005 298)!important} /* 背景色 */
 .text-gray{color:oklch(0.25 0.005 298 / 75%)!important} /* セカンダリフォントカラー */
 </style>

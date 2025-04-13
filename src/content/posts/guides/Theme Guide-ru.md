@@ -10,7 +10,7 @@ lang: ru
 abbrlink: theme-guide
 ---
 
-Retypeset - это статическая тема для блога, основанная на фреймворке [Astro](https://astro.build/). Это руководство охватывает настройку темы, создание новых статей и дополнительные параметры конфигурации.
+Retypeset — это статическая тема блога, основанная на фреймворке [Astro](https://astro.build/). Это руководство охватывает настройку темы, создание новых статей и дополнительные параметры конфигурации.
 
 ## Конфигурация темы
 
@@ -355,7 +355,7 @@ getImageOptions: (_path, page) => ({
 <!-- public/rss-style.xsl -->
 
 <style type="text/css">
-body{margin:0;color:oklch(25% 0.005 298)} /* цвет шрифта */
+body{color:oklch(25% 0.005 298)} /* цвет шрифта */
 .bg-white{background-color:oklch(0.96 0.005 298)!important} /* цвет фона */
 .text-gray{color:oklch(0.25 0.005 298 / 75%)!important} /* вторичный цвет шрифта */
 </style>

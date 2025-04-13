@@ -223,7 +223,7 @@ abbrlink: theme-guide
 ---
 ```
 
-### 進階配置介紹
+### 進階配置
 
 #### draft
 
@@ -355,7 +355,7 @@ RSS 訂閱頁配色。
 <!-- public/rss-style.xsl -->
 
 <style type="text/css">
-body{margin:0;color:oklch(25% 0.005 298)} /* 字體顏色 */
+body{color:oklch(25% 0.005 298)} /* 字體顏色 */
 .bg-white{background-color:oklch(0.96 0.005 298)!important} /* 背景顏色 */
 .text-gray{color:oklch(0.25 0.005 298 / 75%)!important} /* 次要字體顏色 */
 </style>

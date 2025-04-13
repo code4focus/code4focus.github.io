@@ -355,7 +355,7 @@ RSS feed page styles.
 <!-- public/rss-style.xsl -->
 
 <style type="text/css">
-body{margin:0;color:oklch(25% 0.005 298)} /* font color */
+body{color:oklch(25% 0.005 298)} /* font color */
 .bg-white{background-color:oklch(0.96 0.005 298)!important} /* background color */
 .text-gray{color:oklch(0.25 0.005 298 / 75%)!important} /* secondary font color */
 </style>
