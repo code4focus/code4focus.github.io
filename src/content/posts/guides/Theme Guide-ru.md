@@ -288,7 +288,7 @@ src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
 Темы подсветки синтаксиса для блоков кода.
 
 ```ts
-// src/astro.config.ts
+// astro.config.ts
 
 shikiConfig: {
   // доступные темы: https://shiki.style/themes

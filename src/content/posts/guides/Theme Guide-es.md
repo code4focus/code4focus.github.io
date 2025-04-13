@@ -288,7 +288,7 @@ Más allá del archivo de configuración `src/config.ts`, hay algunas opciones d
 Temas de resaltado de sintaxis para bloques de código.
 
 ```ts
-// src/astro.config.ts
+// astro.config.ts
 
 shikiConfig: {
   // temas disponibles: https://shiki.style/themes

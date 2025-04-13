@@ -288,7 +288,7 @@ src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
 コードブロックのシンタックスハイライトテーマ。
 
 ```ts
-// src/astro.config.ts
+// astro.config.ts
 
 shikiConfig: {
   // 利用可能なテーマ: https://shiki.style/themes

@@ -288,7 +288,7 @@ src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
 代碼塊的語法高亮主題。
 
 ```ts
-// src/astro.config.ts
+// astro.config.ts
 
 shikiConfig: {
   // 可選主題：https://shiki.style/themes

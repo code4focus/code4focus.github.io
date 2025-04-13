@@ -288,7 +288,7 @@ Beyond the configuration file `src/config.ts`, there are some configuration opti
 Code block syntax highlighting themes.
 
 ```ts
-// src/astro.config.ts
+// astro.config.ts
 
 shikiConfig: {
   // available themes: https://shiki.style/themes
