@@ -352,7 +352,7 @@ getImageOptions: (_path, page) => ({
 Стили страницы RSS-ленты.
 
 ```html
-<!-- public/rss-style.xsl -->
+<!-- public/rss/rss-style.xsl -->
 
 <style type="text/css">
 body{color:oklch(25% 0.005 298)} /* цвет шрифта */

@@ -14,7 +14,7 @@ Retypeset is a static blog theme based on the [Astro](https://astro.build/) fram
 
 ## Theme Configuration
 
-Customize your blog by modifying the theme configuration file [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts).
+Modify the theme configuration file [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) to customize your blog.
 
 ### Site Information
 
@@ -352,7 +352,7 @@ getImageOptions: (_path, page) => ({
 RSS feed page styles.
 
 ```html
-<!-- public/rss-style.xsl -->
+<!-- public/rss/rss-style.xsl -->
 
 <style type="text/css">
 body{color:oklch(25% 0.005 298)} /* font color */

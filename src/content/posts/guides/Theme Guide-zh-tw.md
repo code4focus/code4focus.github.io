@@ -14,7 +14,7 @@ Retypeset 是一款基於 [Astro](https://astro.build/) 框架的靜態部落格
 
 ## 主題配置
 
-通過修改主題配置文件 [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) 來自定義你的部落格。
+修改主題配置文件 [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) 來自定義你的部落格。
 
 ### 站點信息
 
@@ -352,7 +352,7 @@ getImageOptions: (_path, page) => ({
 RSS 訂閱頁配色。
 
 ```html
-<!-- public/rss-style.xsl -->
+<!-- public/rss/rss-style.xsl -->
 
 <style type="text/css">
 body{color:oklch(25% 0.005 298)} /* 字體顏色 */

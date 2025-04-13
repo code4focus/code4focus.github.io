@@ -352,7 +352,7 @@ getImageOptions: (_path, page) => ({
 RSSフィードページスタイル。
 
 ```html
-<!-- public/rss-style.xsl -->
+<!-- public/rss/rss-style.xsl -->
 
 <style type="text/css">
 body{color:oklch(25% 0.005 298)} /* フォントカラー */
