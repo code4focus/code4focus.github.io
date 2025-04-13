@@ -10,11 +10,11 @@ lang: ja
 abbrlink: theme-guide
 ---
 
-Retypesetは、日本語では「再組版」と呼ばれる、[Astro](https://astro.build/) フレームワークをベースにした静的ブログテーマです。[活版印字](https://astro-theme-typography.vercel.app/) からデザインのインスピレーションを得て、新しい視覚的な規範を確立し、すべてのページのレイアウトを再構成することで、紙の書籍のような読書体験を提供し、版面の美しさを蘇らせます。見るものすべてが細部にこだわり、限られたスペースの中に優雅さを表現しています。
+Retypesetは[Astro](https://astro.build/)フレームワークをベースにした静的ブログテーマで、日本語では「再編集」を意味します。このガイドではRetypesetテーマの設定方法、新しい記事の作成方法、その他の設定オプションについて説明します。
 
 ## テーマ設定
 
-以下はRetypesetのテーマ設定ガイドです。設定ファイル [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) を修正してブログをカスタマイズできます。
+設定ファイル [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) を修正してブログをカスタマイズできます。
 
 ### サイト情報
 
@@ -302,7 +302,7 @@ shikiConfig: {
 
 ### 記事の抜粋
 
-記事の自動抜粋の文字数制限。
+記事の自動抜粋の文字数量制限。
 
 ```ts
 // src/utils/description.ts
@@ -311,16 +311,16 @@ const EXCERPT_LENGTHS: Record<ExcerptScene, {
   cjk: number // 中国語、日本語、韓国語
   other: number // その他の言語
 }> = {
-  list: { // ホームページ
-    cjk: 120, // 抜粋は120文字まで
-    other: 240, // 抜粋は240文字まで
+  list: { // ホームページ記事リスト
+    cjk: 120, // 先頭から120文字を自動抜粋
+    other: 240, // 先頭から240文字を自動抜粋
   },
 }
 ```
 
 ### Open Graph
 
-Open Graph ソーシャル画像のスタイル。
+Open Graphソーシャル画像スタイル。
 
 ```ts
 // src/pages/og/[...image].ts
@@ -349,7 +349,7 @@ getImageOptions: (_path, page) => ({
 
 ### RSSフィード
 
-RSSフィードページのカラースキーム。
+RSSフィードページスタイル。
 
 ```html
 <!-- public/rss-style.xsl -->

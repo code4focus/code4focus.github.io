@@ -10,11 +10,11 @@ lang: zh
 abbrlink: theme-guide
 ---
 
-Retypeset 是一款基于 [Astro](https://astro.build/) 框架的静态博客主题，中文名为重新编排。本主题以 [活版印字](https://astro-theme-typography.vercel.app/) 为设计灵感，通过建立全新的视觉规范，对所有页面进行重新编排，打造纸质书页般的阅读体验，再现版式之美。所见皆为细节，方寸尽显优雅。
+Retypeset 是一款基于 [Astro](https://astro.build/) 框架的静态博客主题，中文名为重新编排。本文是 Retypeset 主题的上手指南，包括主题配置介绍，如何创建新文章和更多配置说明。
 
 ## 主题配置
 
-以下为 Retypeset 的主题配置介绍。通过修改配置文件 [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) 来自定义你的博客。
+通过修改主题配置文件 [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) 来自定义你的博客。
 
 ### 站点信息
 
@@ -292,7 +292,7 @@ src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
 
 shikiConfig: {
   // 可选主题：https://shiki.style/themes
-  // 背景色默认跟随博客主题，而非语法高亮主题
+  // 背景色固定跟随博客主题，而非语法高亮主题
   themes: {
     light: 'github-light' // 亮色主题
     dark: 'github-dark' // 暗色主题
@@ -302,7 +302,7 @@ shikiConfig: {
 
 ### 文章摘要
 
-文章自动摘要的字符限制。
+文章自动摘要的字符数量限制。
 
 ```ts
 // src/utils/description.ts
@@ -311,16 +311,16 @@ const EXCERPT_LENGTHS: Record<ExcerptScene, {
   cjk: number // 中文、日文、韩文
   other: number // 其他语言
 }> = {
-  list: { // 首页
-    cjk: 120, // 摘要限制为 120 字
-    other: 240, // 摘要限制为 240 字
+  list: { // 首页文章列表
+    cjk: 120, // 自动摘要前 120 字
+    other: 240, // 自动摘要前 240 字
   },
 }
 ```
 
 ### Open Graph
 
-Open Graph 社交图片的样式。
+Open Graph 社交图片样式。
 
 ```ts
 // src/pages/og/[...image].ts
@@ -349,7 +349,7 @@ getImageOptions: (_path, page) => ({
 
 ### RSS 订阅
 
-RSS 订阅页面的配色。
+RSS 订阅页配色。
 
 ```html
 <!-- public/rss-style.xsl -->

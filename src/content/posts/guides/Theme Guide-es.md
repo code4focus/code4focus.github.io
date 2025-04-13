@@ -10,11 +10,11 @@ lang: es
 abbrlink: theme-guide
 ---
 
-Retypeset es un tema de blog estático basado en el framework [Astro](https://astro.build/). Inspirado por [Typography](https://astro-theme-typography.vercel.app/), Retypeset establece un nuevo estándar visual y reimagina el diseño de todas las páginas, creando una experiencia de lectura similar a la de los libros impresos, reviviendo la belleza de la tipografía. Detalles en cada mirada, elegancia en cada espacio.
+Retypeset es un tema de blog estático basado en el framework [Astro](https://astro.build/). Esta guía cubre la configuración del tema, cómo crear nuevas publicaciones y opciones de configuración adicionales.
 
 ## Configuración del Tema
 
-A continuación se presenta la guía de configuración del tema Retypeset. Personaliza tu blog modificando el archivo de configuración [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts).
+Personaliza tu blog modificando el archivo de configuración del tema [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts).
 
 ### Información del Sitio
 
@@ -302,7 +302,7 @@ shikiConfig: {
 
 ### Extracto de Artículo
 
-Límite de caracteres para extractos automáticos de artículos.
+Límite de cantidad de caracteres para extractos automáticos de artículos.
 
 ```ts
 // src/utils/description.ts
@@ -311,16 +311,16 @@ const EXCERPT_LENGTHS: Record<ExcerptScene, {
   cjk: number // Chino, Japonés, Coreano
   other: number // Otros idiomas
 }> = {
-  list: { // Página principal
-    cjk: 120, // Límite de extracto es 120 caracteres
-    other: 240, // Límite de extracto es 240 caracteres
+  list: { // Lista de artículos en página principal
+    cjk: 120, // Extrae automáticamente los primeros 120 caracteres
+    other: 240, // Extrae automáticamente los primeros 240 caracteres
   },
 }
 ```
 
 ### Open Graph
 
-Estilo para imágenes sociales Open Graph.
+Estilos de imágenes sociales Open Graph.
 
 ```ts
 // src/pages/og/[...image].ts
@@ -349,7 +349,7 @@ getImageOptions: (_path, page) => ({
 
 ### Canal RSS
 
-Esquema de colores para la página de feed RSS.
+Estilos de página del feed RSS.
 
 ```html
 <!-- public/rss-style.xsl -->

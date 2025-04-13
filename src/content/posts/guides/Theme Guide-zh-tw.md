@@ -10,11 +10,11 @@ lang: zh-tw
 abbrlink: theme-guide
 ---
 
-Retypeset 是一款基於 [Astro](https://astro.build/) 框架的靜態部落格主題，中文名為重新編排。本主題以 [活版印字](https://astro-theme-typography.vercel.app/) 為設計靈感，通過建立全新的視覺規範，對所有頁面進行重新編排，打造紙質書頁般的閱讀體驗，再現版式之美。所見皆為細節，方寸盡顯優雅。
+Retypeset 是一款基於 [Astro](https://astro.build/) 框架的靜態部落格主題，中文名為重新編排。本文是 Retypeset 主題的上手指南，包括主題配置介紹，如何創建新文章和更多配置說明。
 
 ## 主題配置
 
-以下為 Retypeset 的主題配置介紹。通過修改配置文件 [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) 來自定義你的部落格。
+通過修改主題配置文件 [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) 來自定義你的部落格。
 
 ### 站點信息
 
@@ -302,7 +302,7 @@ shikiConfig: {
 
 ### 文章摘要
 
-文章自動摘要的字符限制。
+文章自動摘要的字符數量限制。
 
 ```ts
 // src/utils/description.ts
@@ -311,16 +311,16 @@ const EXCERPT_LENGTHS: Record<ExcerptScene, {
   cjk: number // 中文、日文、韓文
   other: number // 其他語言
 }> = {
-  list: { // 首頁
-    cjk: 120, // 摘要限制為 120 字
-    other: 240, // 摘要限制為 240 字
+  list: { // 首頁文章列表
+    cjk: 120, // 自動摘要前 120 字
+    other: 240, // 自動摘要前 240 字
   },
 }
 ```
 
 ### Open Graph
 
-Open Graph 社交圖片的樣式。
+Open Graph 社交圖片樣式。
 
 ```ts
 // src/pages/og/[...image].ts
@@ -349,7 +349,7 @@ getImageOptions: (_path, page) => ({
 
 ### RSS 訂閱
 
-RSS 訂閱頁面的配色。
+RSS 訂閱頁配色。
 
 ```html
 <!-- public/rss-style.xsl -->

@@ -10,11 +10,11 @@ lang: en
 abbrlink: theme-guide
 ---
 
-Retypeset is a static blog theme based on the [Astro](https://astro.build/) framework. Inspired by [Typography](https://astro-theme-typography.vercel.app/), Retypeset establishes a new visual standard and reimagines the layout of all pages, creating a reading experience reminiscent of paper books, reviving the beauty of typography. Details in every sight, elegance in every space.
+Retypeset is a static blog theme based on the [Astro](https://astro.build/) framework. This guide covers the theme configuration, how to create new posts, and additional configuration options.
 
 ## Theme Configuration
 
-Below is the theme configuration guide for Retypeset. Customize your blog by modifying the configuration file [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts).
+Customize your blog by modifying the theme configuration file [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts).
 
 ### Site Information
 
@@ -299,9 +299,10 @@ shikiConfig: {
   }
 }
 ```
+
 ### Article Excerpt
 
-Character limit for automatic article excerpts.
+Character count limit for automatic article excerpts.
 
 ```ts
 // src/utils/description.ts
@@ -310,16 +311,16 @@ const EXCERPT_LENGTHS: Record<ExcerptScene, {
   cjk: number // Chinese, Japanese, Korean
   other: number // Other languages
 }> = {
-  list: { // Homepage
-    cjk: 120, // Excerpt limit is 120 characters
-    other: 240, // Excerpt limit is 240 characters
+  list: { // Homepage article list
+    cjk: 120, // Auto-excerpts first 120 characters
+    other: 240, // Auto-excerpts first 240 characters
   },
 }
 ```
 
 ### Open Graph
 
-Styling for Open Graph social images.
+Open Graph social image styles.
 
 ```ts
 // src/pages/og/[...image].ts
@@ -348,7 +349,7 @@ getImageOptions: (_path, page) => ({
 
 ### RSS Feed
 
-Color scheme for the RSS feed page.
+RSS feed page styles.
 
 ```html
 <!-- public/rss-style.xsl -->
