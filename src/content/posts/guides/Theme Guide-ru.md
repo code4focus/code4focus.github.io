@@ -10,11 +10,11 @@ lang: ru
 abbrlink: theme-guide
 ---
 
-Retypeset — это статическая тема блога, основанная на фреймворке [Astro](https://astro.build/). Это руководство охватывает настройку темы, создание новых статей и дополнительные параметры конфигурации.
+Retypeset — это статическая тема блога, основанная на фреймворке [Astro](https://astro.build/). Данное руководство знакомит с настройками темы и созданием новых статей, помогая вам быстро настроить личный блог.
 
 ## Конфигурация темы
 
-Настройте свой блог, изменяя конфигурационный файл темы [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts).
+Настройте свой блог через конфигурационный файл [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts).
 
 ### Информация о сайте
 
@@ -195,6 +195,88 @@ preload: {
 }
 ```
 
+## Дополнительная конфигурация
+
+Кроме файла конфигурации `src/config.ts`, некоторые параметры находятся в других файлах.
+
+### Подсветка синтаксиса
+
+Темы подсветки синтаксиса для блоков кода.
+
+```ts
+// astro.config.ts
+
+shikiConfig: {
+  // доступные темы: https://shiki.style/themes
+  // цвет фона по умолчанию следует теме блога, а не теме подсветки синтаксиса
+  themes: {
+    light: 'github-light' // светлая тема
+    dark: 'github-dark' // темная тема
+  }
+}
+```
+
+### Отрывок статьи
+
+Количество символов для автоматических отрывков статей.
+
+```ts
+// src/utils/description.ts
+
+const EXCERPT_LENGTHS: Record<ExcerptScene, {
+  cjk: number // Китайский, Японский, Корейский
+  other: number // Другие языки
+}> = {
+  list: { // Список статей на главной странице
+    cjk: 120, // Автоматически берет первые 120 символов
+    other: 240, // Автоматически берет первые 240 символов
+  },
+}
+```
+
+### Open Graph
+
+Стили изображений Open Graph для социальных сетей.
+
+```ts
+// src/pages/og/[...image].ts
+
+getImageOptions: (_path, page) => ({
+  logo: {
+    path: './public/icon/og-logo.png', // требуется локальный путь и формат PNG
+    size: [250], // ширина логотипа
+  },
+  font: {
+    title: { // заголовок
+      families: ['Noto Sans SC'], // шрифт
+      weight: 'Bold', // вес
+      color: [34, 33, 36], // цвет
+      lineHeight: 1.5, // высота строки
+    },
+  },
+  fonts: [ // пути к шрифтам (локальные или удаленные)
+    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Bold.otf',
+    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Regular.otf',
+  ],
+  bgGradient: [[242, 241, 245]], // цвет фона
+  // дополнительные настройки: https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas
+})
+```
+
+### RSS-лента
+
+Стили страницы RSS-ленты.
+
+```html
+<!-- public/rss/rss-style.xsl -->
+
+<style type="text/css">
+body{color:oklch(25% 0.005 298)} /* цвет шрифта */
+.bg-white{background-color:oklch(0.96 0.005 298)!important} /* цвет фона */
+.text-gray{color:oklch(0.25 0.005 298 / 75%)!important} /* вторичный цвет шрифта */
+</style>
+```
+
 ## Создание Новой Статьи
 
 Создайте новый файл с расширением `.md` или `.mdx` в директории `src/content/posts/` и добавьте метаданные `Front Matter` в верхней части файла.
@@ -260,7 +342,7 @@ src/content/posts/apple.md   -> example.com/ru/posts/apple/
 
 #### abbrlink
 
-Настраивает URL статьи.
+Настраивает URL статьи. Может содержать только строчные буквы, цифры и дефисы `-`.
 
 ```md
 # src/config.ts
@@ -277,86 +359,4 @@ src/content/posts/2025/03/apple.md   ->  example.com/es/posts/2025/03/apple/
 src/content/posts/apple.md           ->  example.com/es/posts/banana/
 src/content/posts/guide/apple.md     ->  example.com/es/posts/banana/
 src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
-```
-
-## Дополнительная конфигурация
-
-Помимо файла конфигурации `src/config.ts`, существуют некоторые параметры конфигурации, разбросанные в других файлах.
-
-### Подсветка синтаксиса
-
-Темы подсветки синтаксиса для блоков кода.
-
-```ts
-// astro.config.ts
-
-shikiConfig: {
-  // доступные темы: https://shiki.style/themes
-  // цвет фона по умолчанию следует теме блога, а не теме подсветки синтаксиса
-  themes: {
-    light: 'github-light' // светлая тема
-    dark: 'github-dark' // темная тема
-  }
-}
-```
-
-### Отрывок статьи
-
-Лимит количества символов для автоматических отрывков статей.
-
-```ts
-// src/utils/description.ts
-
-const EXCERPT_LENGTHS: Record<ExcerptScene, {
-  cjk: number // Китайский, Японский, Корейский
-  other: number // Другие языки
-}> = {
-  list: { // Список статей на главной странице
-    cjk: 120, // Автоматически берет первые 120 символов
-    other: 240, // Автоматически берет первые 240 символов
-  },
-}
-```
-
-### Open Graph
-
-Стили изображений Open Graph для социальных сетей.
-
-```ts
-// src/pages/og/[...image].ts
-
-getImageOptions: (_path, page) => ({
-  logo: {
-    path: './public/icon/og-logo.png', // требуется локальный путь и формат PNG
-    size: [250], // ширина логотипа
-  },
-  font: {
-    title: { // заголовок
-      families: ['Noto Sans SC'], // шрифт
-      weight: 'Bold', // вес
-      color: [34, 33, 36], // цвет
-      lineHeight: 1.5, // высота строки
-    },
-  },
-  fonts: [ // пути к шрифтам (локальные или удаленные)
-    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Bold.otf',
-    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Regular.otf',
-  ],
-  bgGradient: [[242, 241, 245]], // цвет фона
-  // дополнительные настройки: https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas
-})
-```
-
-### RSS-лента
-
-Стили страницы RSS-ленты.
-
-```html
-<!-- public/rss/rss-style.xsl -->
-
-<style type="text/css">
-body{color:oklch(25% 0.005 298)} /* цвет шрифта */
-.bg-white{background-color:oklch(0.96 0.005 298)!important} /* цвет фона */
-.text-gray{color:oklch(0.25 0.005 298 / 75%)!important} /* вторичный цвет шрифта */
-</style>
 ```

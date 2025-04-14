@@ -10,11 +10,11 @@ lang: en
 abbrlink: theme-guide
 ---
 
-Retypeset is a static blog theme based on the [Astro](https://astro.build/) framework. This guide covers the theme configuration, how to create new posts, and additional configuration options.
+Retypeset is a static blog theme based on the [Astro](https://astro.build/) framework. This guide introduces theme configuration and how to create new articles, helping you quickly set up your personal blog.
 
 ## Theme Configuration
 
-Modify the theme configuration file [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) to customize your blog.
+Customize your blog through the configuration file [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts).
 
 ### Site Information
 
@@ -195,6 +195,88 @@ preload: {
 }
 ```
 
+## Additional Configuration
+
+Besides the configuration file `src/config.ts`, some configuration options are located in other files.
+
+### Syntax Highlighting
+
+Code block syntax highlighting themes.
+
+```ts
+// astro.config.ts
+
+shikiConfig: {
+  // available themes: https://shiki.style/themes
+  // background color follows the blog theme by default, not the syntax highlighting theme
+  themes: {
+    light: 'github-light' // light theme
+    dark: 'github-dark' // dark theme
+  }
+}
+```
+
+### Article Excerpt
+
+Character count for automatic article excerpts.
+
+```ts
+// src/utils/description.ts
+
+const EXCERPT_LENGTHS: Record<ExcerptScene, {
+  cjk: number // Chinese, Japanese, Korean
+  other: number // Other languages
+}> = {
+  list: { // Homepage article list
+    cjk: 120, // Auto-excerpts first 120 characters
+    other: 240, // Auto-excerpts first 240 characters
+  },
+}
+```
+
+### Open Graph
+
+Open Graph social image styles.
+
+```ts
+// src/pages/og/[...image].ts
+
+getImageOptions: (_path, page) => ({
+  logo: {
+    path: './public/icon/og-logo.png', // required local path and PNG format
+    size: [250], // logo width
+  },
+  font: {
+    title: { // title
+      families: ['Noto Sans SC'], // font
+      weight: 'Bold', // weight
+      color: [34, 33, 36], // color
+      lineHeight: 1.5, // line height
+    },
+  },
+  fonts: [ // font paths (local or remote)
+    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Bold.otf',
+    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Regular.otf',
+  ],
+  bgGradient: [[242, 241, 245]], // background color
+  // more configurations: https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas
+})
+```
+
+### RSS Feed
+
+RSS feed page styles.
+
+```html
+<!-- public/rss/rss-style.xsl -->
+
+<style type="text/css">
+body{color:oklch(25% 0.005 298)} /* font color */
+.bg-white{background-color:oklch(0.96 0.005 298)!important} /* background color */
+.text-gray{color:oklch(0.25 0.005 298 / 75%)!important} /* secondary font color */
+</style>
+```
+
 ## Creating a New Post
 
 Create a new file with `.md` or `.mdx` extension in the `src/content/posts/` directory, and add `Front Matter` metadata at the top of the file.
@@ -260,7 +342,7 @@ src/content/posts/apple.md   -> example.com/ru/posts/apple/
 
 #### abbrlink
 
-Customizes the article URL.
+Customizes the article URL. Can only contain lowercase letters, numbers, and hyphens `-`.
 
 ```md
 # src/config.ts
@@ -277,86 +359,4 @@ src/content/posts/2025/03/apple.md   ->  example.com/es/posts/2025/03/apple/
 src/content/posts/apple.md           ->  example.com/es/posts/banana/
 src/content/posts/guide/apple.md     ->  example.com/es/posts/banana/
 src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
-```
-
-## Additional Configuration
-
-Beyond the configuration file `src/config.ts`, there are some configuration options scattered in other files.
-
-### Syntax Highlighting
-
-Code block syntax highlighting themes.
-
-```ts
-// astro.config.ts
-
-shikiConfig: {
-  // available themes: https://shiki.style/themes
-  // background color follows the blog theme by default, not the syntax highlighting theme
-  themes: {
-    light: 'github-light' // light theme
-    dark: 'github-dark' // dark theme
-  }
-}
-```
-
-### Article Excerpt
-
-Character count limit for automatic article excerpts.
-
-```ts
-// src/utils/description.ts
-
-const EXCERPT_LENGTHS: Record<ExcerptScene, {
-  cjk: number // Chinese, Japanese, Korean
-  other: number // Other languages
-}> = {
-  list: { // Homepage article list
-    cjk: 120, // Auto-excerpts first 120 characters
-    other: 240, // Auto-excerpts first 240 characters
-  },
-}
-```
-
-### Open Graph
-
-Open Graph social image styles.
-
-```ts
-// src/pages/og/[...image].ts
-
-getImageOptions: (_path, page) => ({
-  logo: {
-    path: './public/icon/og-logo.png', // required local path and PNG format
-    size: [250], // logo width
-  },
-  font: {
-    title: { // title
-      families: ['Noto Sans SC'], // font
-      weight: 'Bold', // weight
-      color: [34, 33, 36], // color
-      lineHeight: 1.5, // line height
-    },
-  },
-  fonts: [ // font paths (local or remote)
-    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Bold.otf',
-    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Regular.otf',
-  ],
-  bgGradient: [[242, 241, 245]], // background color
-  // more configurations: https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas
-})
-```
-
-### RSS Feed
-
-RSS feed page styles.
-
-```html
-<!-- public/rss/rss-style.xsl -->
-
-<style type="text/css">
-body{color:oklch(25% 0.005 298)} /* font color */
-.bg-white{background-color:oklch(0.96 0.005 298)!important} /* background color */
-.text-gray{color:oklch(0.25 0.005 298 / 75%)!important} /* secondary font color */
-</style>
 ```

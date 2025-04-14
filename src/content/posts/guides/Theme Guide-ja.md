@@ -10,11 +10,11 @@ lang: ja
 abbrlink: theme-guide
 ---
 
-Retypesetは、日本語では「再組版」と呼ばれる、[Astro](https://astro.build/) フレームワークをベースにした静的ブログテーマです。このガイドではRetypesetテーマの設定方法、新しい記事の作成方法、その他の設定オプションについて説明します。
+Retypesetは、日本語では「再組版」と呼ばれる、[Astro](https://astro.build/) フレームワークをベースにした静的ブログテーマです。本ガイドではテーマの設定方法と新しい記事の作成方法を紹介し、個人ブログを素早く構築できるようサポートします。
 
 ## テーマ設定
 
-設定ファイル [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) を修正してブログをカスタマイズできます。
+設定ファイル [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) からあなたのブログをカスタマイズできます。
 
 ### サイト情報
 
@@ -195,6 +195,88 @@ preload: {
 }
 ```
 
+## その他の設定
+
+設定ファイル `src/config.ts` 以外にも、一部の設定は他のファイルにあります。
+
+### シンタックスハイライト
+
+コードブロックのシンタックスハイライトテーマ。
+
+```ts
+// astro.config.ts
+
+shikiConfig: {
+  // 利用可能なテーマ: https://shiki.style/themes
+  // 背景色はデフォルトでシンタックスハイライトテーマではなく、ブログテーマに従います
+  themes: {
+    light: 'github-light' // ライトテーマ
+    dark: 'github-dark' // ダークテーマ
+  }
+}
+```
+
+### 記事の抜粋
+
+記事の自動抜粋の文字数。
+
+```ts
+// src/utils/description.ts
+
+const EXCERPT_LENGTHS: Record<ExcerptScene, {
+  cjk: number // 中国語、日本語、韓国語
+  other: number // その他の言語
+}> = {
+  list: { // ホームページ記事リスト
+    cjk: 120, // 先頭から120文字を自動抜粋
+    other: 240, // 先頭から240文字を自動抜粋
+  },
+}
+```
+
+### Open Graph
+
+Open Graphソーシャル画像スタイル。
+
+```ts
+// src/pages/og/[...image].ts
+
+getImageOptions: (_path, page) => ({
+  logo: {
+    path: './public/icon/og-logo.png', // ローカルパスのPNG形式が必要
+    size: [250], // ロゴの幅
+  },
+  font: {
+    title: { // タイトル
+      families: ['Noto Sans SC'], // フォント
+      weight: 'Bold', // 太さ
+      color: [34, 33, 36], // 色
+      lineHeight: 1.5, // 行の高さ
+    },
+  },
+  fonts: [ // フォントパス（ローカルまたはリモート）
+    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Bold.otf',
+    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Regular.otf',
+  ],
+  bgGradient: [[242, 241, 245]], // 背景色
+  // その他の設定: https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas
+})
+```
+
+### RSSフィード
+
+RSSフィードページスタイル。
+
+```html
+<!-- public/rss/rss-style.xsl -->
+
+<style type="text/css">
+body{color:oklch(25% 0.005 298)} /* フォントカラー */
+.bg-white{background-color:oklch(0.96 0.005 298)!important} /* 背景色 */
+.text-gray{color:oklch(0.25 0.005 298 / 75%)!important} /* セカンダリフォントカラー */
+</style>
+```
+
 ## 新しい記事の作成
 
 `src/content/posts/` ディレクトリに `.md` または `.mdx` 拡張子を持つ新しいファイルを作成し、ファイルの先頭に `Front Matter` メタデータを追加します。
@@ -260,7 +342,7 @@ src/content/posts/apple.md   -> example.com/ru/posts/apple/
 
 #### abbrlink
 
-記事のURLをカスタマイズします。
+記事のURLをカスタマイズします。小文字、数字、ハイフン `-` のみ使用できます。
 
 ```md
 # src/config.ts
@@ -277,86 +359,4 @@ src/content/posts/2025/03/apple.md   ->  example.com/es/posts/2025/03/apple/
 src/content/posts/apple.md           ->  example.com/es/posts/banana/
 src/content/posts/guide/apple.md     ->  example.com/es/posts/banana/
 src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
-```
-
-## その他の設定
-
-設定ファイル `src/config.ts` 以外にも、他のファイルに散らばっている設定オプションがあります。
-
-### シンタックスハイライト
-
-コードブロックのシンタックスハイライトテーマ。
-
-```ts
-// astro.config.ts
-
-shikiConfig: {
-  // 利用可能なテーマ: https://shiki.style/themes
-  // 背景色はデフォルトでシンタックスハイライトテーマではなく、ブログテーマに従います
-  themes: {
-    light: 'github-light' // ライトテーマ
-    dark: 'github-dark' // ダークテーマ
-  }
-}
-```
-
-### 記事の抜粋
-
-記事の自動抜粋の文字数量制限。
-
-```ts
-// src/utils/description.ts
-
-const EXCERPT_LENGTHS: Record<ExcerptScene, {
-  cjk: number // 中国語、日本語、韓国語
-  other: number // その他の言語
-}> = {
-  list: { // ホームページ記事リスト
-    cjk: 120, // 先頭から120文字を自動抜粋
-    other: 240, // 先頭から240文字を自動抜粋
-  },
-}
-```
-
-### Open Graph
-
-Open Graphソーシャル画像スタイル。
-
-```ts
-// src/pages/og/[...image].ts
-
-getImageOptions: (_path, page) => ({
-  logo: {
-    path: './public/icon/og-logo.png', // ローカルパスのPNG形式が必要
-    size: [250], // ロゴの幅
-  },
-  font: {
-    title: { // タイトル
-      families: ['Noto Sans SC'], // フォント
-      weight: 'Bold', // 太さ
-      color: [34, 33, 36], // 色
-      lineHeight: 1.5, // 行の高さ
-    },
-  },
-  fonts: [ // フォントパス（ローカルまたはリモート）
-    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Bold.otf',
-    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Regular.otf',
-  ],
-  bgGradient: [[242, 241, 245]], // 背景色
-  // その他の設定: https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas
-})
-```
-
-### RSSフィード
-
-RSSフィードページスタイル。
-
-```html
-<!-- public/rss/rss-style.xsl -->
-
-<style type="text/css">
-body{color:oklch(25% 0.005 298)} /* フォントカラー */
-.bg-white{background-color:oklch(0.96 0.005 298)!important} /* 背景色 */
-.text-gray{color:oklch(0.25 0.005 298 / 75%)!important} /* セカンダリフォントカラー */
-</style>
 ```

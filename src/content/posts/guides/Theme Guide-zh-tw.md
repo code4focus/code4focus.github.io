@@ -10,11 +10,11 @@ lang: zh-tw
 abbrlink: theme-guide
 ---
 
-Retypeset 是一款基於 [Astro](https://astro.build/) 框架的靜態部落格主題，中文名為重新編排。本文是 Retypeset 主題的上手指南，包括主題配置介紹，如何創建新文章和更多配置說明。
+Retypeset 是一款基於 [Astro](https://astro.build/) 框架的靜態部落格主題，中文名為重新編排。本文為 Retypeset 主題上手指南，主要介紹主題配置與如何創建新文章，幫助你快速搭建個人部落格。
 
 ## 主題配置
 
-修改主題配置文件 [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) 來自定義你的部落格。
+通過配置文件 [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) 自定義你的部落格。
 
 ### 站點信息
 
@@ -195,6 +195,88 @@ preload: {
 }
 ```
 
+## 更多配置
+
+除了配置文件 `src/config.ts` 外，還有部分配置項位於其它文件中。
+
+### 語法高亮
+
+代碼塊的語法高亮主題。
+
+```ts
+// astro.config.ts
+
+shikiConfig: {
+  // 可選主題：https://shiki.style/themes
+  // 背景色默認跟隨部落格主題，而非語法高亮主題
+  themes: {
+    light: 'github-light' // 亮色主題
+    dark: 'github-dark' // 暗色主題
+  }
+}
+```
+
+### 文章摘要
+
+文章自動摘要的字元數量。
+
+```ts
+// src/utils/description.ts
+
+const EXCERPT_LENGTHS: Record<ExcerptScene, {
+  cjk: number // 中文、日文、韓文
+  other: number // 其他語言
+}> = {
+  list: { // 首頁文章列表
+    cjk: 120, // 自動摘要前 120 字
+    other: 240, // 自動摘要前 240 字
+  },
+}
+```
+
+### Open Graph
+
+Open Graph 社交圖片樣式。
+
+```ts
+// src/pages/og/[...image].ts
+
+getImageOptions: (_path, page) => ({
+  logo: {
+    path: './public/icon/og-logo.png', // 本地路徑的 PNG 圖片
+    size: [250], // logo 寬度
+  },
+  font: {
+    title: { // 標題
+      families: ['Noto Sans SC'], // 字體
+      weight: 'Bold', // 字重
+      color: [34, 33, 36], // 顏色
+      lineHeight: 1.5, // 行高
+    },
+  },
+  fonts: [ // 字體路徑（本地或遠程）
+    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Bold.otf',
+    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Regular.otf',
+  ],
+  bgGradient: [[242, 241, 245]], // 背景色
+  // 更多配置：https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas
+})
+```
+
+### RSS 訂閱
+
+RSS 訂閱頁配色。
+
+```html
+<!-- public/rss/rss-style.xsl -->
+
+<style type="text/css">
+body{color:oklch(25% 0.005 298)} /* 字體顏色 */
+.bg-white{background-color:oklch(0.96 0.005 298)!important} /* 背景顏色 */
+.text-gray{color:oklch(0.25 0.005 298 / 75%)!important} /* 次要字體顏色 */
+</style>
+```
+
 ## 創建新文章
 
 在 `src/content/posts/` 目錄中新建以 `.md` 或 `.mdx` 為後綴的文件，並在文件頂部添加 `Front Matter` 元數據。
@@ -260,7 +342,7 @@ src/content/posts/apple.md   -> example.com/ru/posts/apple/
 
 #### abbrlink
 
-自定義文章 URL。
+自定義文章 URL。只能包含小寫字母、數字和連字符 `-`。
 
 ```md
 # src/config.ts
@@ -277,86 +359,4 @@ src/content/posts/2025/03/apple.md   ->  example.com/es/posts/2025/03/apple/
 src/content/posts/apple.md           ->  example.com/es/posts/banana/
 src/content/posts/guide/apple.md     ->  example.com/es/posts/banana/
 src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
-```
-
-## 更多配置
-
-除了配置文件 `src/config.ts` 外，還有一些配置項分散在其它文件中。
-
-### 語法高亮
-
-代碼塊的語法高亮主題。
-
-```ts
-// astro.config.ts
-
-shikiConfig: {
-  // 可選主題：https://shiki.style/themes
-  // 背景色默認跟隨部落格主題，而非語法高亮主題
-  themes: {
-    light: 'github-light' // 亮色主題
-    dark: 'github-dark' // 暗色主題
-  }
-}
-```
-
-### 文章摘要
-
-文章自動摘要的字符數量限制。
-
-```ts
-// src/utils/description.ts
-
-const EXCERPT_LENGTHS: Record<ExcerptScene, {
-  cjk: number // 中文、日文、韓文
-  other: number // 其他語言
-}> = {
-  list: { // 首頁文章列表
-    cjk: 120, // 自動摘要前 120 字
-    other: 240, // 自動摘要前 240 字
-  },
-}
-```
-
-### Open Graph
-
-Open Graph 社交圖片樣式。
-
-```ts
-// src/pages/og/[...image].ts
-
-getImageOptions: (_path, page) => ({
-  logo: {
-    path: './public/icon/og-logo.png', // 本地路徑的 PNG 圖片
-    size: [250], // logo 寬度
-  },
-  font: {
-    title: { // 標題
-      families: ['Noto Sans SC'], // 字體
-      weight: 'Bold', // 字重
-      color: [34, 33, 36], // 顏色
-      lineHeight: 1.5, // 行高
-    },
-  },
-  fonts: [ // 字體路徑（本地或遠程）
-    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Bold.otf',
-    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Regular.otf',
-  ],
-  bgGradient: [[242, 241, 245]], // 背景色
-  // 更多配置：https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas
-})
-```
-
-### RSS 訂閱
-
-RSS 訂閱頁配色。
-
-```html
-<!-- public/rss/rss-style.xsl -->
-
-<style type="text/css">
-body{color:oklch(25% 0.005 298)} /* 字體顏色 */
-.bg-white{background-color:oklch(0.96 0.005 298)!important} /* 背景顏色 */
-.text-gray{color:oklch(0.25 0.005 298 / 75%)!important} /* 次要字體顏色 */
-</style>
 ```

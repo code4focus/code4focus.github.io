@@ -10,11 +10,11 @@ lang: es
 abbrlink: theme-guide
 ---
 
-Retypeset es un tema de blog estático basado en el framework [Astro](https://astro.build/). Esta guía cubre la configuración del tema, cómo crear nuevas publicaciones y opciones de configuración adicionales.
+Retypeset es un tema de blog estático basado en el framework [Astro](https://astro.build/). Esta guía presenta la configuración del tema y cómo crear nuevos artículos, ayudándote a configurar rápidamente tu blog personal.
 
 ## Configuración del Tema
 
-Modifica el archivo de configuración del tema [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) para personalizar tu blog.
+Personaliza tu blog a través del archivo de configuración [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts).
 
 ### Información del Sitio
 
@@ -195,6 +195,88 @@ preload: {
 }
 ```
 
+## Configuración Adicional
+
+Además del archivo de configuración `src/config.ts`, algunas opciones de configuración se encuentran en otros archivos.
+
+### Resaltado de Sintaxis
+
+Temas de resaltado de sintaxis para bloques de código.
+
+```ts
+// astro.config.ts
+
+shikiConfig: {
+  // temas disponibles: https://shiki.style/themes
+  // el color de fondo sigue el tema del blog por defecto, no el tema de resaltado de sintaxis
+  themes: {
+    light: 'github-light' // tema claro
+    dark: 'github-dark' // tema oscuro
+  }
+}
+```
+
+### Extracto de Artículo
+
+Cantidad de caracteres para extractos automáticos de artículos.
+
+```ts
+// src/utils/description.ts
+
+const EXCERPT_LENGTHS: Record<ExcerptScene, {
+  cjk: number // Chino, Japonés, Coreano
+  other: number // Otros idiomas
+}> = {
+  list: { // Lista de artículos en página principal
+    cjk: 120, // Extrae automáticamente los primeros 120 caracteres
+    other: 240, // Extrae automáticamente los primeros 240 caracteres
+  },
+}
+```
+
+### Open Graph
+
+Estilos de imágenes sociales Open Graph.
+
+```ts
+// src/pages/og/[...image].ts
+
+getImageOptions: (_path, page) => ({
+  logo: {
+    path: './public/icon/og-logo.png', // ruta local requerida y formato PNG
+    size: [250], // ancho del logo
+  },
+  font: {
+    title: { // título
+      families: ['Noto Sans SC'], // fuente
+      weight: 'Bold', // peso
+      color: [34, 33, 36], // color
+      lineHeight: 1.5, // altura de línea
+    },
+  },
+  fonts: [ // rutas de fuentes (locales o remotas)
+    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Bold.otf',
+    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Regular.otf',
+  ],
+  bgGradient: [[242, 241, 245]], // color de fondo
+  // más configuraciones: https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas
+})
+```
+
+### Canal RSS
+
+Estilos de página del feed RSS.
+
+```html
+<!-- public/rss/rss-style.xsl -->
+
+<style type="text/css">
+body{color:oklch(25% 0.005 298)} /* color de fuente */
+.bg-white{background-color:oklch(0.96 0.005 298)!important} /* color de fondo */
+.text-gray{color:oklch(0.25 0.005 298 / 75%)!important} /* color de fuente secundario */
+</style>
+```
+
 ## Creación de un Nuevo Artículo
 
 Crea un nuevo archivo con extensión `.md` o `.mdx` en el directorio `src/content/posts/`, y añade los metadatos `Front Matter` en la parte superior del archivo.
@@ -260,7 +342,7 @@ src/content/posts/apple.md   -> example.com/ru/posts/apple/
 
 #### abbrlink
 
-Personaliza la URL del artículo.
+Personaliza la URL del artículo. Solo puede contener letras minúsculas, números y guiones `-`.
 
 ```md
 # src/config.ts
@@ -277,86 +359,4 @@ src/content/posts/2025/03/apple.md   ->  example.com/es/posts/2025/03/apple/
 src/content/posts/apple.md           ->  example.com/es/posts/banana/
 src/content/posts/guide/apple.md     ->  example.com/es/posts/banana/
 src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
-```
-
-## Configuración Adicional
-
-Más allá del archivo de configuración `src/config.ts`, hay algunas opciones de configuración dispersas en otros archivos.
-
-### Resaltado de Sintaxis
-
-Temas de resaltado de sintaxis para bloques de código.
-
-```ts
-// astro.config.ts
-
-shikiConfig: {
-  // temas disponibles: https://shiki.style/themes
-  // el color de fondo sigue el tema del blog por defecto, no el tema de resaltado de sintaxis
-  themes: {
-    light: 'github-light' // tema claro
-    dark: 'github-dark' // tema oscuro
-  }
-}
-```
-
-### Extracto de Artículo
-
-Límite de cantidad de caracteres para extractos automáticos de artículos.
-
-```ts
-// src/utils/description.ts
-
-const EXCERPT_LENGTHS: Record<ExcerptScene, {
-  cjk: number // Chino, Japonés, Coreano
-  other: number // Otros idiomas
-}> = {
-  list: { // Lista de artículos en página principal
-    cjk: 120, // Extrae automáticamente los primeros 120 caracteres
-    other: 240, // Extrae automáticamente los primeros 240 caracteres
-  },
-}
-```
-
-### Open Graph
-
-Estilos de imágenes sociales Open Graph.
-
-```ts
-// src/pages/og/[...image].ts
-
-getImageOptions: (_path, page) => ({
-  logo: {
-    path: './public/icon/og-logo.png', // ruta local requerida y formato PNG
-    size: [250], // ancho del logo
-  },
-  font: {
-    title: { // título
-      families: ['Noto Sans SC'], // fuente
-      weight: 'Bold', // peso
-      color: [34, 33, 36], // color
-      lineHeight: 1.5, // altura de línea
-    },
-  },
-  fonts: [ // rutas de fuentes (locales o remotas)
-    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Bold.otf',
-    'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Regular.otf',
-  ],
-  bgGradient: [[242, 241, 245]], // color de fondo
-  // más configuraciones: https://github.com/delucis/astro-og-canvas/tree/latest/packages/astro-og-canvas
-})
-```
-
-### Canal RSS
-
-Estilos de página del feed RSS.
-
-```html
-<!-- public/rss/rss-style.xsl -->
-
-<style type="text/css">
-body{color:oklch(25% 0.005 298)} /* color de fuente */
-.bg-white{background-color:oklch(0.96 0.005 298)!important} /* color de fondo */
-.text-gray{color:oklch(0.25 0.005 298 / 75%)!important} /* color de fuente secundario */
-</style>
 ```
