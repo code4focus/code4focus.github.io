@@ -10,11 +10,11 @@ lang: zh
 abbrlink: theme-guide
 ---
 
-Retypeset 是一款基于 [Astro](https://astro.build/) 框架的静态博客主题，中文名为重新编排。本文为 Retypeset 主题上手指南，主要介绍主题配置与如何创建新文章，帮助你快速搭建个人博客。
+Retypeset 是一款基于 [Astro](https://astro.build/) 框架的静态博客主题，中文名为重新编排。本文为 Retypeset 主题上手指南，主要介绍主题配置与如何创建新文章，来帮助你快速搭建个人博客。
 
 ## 主题配置
 
-通过配置文件 [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) 自定义你的博客。
+通过修改配置文件 [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) 来自定义你的博客。
 
 ### 站点信息
 

@@ -14,7 +14,7 @@ Retypeset es un tema de blog estático basado en el framework [Astro](https://as
 
 ## Configuración del Tema
 
-Personaliza tu blog a través del archivo de configuración [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts).
+Personaliza tu blog mediante la modificación del archivo de configuración [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts).
 
 ### Información del Sitio
 

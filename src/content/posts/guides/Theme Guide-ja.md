@@ -10,11 +10,11 @@ lang: ja
 abbrlink: theme-guide
 ---
 
-Retypesetは、日本語では「再組版」と呼ばれる、[Astro](https://astro.build/) フレームワークをベースにした静的ブログテーマです。本ガイドではテーマの設定方法と新しい記事の作成方法を紹介し、個人ブログを素早く構築できるようサポートします。
+Retypesetは、日本語では「再組版」と呼ばれる、[Astro](https://astro.build/) フレームワークをベースにした静的ブログテーマです。本ガイドではテーマの設定方法と新しい記事の作成方法を紹介し、個人ブログを素早く構築できるよう支援します。
 
 ## テーマ設定
 
-設定ファイル [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) からあなたのブログをカスタマイズできます。
+設定ファイル [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) を変更してあなたのブログをカスタマイズできます。
 
 ### サイト情報
 
