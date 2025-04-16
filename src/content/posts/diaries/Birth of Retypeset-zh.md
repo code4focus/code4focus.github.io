@@ -14,7 +14,7 @@ Retypeset 是一款基于 Astro 框架的静态博客主题，中文名为重新
 
 去年入坑博客以后，就很喜欢刷别人的博客。一来是可以看看别人的博客主题，二来是能刷到别人分享的故事。
 
-![活版印字主题](https://image.radishzz.cc/birth-of-retypeset/typograph.webp)
+![活版印字](https://image.radishzz.cc/birth-of-retypeset/typograph.webp)
 
 几个月前，我偶然在 V2 刷到 [活版印字](https://astro-theme-typography.vercel.app/) 这个主题，简约的风格直接戳中我的审美。再加上之前的 Hexo 博客性能太差，我一直想换来着，于是就决定迁移博客到这个主题。
 
@@ -27,14 +27,8 @@ Retypeset 是一款基于 Astro 框架的静态博客主题，中文名为重新
 - 桌面端的部分区域无法滚动
 
 ![匀速淡入淡出，略显生硬](https://image.radishzz.cc/birth-of-retypeset/unnatural-animation-rate.gif)
-<figure>
-  <figcaption>匀速淡入淡出，略显生硬</figcaption>
-</figure>
 
-<figure>
-  <img src="https://image.radishzz.cc/birth-of-retypeset/different-margins.webp" alt="移动端左边距为四格，右边距为六格" />
-  <figcaption>移动端的左边距为四格，右边距为六格</figcaption>
-</figure>
+![移动端的左边距为四格，右边距为六格](https://image.radishzz.cc/birth-of-retypeset/different-margins.webp)
 
 不过这些倒是小事。对我来说，最大的问题是主题不支持 i18n 功能。我指的 i18n 不是简单地更换 UI 语言，而是支持多语言路径。
 
@@ -45,20 +39,18 @@ i18n 对我来说是必需的。因为我之前发过一篇英文的 [三星优�
 于是我开始给主题添加 i18n 功能。既然要加，不能只支持中英两种语言，肯定得支持多种语言。根据 Astro 官方指南，我需要给每种语言都新建一个文件夹，这也太麻烦了。
 
 ![Astro 官方的 i18n 指南](https://image.radishzz.cc/birth-of-retypeset/astro-i18n-guide.webp)
-
 接着我找到官方推荐的 i18n 插件，都试了一遍，效果都不理想，而且很麻烦。后来刷到一个推特帖子，我发现这个方案不错，非常地巧妙，而且不需要安装额外的插件。
 
 ![推特 i18n 截图](https://image.radishzz.cc/birth-of-retypeset/twitter-i18n.webp)
-
  于是我按照这个思路，花了一周时间终于是弄出一套方案。本地测试成功，非常开心。虽然我看不懂 Cursor 是怎么实现的，但能跑起来就行了。
 
  结果问题就来了。部署网站到 Netlify 时一直报错，我也看不懂报错信息，给 AI 修也修不好。当时感觉心灰意冷，搞了这么久，还是失败了嘛…
 
  无奈之下，我想到了向作者 Moeyua 发邮件求助。
 
-## 转折
+![求助邮件](https://image.radishzz.cc/birth-of-retypeset/mail-to-moeyua.webp)
 
-![邮件截图](https://image.radishzz.cc/birth-of-retypeset/mail-to-moeyua.webp)
+## 转折
 
 没想到作者很快回复了我，并帮忙提交 PR 修复了报错问题。但是我发现 i18n 的实现方式被改成了 301 重定向，这显然不是我想要的效果。也不好意思再去麻烦人家作者，试着自己改改吧。
 
@@ -68,7 +60,7 @@ i18n 对我来说是必需的。因为我之前发过一篇英文的 [三星优�
 
 三个月过去了，也就有了现在你所看到的样子。
 
-![主题图片](https://image.radishzz.cc/birth-of-retypeset/retypeset-en-desktop.webp)
+![Retypeset](https://image.radishzz.cc/birth-of-retypeset/retypeset-en-desktop.webp)
 
 ## 细节
 
@@ -90,27 +82,15 @@ i18n 对我来说是必需的。因为我之前发过一篇英文的 [三星优�
 
 二是因为视觉风格。你所看到的字体、颜色、排版、图标、动画等，都是我精心推敲之后的结果。由于篇幅限制，不适合在此展开介绍。不过我相信，你应该能感受到主题背后，那一股优雅的气质。下面分享一些设计过程中的草图：
 
-<figure>
-  <img src="https://image.radishzz.cc/birth-of-retypeset/draft-01.webp" alt="草图" />
-  <figcaption>初稿</figcaption>
-</figure>
+![初稿](https://image.radishzz.cc/birth-of-retypeset/draft-01.webp)
 
-<figure>
-  <img src="https://image.radishzz.cc/birth-of-retypeset/draft-04.webp" alt="草图" />
-  <figcaption>尝试在标题上添加一些线条装饰</figcaption>
-</figure>
+![标题的排列组合](https://image.radishzz.cc/birth-of-retypeset/draft-04.webp)
 
-![草图](https://image.radishzz.cc/birth-of-retypeset/draft-02.webp)
+![初始布局](https://image.radishzz.cc/birth-of-retypeset/draft-02.webp)
 
-<figure>
-  <img src="https://image.radishzz.cc/birth-of-retypeset/draft-03.webp" alt="草图" />
-  <figcaption>尝试不同配色，包括渐变</figcaption>
-</figure>
+![尝试不同配色](https://image.radishzz.cc/birth-of-retypeset/draft-03.webp)
 
-<figure>
-  <img src="https://image.radishzz.cc/birth-of-retypeset/draft-05.webp" alt="草图" />
-  <figcaption>主题切换按键，其实是旋转 90 度的字母 O</figcaption>
-</figure>
+![绘制图标](https://image.radishzz.cc/birth-of-retypeset/draft-05.webp)
 
 ### Webkit
 
@@ -120,9 +100,9 @@ iPhone 上总是会出现一些奇怪的 BUG，例如切换页面时背景会闪
 
 以下图片均为慢动作拍摄。
 
-![草图](https://image.radishzz.cc/birth-of-retypeset/bug-01.gif)
+![字体被裁切](https://image.radishzz.cc/birth-of-retypeset/bug-01.gif)
 
-![草图](https://image.radishzz.cc/birth-of-retypeset/bug-02.gif)
+![背景闪烁](https://image.radishzz.cc/birth-of-retypeset/bug-02.gif)
 
 为了解决这些奇怪的问题，我也是花了不少时间，好在最后都完美解决了。如果你在仓库中搜 ios，你可以看到不少注释，那些就是我的解决办法。
 
@@ -154,9 +134,4 @@ iPhone 上总是会出现一些奇怪的 BUG，例如切换页面时背景会闪
 - [Moeyua](https://github.com/moeyua) 原主题作者，提供 PR 与故事的开始
 - [Xat](https://github.com/withxat) 热心老哥，在发帖求助两个月后主动联系我，提供 PR 与意见参考
 
-<figure>
-  <img src="https://image.radishzz.cc/birth-of-retypeset/xat-help.webp" alt="草图" />
-  <figcaption>世上还是好人多啊。<del>也不多，就一个</del></figcaption>
-</figure>
-
-完。
+![世上还是好人多啊](https://image.radishzz.cc/birth-of-retypeset/xat-help.webp)

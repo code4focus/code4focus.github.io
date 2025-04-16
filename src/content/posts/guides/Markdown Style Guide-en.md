@@ -2,7 +2,7 @@
 title: Markdown Style Guide
 published: 2025-03-08
 updated: 2025-03-23
-tags: 
+tags:
   - Guide
 pin: 98
 toc: false
@@ -66,7 +66,7 @@ To add an image, add an exclamation mark `!`, followed by alt text in brackets `
 
 ### Output
 
-![Image Description](/image-placeholder)
+![Image Description](/assets/retypeset-en-desktop.webp)
 
 ## Blockquotes
 

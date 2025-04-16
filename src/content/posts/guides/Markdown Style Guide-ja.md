@@ -66,7 +66,7 @@ abbrlink: markdown-style-guide
 
 ### 効果
 
-![画像の説明](/image-placeholder)
+![画像の説明](/assets/retypeset-en-desktop.webp)
 
 ## 引用ブロック
 

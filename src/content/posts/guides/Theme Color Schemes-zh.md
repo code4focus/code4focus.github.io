@@ -30,7 +30,6 @@ dark: {
 },
 ```
 
-
 ## 鸦青
 
 ![Light mode](../../../assets/2-light.jpeg)

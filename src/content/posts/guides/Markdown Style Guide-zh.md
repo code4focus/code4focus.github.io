@@ -2,7 +2,7 @@
 title: Markdown 样式指南
 published: 2025-03-08
 updated: 2025-03-23
-tags: 
+tags:
   - 指南
 pin: 98
 toc: false
@@ -66,7 +66,7 @@ abbrlink: markdown-style-guide
 
 ### 效果
 
-![图片描述](/image-placeholder)
+![图片描述](/assets/retypeset-en-desktop.webp)
 
 ## 块引用
 

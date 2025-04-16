@@ -66,7 +66,7 @@ abbrlink: markdown-style-guide
 
 ### 效果
 
-![圖片描述](/image-placeholder)
+![圖片描述](/assets/retypeset-en-desktop.webp)
 
 ## 區塊引用
 

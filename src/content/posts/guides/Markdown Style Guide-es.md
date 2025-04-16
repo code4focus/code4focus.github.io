@@ -66,7 +66,7 @@ Para agregar una imagen, añada un signo de exclamación `!`, seguido de texto a
 
 ### Resultado
 
-![Descripción de la Imagen](/image-placeholder)
+![Descripción de la Imagen](/assets/retypeset-en-desktop.webp)
 
 ## Citas en Bloque
 
