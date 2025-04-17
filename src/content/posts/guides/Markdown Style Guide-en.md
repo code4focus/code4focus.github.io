@@ -66,7 +66,7 @@ To add an image, add an exclamation mark `!`, followed by alt text in brackets `
 
 ### Output
 
-![Image Description](/assets/retypeset-en-desktop.webp)
+![Image Description](https://image.radishzz.cc/picsmaller/03.webp)
 
 ## Blockquotes
 
@@ -119,12 +119,14 @@ To add a table, use three or more hyphens `---` to create each column’s header
 | --------- | -------- | ------ |
 | _italics_ | **bold** | `code` |
 | _italics_ | **bold** | `code` |
+| _italics_ | **bold** | `code` |
 ```
 
 ### Output
 
 | Italics   | Bold     | Code   |
 | --------- | -------- | ------ |
+| _italics_ | **bold** | `code` |
 | _italics_ | **bold** | `code` |
 | _italics_ | **bold** | `code` |
 

@@ -66,7 +66,7 @@ Para agregar una imagen, añada un signo de exclamación `!`, seguido de texto a
 
 ### Resultado
 
-![Descripción de la Imagen](/assets/retypeset-en-desktop.webp)
+![Descripción de la Imagen](https://image.radishzz.cc/picsmaller/03.webp)
 
 ## Citas en Bloque
 
@@ -119,12 +119,14 @@ Para agregar una tabla, use tres o más guiones `---` para crear el encabezado d
 | --------- | ----------- | -------- |
 | _cursiva_ | **negrita** | `código` |
 | _cursiva_ | **negrita** | `código` |
+| _cursiva_ | **negrita** | `código` |
 ```
 
 ### Resultado
 
 | Cursiva   | Negrita     | Código   |
 | --------- | ----------- | -------- |
+| _cursiva_ | **negrita** | `código` |
 | _cursiva_ | **negrita** | `código` |
 | _cursiva_ | **negrita** | `código` |
 

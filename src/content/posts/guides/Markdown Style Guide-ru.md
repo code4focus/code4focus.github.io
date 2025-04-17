@@ -66,7 +66,7 @@ Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sap
 
 ### Результат
 
-![Описание изображения](/assets/retypeset-en-desktop.webp)
+![Описание изображения](https://image.radishzz.cc/picsmaller/03.webp)
 
 ## Цитаты
 
@@ -119,12 +119,14 @@ Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sap
 | ---------- | ----------- | ------ |
 | _курсив_   | **жирный**  | `код`  |
 | _курсив_   | **жирный**  | `код`  |
+| _курсив_   | **жирный**  | `код`  |
 ```
 
 ### Результат
 
 | Курсив     | Жирный      | Код    |
 | ---------- | ----------- | ------ |
+| _курсив_   | **жирный**  | `код`  |
 | _курсив_   | **жирный**  | `код`  |
 | _курсив_   | **жирный**  | `код`  |
 

@@ -66,7 +66,7 @@ abbrlink: markdown-style-guide
 
 ### 效果
 
-![图片描述](/assets/retypeset-en-desktop.webp)
+![图片描述](https://image.radishzz.cc/picsmaller/03.webp)
 
 ## 块引用
 
@@ -119,12 +119,14 @@ abbrlink: markdown-style-guide
 | ----- | ------- | ------ |
 | _斜体_ | **粗体** | `代码` |
 | _斜体_ | **粗体** | `代码` |
+| _斜体_ | **粗体** | `代码` |
 ```
 
 ### 效果
 
 | 斜体   | 粗体     | 代码   |
 | ----- | -------- | ----- |
+| _斜体_ | **粗体** | `代码` |
 | _斜体_ | **粗体** | `代码` |
 | _斜体_ | **粗体** | `代码` |
 
