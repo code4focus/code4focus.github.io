@@ -86,6 +86,8 @@ global: {
   // generate multi-language paths such as '/en/' '/es/'
   // not fill in the locale code above again, can be an empty array []
   moreLocales: ['en', 'es', 'ja', 'ru', 'zh-tw'] // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh', 'zh-tw']
+  // prefix default language in urls
+  prefixDefaultLocale: false // true | false
   // font style
   fontStyle: 'sans' // sans | serif
   // date format for posts

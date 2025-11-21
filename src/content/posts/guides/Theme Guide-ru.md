@@ -86,6 +86,8 @@ global: {
   // создает многоязычные пути, такие как '/en/' '/es/'
   // не указывайте код языка, указанный выше, можно оставить пустым массивом []
   moreLocales: ['en', 'es', 'ja', 'ru', 'zh-tw'] // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh', 'zh-tw']
+  // префикс языка по умолчанию в url
+  prefixDefaultLocale: false // true | false
   // стиль шрифта
   fontStyle: 'sans' // sans | serif
   // формат даты для постов

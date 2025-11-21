@@ -45,7 +45,7 @@ site: {
 
 ```ts
 color: {
-  // 默認主題
+  // 預設主題
   mode: 'light' // light | dark | auto
   // 亮色模式
   light: {
@@ -79,13 +79,15 @@ color: {
 
 ```ts
 global: {
-  // 默認語言
+  // 預設語言
   // 站點根路徑 '/' 的語言
   locale: 'zh' // de | en | es | fr | ja | ko | pl | pt | ru | zh | zh-tw
   // 更多語言
   // 生成 '/en/' '/es/' 等多語言路徑
-  // 不要重複填寫默認語言，可以為空 []
+  // 不要重複填寫預設語言，可以為空 []
   moreLocales: ['en', 'es', 'ja', 'ru', 'zh-tw'] // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh', 'zh-tw']
+  // 在 url 中添加預設語言前綴
+  prefixDefaultLocale: false // true | false
   // 字體樣式
   fontStyle: 'sans' // sans | serif
   // 文章日期格式
@@ -234,7 +236,7 @@ preload: {
 
 shikiConfig: {
   // 可選主題：https://shiki.style/themes
-  // 背景色默認跟隨部落格主題，而非語法高亮主題
+  // 背景色預設跟隨部落格主題，而非語法高亮主題
   themes: {
     light: 'github-light' // 亮色主題
     dark: 'github-dark' // 暗色主題

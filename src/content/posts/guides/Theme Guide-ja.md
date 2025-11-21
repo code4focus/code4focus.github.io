@@ -86,6 +86,8 @@ global: {
   // '/en/' '/es/' などの多言語パスを生成
   // デフォルト言語を重複して入力しないでください、空の配列 [] も可能です
   moreLocales: ['en', 'es', 'ja', 'ru', 'zh-tw'] // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh', 'zh-tw']
+  // url にデフォルト言語のプレフィックスを追加
+  prefixDefaultLocale: false // true | false
   // フォントスタイル
   fontStyle: 'sans' // sans | serif
   // 記事の日付フォーマット

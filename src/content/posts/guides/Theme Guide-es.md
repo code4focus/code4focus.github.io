@@ -86,6 +86,8 @@ global: {
   // genera rutas multilingües como '/en/' '/es/'
   // no incluir el código de idioma anterior nuevamente, puede ser un array vacío []
   moreLocales: ['en', 'es', 'ja', 'ru', 'zh-tw'] // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh', 'zh-tw']
+  // prefijo del idioma predeterminado en las urls
+  prefixDefaultLocale: false // true | false
   // estilo de fuente
   fontStyle: 'sans' // sans | serif
   // formato de fecha para publicaciones
