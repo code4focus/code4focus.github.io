@@ -89,7 +89,7 @@ global: {
   // estilo de fuente
   fontStyle: 'sans' // sans | serif
   // formato de fecha para publicaciones
-  // YYYY-MM-DD | MM-DD-YYYY | DD-MM-YYYY | MONTH DAY YYYY | DAY MONTH YYYY
+  // YYYY-MM-DD | MM-DD-YYYY | DD-MM-YYYY | MMM D YYYY | D MMM YYYY
   // 2025-04-13, 04-13-2025, 13-04-2025, Apr 13 2025，13 Apr 2025
   dateFormat: 'YYYY-MM-DD'
   // tabla de contenidos para publicaciones
