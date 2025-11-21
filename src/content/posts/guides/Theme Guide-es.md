@@ -27,7 +27,7 @@ site: {
   // descripción del sitio
   description: 'Retypeset is a static blog theme...'
   // usar título/subtítulo/descripción en varios idiomas desde src/i18n/ui.ts en lugar de los estáticos de arriba
-  i18nTitle: true // true, false
+  i18nTitle: true // true | false
   // nombre del autor
   author: 'radishzz'
   // url del sitio
@@ -46,7 +46,7 @@ site: {
 ```ts
 color: {
   // modo de tema predeterminado
-  mode: 'light' // light, dark, auto
+  mode: 'light' // light | dark | auto
   // modo claro
   light: {
     // color primario
@@ -81,23 +81,23 @@ color: {
 global: {
   // idioma predeterminado
   // idioma de la ruta raíz del sitio '/'
-  locale: 'zh' // de, en, es, fr, ja, ko, pl, pt, ru, zh, zh-tw
+  locale: 'zh' // de | en | es | fr | ja | ko | pl | pt | ru | zh | zh-tw
   // más idiomas
   // genera rutas multilingües como '/en/' '/es/'
   // no incluir el código de idioma anterior nuevamente, puede ser un array vacío []
   moreLocales: ['en', 'es', 'ja', 'ru', 'zh-tw'] // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh', 'zh-tw']
   // estilo de fuente
-  fontStyle: 'sans' // sans, serif
+  fontStyle: 'sans' // sans | serif
   // formato de fecha para publicaciones
-  // YYYY-MM-DD, MM-DD-YYYY, DD-MM-YYYY, MONTH DAY YYYY, DAY MONTH YYYY
+  // YYYY-MM-DD | MM-DD-YYYY | DD-MM-YYYY | MONTH DAY YYYY | DAY MONTH YYYY
   // 2025-04-13, 04-13-2025, 13-04-2025, Apr 13 2025，13 Apr 2025
   dateFormat: 'YYYY-MM-DD'
   // tabla de contenidos para publicaciones
-  toc: true // true, false
+  toc: true // true | false
   // renderizado matemático KaTeX
-  katex: true // true, false
+  katex: true // true | false
   // reducir movimiento
-  reduceMotion: false // true, false
+  reduceMotion: false // true | false
 }
 ```
 
@@ -106,7 +106,7 @@ global: {
 ```ts
 comment: {
   // habilitar sistema de comentarios
-  enabled: true // true, false
+  enabled: true // true | false
   // sistema de comentarios giscus
   giscus: {
     repo: ''
@@ -135,9 +135,9 @@ comment: {
       // más emojis: https://waline.js.org/en/guide/features/emoji.html
     ]
     // búsqueda de gif
-    search: false // true, false
+    search: false // true | false
     // cargador de imágenes
-    imageUploader: false // true, false
+    imageUploader: false // true | false
   }
 }
 ```

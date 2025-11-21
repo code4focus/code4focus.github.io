@@ -27,7 +27,7 @@ site: {
   // サイト説明
   description: 'Retypeset is a static blog theme...'
   // 上記の静的設定の代わりに src/i18n/ui.ts の多言語タイトル/サブタイトル/説明を使用
-  i18nTitle: true // true, false
+  i18nTitle: true // true | false
   // 著者名
   author: 'radishzz'
   // サイト URL
@@ -46,7 +46,7 @@ site: {
 ```ts
 color: {
   // デフォルトテーマモード
-  mode: 'light' // light, dark, auto
+  mode: 'light' // light | dark | auto
   // ライトモード
   light: {
     // プライマリカラー
@@ -81,23 +81,23 @@ color: {
 global: {
   // デフォルト言語
   // サイトのルートパス '/' の言語
-  locale: 'zh' // de, en, es, fr, ja, ko, pl, pt, ru, zh, zh-tw
+  locale: 'zh' // de | en | es | fr | ja | ko | pl | pt | ru | zh | zh-tw
   // その他の言語
   // '/en/' '/es/' などの多言語パスを生成
   // デフォルト言語を重複して入力しないでください、空の配列 [] も可能です
   moreLocales: ['en', 'es', 'ja', 'ru', 'zh-tw'] // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh', 'zh-tw']
   // フォントスタイル
-  fontStyle: 'sans' // sans, serif
+  fontStyle: 'sans' // sans | serif
   // 記事の日付フォーマット
-  // YYYY-MM-DD, MM-DD-YYYY, DD-MM-YYYY, MONTH DAY YYYY, DAY MONTH YYYY
+  // YYYY-MM-DD | MM-DD-YYYY | DD-MM-YYYY | MONTH DAY YYYY | DAY MONTH YYYY
   // 2025-04-13, 04-13-2025, 13-04-2025, Apr 13 2025，13 Apr 2025
   dateFormat: 'YYYY-MM-DD'
   // 記事の目次
-  toc: true // true, false
+  toc: true // true | false
   // KaTeX 数式レンダリング
-  katex: true // true, false
+  katex: true // true | false
   // アニメーション効果を減らす
-  reduceMotion: false // true, false
+  reduceMotion: false // true | false
 }
 ```
 
@@ -106,7 +106,7 @@ global: {
 ```ts
 comment: {
   // コメントシステムを有効にする
-  enabled: true // true, false
+  enabled: true // true | false
   // giscus コメントシステム
   giscus: {
     repo: ''
@@ -135,9 +135,9 @@ comment: {
       // その他の絵文字：https://waline.js.org/en/guide/features/emoji.html
     ]
     // gif 検索
-    search: false // true, false
+    search: false // true | false
     // 画像アップローダー
-    imageUploader: false // true, false
+    imageUploader: false // true | false
   }
 }
 ```

@@ -27,7 +27,7 @@ site: {
   // 站点描述
   description: 'Retypeset is a static blog theme...'
   // 使用 src/i18n/ui.ts 中的多语言标题/副标题/站点描述，代替上方静态配置
-  i18nTitle: true // true, false
+  i18nTitle: true // true | false
   // 作者名称
   author: 'radishzz'
   // 站点地址
@@ -46,7 +46,7 @@ site: {
 ```ts
 color: {
   // 默认主题
-  mode: 'light' // light, dark, auto
+  mode: 'light' // light | dark | auto
   // 亮色模式
   light: {
     // 主要颜色
@@ -81,23 +81,23 @@ color: {
 global: {
   // 默认语言
   // 站点根路径 '/' 的语言
-  locale: 'zh' // de, en, es, fr, ja, ko, pl, pt, ru, zh, zh-tw
+  locale: 'zh' // de | en | es | fr | ja | ko | pl | pt | ru | zh | zh-tw
   // 更多语言
   // 生成 '/en/' '/es/' 等多语言路径
   // 不要重复填写默认语言，可以为空 []
   moreLocales: ['en', 'es', 'ja', 'ru', 'zh-tw'] // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh', 'zh-tw']
   // 字体样式
-  fontStyle: 'sans' // sans, serif
+  fontStyle: 'sans' // sans | serif
   // 文章日期格式
-  // YYYY-MM-DD, MM-DD-YYYY, DD-MM-YYYY, MONTH DAY YYYY, DAY MONTH YYYY
+  // YYYY-MM-DD | MM-DD-YYYY | DD-MM-YYYY | MONTH DAY YYYY | DAY MONTH YYYY
   // 2025-04-13, 04-13-2025, 13-04-2025, Apr 13 2025，13 Apr 2025
   dateFormat: 'YYYY-MM-DD'
   // 文章目录
-  toc: true // true, false
+  toc: true // true | false
   // KaTeX 数学渲染
-  katex: true // true, false
+  katex: true // true | false
   // 减少动画效果
-  reduceMotion: false // true, false
+  reduceMotion: false // true | false
 }
 ```
 
@@ -106,7 +106,7 @@ global: {
 ```ts
 comment: {
   // 开启评论系统
-  enabled: true // true, false
+  enabled: true // true | false
   // giscus 评论系统
   giscus: {
     repo: ''
@@ -135,9 +135,9 @@ comment: {
       // 更多表情：https://waline.js.org/en/guide/features/emoji.html
     ]
     // gif 搜索
-    search: false // true, false
+    search: false // true | false
     // 图片上传
-    imageUploader: false // true, false
+    imageUploader: false // true | false
   }
 }
 ```

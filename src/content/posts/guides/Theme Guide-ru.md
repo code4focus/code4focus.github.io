@@ -27,7 +27,7 @@ site: {
   // описание сайта
   description: 'Retypeset is a static blog theme...'
   // использовать многоязычные заголовок/подзаголовок/описание из src/i18n/ui.ts вместо статических выше
-  i18nTitle: true // true, false
+  i18nTitle: true // true | false
   // имя автора
   author: 'radishzz'
   // адрес сайта
@@ -46,7 +46,7 @@ site: {
 ```ts
 color: {
   // режим темы по умолчанию
-  mode: 'light' // light, dark, auto
+  mode: 'light' // light | dark | auto
   // светлый режим
   light: {
     // основной цвет
@@ -81,23 +81,23 @@ color: {
 global: {
   // язык по умолчанию
   // язык корневого пути сайта '/'
-  locale: 'zh' // de, en, es, fr, ja, ko, pl, pt, ru, zh, zh-tw
+  locale: 'zh' // de | en | es | fr | ja | ko | pl | pt | ru | zh | zh-tw
   // дополнительные языки
   // создает многоязычные пути, такие как '/en/' '/es/'
   // не указывайте код языка, указанный выше, можно оставить пустым массивом []
   moreLocales: ['en', 'es', 'ja', 'ru', 'zh-tw'] // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh', 'zh-tw']
   // стиль шрифта
-  fontStyle: 'sans' // sans, serif
+  fontStyle: 'sans' // sans | serif
   // формат даты для постов
-  // YYYY-MM-DD, MM-DD-YYYY, DD-MM-YYYY, MONTH DAY YYYY, DAY MONTH YYYY
+  // YYYY-MM-DD | MM-DD-YYYY | DD-MM-YYYY | MONTH DAY YYYY | DAY MONTH YYYY
   // 2025-04-13, 04-13-2025, 13-04-2025, Apr 13 2025，13 Apr 2025
   dateFormat: 'YYYY-MM-DD'
   // оглавление для статей
-  toc: true // true, false
+  toc: true // true | false
   // математический рендеринг KaTeX
-  katex: true // true, false
+  katex: true // true | false
   // уменьшить движение
-  reduceMotion: false // true, false
+  reduceMotion: false // true | false
 }
 ```
 
@@ -106,7 +106,7 @@ global: {
 ```ts
 comment: {
   // включить систему комментариев
-  enabled: true // true, false
+  enabled: true // true | false
   // система комментариев giscus
   giscus: {
     repo: ''
@@ -135,9 +135,9 @@ comment: {
       // дополнительные эмодзи: https://waline.js.org/en/guide/features/emoji.html
     ]
     // поиск gif
-    search: false // true, false
+    search: false // true | false
     // загрузчик изображений
-    imageUploader: false // true, false
+    imageUploader: false // true | false
   }
 }
 ```

@@ -27,7 +27,7 @@ site: {
   // site description
   description: 'Retypeset is a static blog theme...'
   // use i18n title/subtitle/description from src/i18n/ui.ts instead of static ones above
-  i18nTitle: true // true, false
+  i18nTitle: true // true | false
   // author name
   author: 'radishzz'
   // site url
@@ -46,7 +46,7 @@ site: {
 ```ts
 color: {
   // default theme mode
-  mode: 'light' // light, dark, auto
+  mode: 'light' // light | dark | auto
   // light mode
   light: {
     // primary color
@@ -81,23 +81,23 @@ color: {
 global: {
   // default language
   // language of the site root path '/'
-  locale: 'zh' // de, en, es, fr, ja, ko, pl, pt, ru, zh, zh-tw
+  locale: 'zh' // de | en | es | fr | ja | ko | pl | pt | ru | zh | zh-tw
   // more languages
   // generate multi-language paths such as '/en/' '/es/'
   // not fill in the locale code above again, can be an empty array []
   moreLocales: ['en', 'es', 'ja', 'ru', 'zh-tw'] // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh', 'zh-tw']
   // font style
-  fontStyle: 'sans' // sans, serif
+  fontStyle: 'sans' // sans | serif
   // date format for posts
-  // YYYY-MM-DD, MM-DD-YYYY, DD-MM-YYYY, MONTH DAY YYYY, DAY MONTH YYYY
+  // YYYY-MM-DD | MM-DD-YYYY | DD-MM-YYYY | MONTH DAY YYYY | DAY MONTH YYYY
   // 2025-04-13, 04-13-2025, 13-04-2025, Apr 13 2025，13 Apr 2025
   dateFormat: 'YYYY-MM-DD'
   // table of contents for posts
-  toc: true // true, false
+  toc: true // true | false
   // KaTeX math rendering
-  katex: true // true, false
+  katex: true // true | false
   // reduce motion
-  reduceMotion: false // true, false
+  reduceMotion: false // true | false
 }
 ```
 
@@ -106,7 +106,7 @@ global: {
 ```ts
 comment: {
   // enable comment system
-  enabled: true // true, false
+  enabled: true // true | false
   // giscus comment system
   giscus: {
     repo: ''
@@ -135,9 +135,9 @@ comment: {
       // more emojis: https://waline.js.org/en/guide/features/emoji.html
     ]
     // gif search
-    search: false // true, false
+    search: false // true | false
     // image uploader
-    imageUploader: false // true, false
+    imageUploader: false // true | false
   }
 }
 ```
