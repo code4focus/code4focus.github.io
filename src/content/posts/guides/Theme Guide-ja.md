@@ -86,17 +86,15 @@ global: {
   // '/en/' '/es/' などの多言語パスを生成
   // デフォルト言語を重複して入力しないでください、空の配列 [] も可能です
   moreLocales: ['en', 'es', 'ja', 'ru', 'zh-tw'] // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh', 'zh-tw']
-  // url にデフォルト言語のプレフィックスを追加
-  prefixDefaultLocale: false // true | false
-  // フォントスタイル
+  // 記事のフォントスタイル
   fontStyle: 'sans' // sans | serif
   // 記事の日付フォーマット
   // YYYY-MM-DD | MM-DD-YYYY | DD-MM-YYYY | MMM D YYYY | D MMM YYYY
   // 2025-04-13, 04-13-2025, 13-04-2025, Apr 13 2025，13 Apr 2025
   dateFormat: 'YYYY-MM-DD'
-  // 記事の目次
+  // 記事の目次を有効にする
   toc: true // true | false
-  // KaTeX 数式レンダリング
+  // katex 数式レンダリングを有効にする
   katex: true // true | false
   // アニメーション効果を減らす
   reduceMotion: false // true | false
@@ -173,7 +171,7 @@ seo: {
     userID: ''
   }
   // APIFlash アクセスキー
-  // OpenGraph 用のウェブサイトスクリーンショットを自動生成
+  // OpenGraph 用のウェブサイトスクリーンショットを生成
   // アクセスキーの取得：https://apiflash.com/
   apiflashKey: ''
 }
@@ -212,7 +210,7 @@ footer: {
 ```ts
 preload: {
   // 画像ホスティング URL
-  // Markdown ファイル内のリモート画像を最適化してレイアウトシフトを防止
+  // リモート画像を最適化し、低品質のプレースホルダーを生成
   imageHostURL: 'image.radishzz.cc'
   // カスタム Google Analytics JS
   // アナリティクス JavaScript をカスタムドメインにルーティングするユーザー向け

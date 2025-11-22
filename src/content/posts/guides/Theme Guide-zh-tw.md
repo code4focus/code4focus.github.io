@@ -86,17 +86,15 @@ global: {
   // 生成 '/en/' '/es/' 等多語言路徑
   // 不要重複填寫預設語言，可以為空 []
   moreLocales: ['en', 'es', 'ja', 'ru', 'zh-tw'] // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh', 'zh-tw']
-  // 在 url 中添加預設語言前綴
-  prefixDefaultLocale: false // true | false
-  // 字體樣式
+  // 文章字體樣式
   fontStyle: 'sans' // sans | serif
   // 文章日期格式
   // YYYY-MM-DD | MM-DD-YYYY | DD-MM-YYYY | MMM D YYYY | D MMM YYYY
   // 2025-04-13, 04-13-2025, 13-04-2025, Apr 13 2025，13 Apr 2025
   dateFormat: 'YYYY-MM-DD'
-  // 文章目錄
+  // 啟用文章目錄
   toc: true // true | false
-  // KaTeX 數學渲染
+  // 啟用 katex 數學渲染
   katex: true // true | false
   // 減少動畫效果
   reduceMotion: false // true | false
@@ -107,7 +105,7 @@ global: {
 
 ```ts
 comment: {
-  // 開啟評論系統
+  // 啟用評論系統
   enabled: true // true | false
   // giscus 評論系統
   giscus: {
@@ -172,8 +170,8 @@ seo: {
     // 用戶 ID
     userID: ''
   }
-  // apiflash access key 訪問密鑰
-  // 自動生成網站截圖用於 open graph
+  // apiflash 訪問密鑰
+  // 生成網站截圖用於 open graph
   // 獲取訪問密鑰：https://apiflash.com/
   apiflashKey: ''
 }
@@ -212,7 +210,7 @@ footer: {
 ```ts
 preload: {
   // 圖床地址
-  // 優化 Markdown 文件中的遠程圖片以避免佈局抖動
+  // 優化遠程圖片並生成低質量占位圖
   imageHostURL: 'image.radishzz.cc'
   // 定制 google analytics js
   // 適用於路由 google analytics js 到自定義域名的用戶

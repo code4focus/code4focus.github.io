@@ -86,17 +86,15 @@ global: {
   // 生成 '/en/' '/es/' 等多语言路径
   // 不要重复填写默认语言，可以为空 []
   moreLocales: ['en', 'es', 'ja', 'ru', 'zh-tw'] // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh', 'zh-tw']
-  // 在 url 中添加默认语言前缀
-  prefixDefaultLocale: false // true | false
   // 字体样式
   fontStyle: 'sans' // sans | serif
   // 文章日期格式
   // YYYY-MM-DD | MM-DD-YYYY | DD-MM-YYYY | MMM D YYYY | D MMM YYYY
   // 2025-04-13, 04-13-2025, 13-04-2025, Apr 13 2025，13 Apr 2025
   dateFormat: 'YYYY-MM-DD'
-  // 文章目录
+  // 开启文章目录
   toc: true // true | false
-  // KaTeX 数学渲染
+  // 开启 KaTeX 数学渲染
   katex: true // true | false
   // 减少动画效果
   reduceMotion: false // true | false
@@ -172,8 +170,8 @@ seo: {
     // 用户 ID
     userID: ''
   }
-  // apiflash access key 访问密钥
-  // 自动生成网站截图用于 open graph
+  // apiflash 访问密钥
+  // 生成网站截图用于 open graph
   // 获取访问密钥：https://apiflash.com/
   apiflashKey: ''
 }
@@ -212,7 +210,7 @@ footer: {
 ```ts
 preload: {
   // 图床地址
-  // 优化 Markdown 文件中的远程图片以避免布局抖动
+  // 优化远程图片并生成低质量占位符
   imageHostURL: 'image.radishzz.cc'
   // 定制 google analytics js
   // 适用于路由 google analytics js 到自定义域名的用户

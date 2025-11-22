@@ -86,17 +86,15 @@ global: {
   // genera rutas multilingües como '/en/' '/es/'
   // no incluir el código de idioma anterior nuevamente, puede ser un array vacío []
   moreLocales: ['en', 'es', 'ja', 'ru', 'zh-tw'] // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh', 'zh-tw']
-  // prefijo del idioma predeterminado en las urls
-  prefixDefaultLocale: false // true | false
-  // estilo de fuente
+  // estilo de fuente de la publicación
   fontStyle: 'sans' // sans | serif
-  // formato de fecha para publicaciones
+  // formato de fecha de la publicación
   // YYYY-MM-DD | MM-DD-YYYY | DD-MM-YYYY | MMM D YYYY | D MMM YYYY
   // 2025-04-13, 04-13-2025, 13-04-2025, Apr 13 2025，13 Apr 2025
   dateFormat: 'YYYY-MM-DD'
-  // tabla de contenidos para publicaciones
+  // activar tabla de contenidos
   toc: true // true | false
-  // renderizado matemático KaTeX
+  // activar renderizado matemático katex
   katex: true // true | false
   // reducir movimiento
   reduceMotion: false // true | false
@@ -173,7 +171,7 @@ seo: {
     userID: ''
   }
   // clave de acceso apiflash
-  // genera automáticamente capturas de pantalla del sitio web para imágenes de open graph
+  // generar capturas de pantalla del sitio web para imágenes de open graph
   // obtén tu clave de acceso en: https://apiflash.com/
   apiflashKey: ''
 }
@@ -212,7 +210,7 @@ footer: {
 ```ts
 preload: {
   // URL de alojamiento de imágenes
-  // optimizar imágenes remotas en archivos Markdown para evitar cambios de diseño acumulativos
+  // optimizar imágenes remotas y generar marcadores de posición de baja calidad
   imageHostURL: 'image.radishzz.cc'
   // js personalizado de google analytics
   // para usuarios que redirigen javascript de analytics a un dominio personalizado
