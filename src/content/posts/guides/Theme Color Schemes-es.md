@@ -10,7 +10,7 @@ abbrlink: theme-color-schemes
 
 Retypeset define los esquemas de color del tema basados en el espacio de color [OKLCH](https://oklch.com/), con un esquema predeterminado de colores negro, blanco y gris que simula un estilo de impresión.
 
-Para satisfacer las necesidades de personalización, he creado varios esquemas de colores para el tema. Puedes reemplazar el esquema de colores predeterminado en [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) y **reiniciar el servidor de desarrollo** para previsualizar el nuevo esquema de colores.
+Para satisfacer las necesidades de personalización, he creado varios esquemas de colores para el tema. Puedes reemplazar el esquema de colores predeterminado en [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) y reiniciar el servidor de desarrollo para previsualizar el nuevo esquema de colores.
 
 ## Blanco Cebollino
 
