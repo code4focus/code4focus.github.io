@@ -162,7 +162,7 @@ seo: {
   // Google Analytics
   googleAnalyticsID: ''
   // Umami Analytics
-  umamiAnalyticsID: '520af332-bfb7-4e7c-9386-5f273ee3d697'
+  umamiAnalyticsID: 'dab0e4b9-9cbf-43c3-af60-b09d3b545c38'
   // フォロー認証
   follow: {
     // フィード ID
@@ -212,12 +212,12 @@ preload: {
   // 画像ホスティング URL
   // リモート画像を最適化し、低品質のプレースホルダーを生成
   imageHostURL: 'image.radishzz.cc'
-  // カスタム Google Analytics JS
-  // アナリティクス JavaScript をカスタムドメインにルーティングするユーザー向け
+  // カスタム Google Analytics トラッキングスクリプト
+  // トラッキングスクリプトをカスタムドメインにプロキシするユーザー向け
   customGoogleAnalyticsJS: ''
-  // カスタム Umami Analytics JS
-  // Umami を自己デプロイしたり、アナリティクス JavaScript をカスタムドメインにルーティングするユーザー向け
-  customUmamiAnalyticsJS: 'https://js.radishzz.cc/jquery.min.js'
+  // カスタム Umami トラッキングスクリプト
+  // Umami を自己デプロイするか、トラッキングスクリプトをカスタムドメインにプロキシするユーザー向け
+  customUmamiAnalyticsJS: 'https://views.radishzz.cc/script.js'
 }
 ```
 

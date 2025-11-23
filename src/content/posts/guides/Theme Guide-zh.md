@@ -162,7 +162,7 @@ seo: {
   // google 网站分析
   googleAnalyticsID: ''
   // umami 网站分析
-  umamiAnalyticsID: '520af332-bfb7-4e7c-9386-5f273ee3d697'
+  umamiAnalyticsID: 'dab0e4b9-9cbf-43c3-af60-b09d3b545c38'
   // follow 验证
   follow: {
     // 订阅 ID
@@ -212,12 +212,12 @@ preload: {
   // 图床地址
   // 优化远程图片并生成低质量占位符
   imageHostURL: 'image.radishzz.cc'
-  // 定制 google analytics js
-  // 适用于路由 google analytics js 到自定义域名的用户
+  // 定制 google analytics 跟踪脚本
+  // 适用于代理跟踪脚本到自定义域名的用户
   customGoogleAnalyticsJS: ''
-  // 定制 umami analytics js
-  // 适用于自部署 umami，或路由 umami analytics js 到自定义域名的用户
-  customUmamiAnalyticsJS: 'https://js.radishzz.cc/jquery.min.js'
+  // 定制 umami 跟踪脚本
+  // 适用于自部署 umami 或代理跟踪脚本到自定义域名的用户
+  customUmamiAnalyticsJS: 'https://views.radishzz.cc/script.js'
 }
 ```
 

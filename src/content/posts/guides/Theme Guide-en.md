@@ -162,7 +162,7 @@ seo: {
   // google analytics
   googleAnalyticsID: ''
   // umami analytics
-  umamiAnalyticsID: '520af332-bfb7-4e7c-9386-5f273ee3d697'
+  umamiAnalyticsID: 'dab0e4b9-9cbf-43c3-af60-b09d3b545c38'
   // follow verification
   follow: {
     // feed ID
@@ -213,11 +213,11 @@ preload: {
   // optimize remote images and generate low-quality placeholders
   imageHostURL: 'image.radishzz.cc'
   // custom google analytics js
-  // for users who route analytics javascript to a customized domain
+  // for users who proxy tracking scripts to a custom domain
   customGoogleAnalyticsJS: ''
   // custom umami analytics js
-  // for users who deploy umami on their own, or route analytics javascript to a customized domain
-  customUmamiAnalyticsJS: 'https://js.radishzz.cc/jquery.min.js'
+  // for users who self-deploy umami or proxy tracking scripts to a custom domain
+  customUmamiAnalyticsJS: 'https://views.radishzz.cc/script.js'
 }
 ```
 

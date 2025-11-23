@@ -162,7 +162,7 @@ seo: {
   // Google Analytics
   googleAnalyticsID: ''
   // Umami Analytics
-  umamiAnalyticsID: '520af332-bfb7-4e7c-9386-5f273ee3d697'
+  umamiAnalyticsID: 'dab0e4b9-9cbf-43c3-af60-b09d3b545c38'
   // верификация подписки
   follow: {
     // ID ленты
@@ -213,11 +213,11 @@ preload: {
   // оптимизировать удаленные изображения и создавать заполнители низкого качества
   imageHostURL: 'image.radishzz.cc'
   // пользовательский скрипт Google Analytics
-  // для пользователей, которые направляют JavaScript аналитики на собственный домен
+  // для пользователей, которые проксируют скрипты отслеживания через собственный домен
   customGoogleAnalyticsJS: ''
   // пользовательский скрипт Umami Analytics
-  // для пользователей, которые развертывают Umami самостоятельно или направляют JavaScript аналитики на собственный домен
-  customUmamiAnalyticsJS: 'https://js.radishzz.cc/jquery.min.js'
+  // для пользователей, которые самостоятельно разворачивают Umami или проксируют скрипты отслеживания через собственный домен
+  customUmamiAnalyticsJS: 'https://views.radishzz.cc/script.js'
 }
 ```
 
