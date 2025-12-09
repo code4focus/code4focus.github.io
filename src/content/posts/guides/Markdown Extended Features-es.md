@@ -158,7 +158,7 @@ Para incrustar videos, utilice la directiva hoja `::youtube{id="videoId"}`.
 
 ## Tweets
 
-Para incrustar tarjetas de tweets, utilice la directiva hoja `::tweet{url="tweetUrl"}`.
+Para incrustar tweets, utilice la directiva hoja `::tweet{url="tweetUrl"}`.
 
 ### Sintaxis
 
@@ -169,6 +169,20 @@ Para incrustar tarjetas de tweets, utilice la directiva hoja `::tweet{url="tweet
 ### Resultado
 
 ::tweet{url="https://x.com/hachi_08/status/1906456524337123549"}
+
+## CodePen
+
+Para incrustar demostraciones de CodePen, utilice la directiva hoja `::codepen{url="codepenUrl"}`.
+
+### Sintaxis
+
+```
+::codepen{url="https://codepen.io/jh3y/pen/NWdNMBJ"}
+```
+
+### Resultado
+
+::codepen{url="https://codepen.io/jh3y/pen/NWdNMBJ"}
 
 ## Diagramas Mermaid
 

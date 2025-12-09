@@ -158,7 +158,7 @@ To embed videos, use the leaf directive `::youtube{id="videoId"}`.
 
 ## Tweets
 
-To embed tweet cards, use the leaf directive `::tweet{url="tweetUrl"}`.
+To embed tweets, use the leaf directive `::tweet{url="tweetUrl"}`.
 
 ### Syntax
 
@@ -169,6 +169,20 @@ To embed tweet cards, use the leaf directive `::tweet{url="tweetUrl"}`.
 ### Output
 
 ::tweet{url="https://x.com/hachi_08/status/1906456524337123549"}
+
+## CodePen
+
+To embed CodePen demos, use the leaf directive `::codepen{url="codepenUrl"}`.
+
+### Syntax
+
+```
+::codepen{url="https://codepen.io/jh3y/pen/NWdNMBJ"}
+```
+
+### Output
+
+::codepen{url="https://codepen.io/jh3y/pen/NWdNMBJ"}
 
 ## Mermaid Diagrams
 

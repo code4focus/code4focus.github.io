@@ -158,7 +158,7 @@ abbrlink: markdown-extended-features
 
 ## Твиты
 
-Для встраивания карточек твитов используйте листовую директиву `::tweet{url="tweetUrl"}`.
+Для встраивания твитов используйте листовую директиву `::tweet{url="tweetUrl"}`.
 
 ### Синтаксис
 
@@ -169,6 +169,20 @@ abbrlink: markdown-extended-features
 ### Результат
 
 ::tweet{url="https://x.com/hachi_08/status/1906456524337123549"}
+
+## CodePen
+
+Для встраивания демо CodePen используйте листовую директиву `::codepen{url="codepenUrl"}`.
+
+### Синтаксис
+
+```
+::codepen{url="https://codepen.io/jh3y/pen/NWdNMBJ"}
+```
+
+### Результат
+
+::codepen{url="https://codepen.io/jh3y/pen/NWdNMBJ"}
 
 ## Диаграммы Mermaid
 

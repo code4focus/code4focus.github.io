@@ -158,7 +158,7 @@ abbrlink: markdown-extended-features
 
 ## X 推文
 
-使用雙冒號語法 `::tweet{url="tweetUrl"}`，即可嵌入 X 推文卡片。
+使用雙冒號語法 `::tweet{url="tweetUrl"}`，即可嵌入 X 推文。
 
 ### 語法
 
@@ -169,6 +169,20 @@ abbrlink: markdown-extended-features
 ### 效果
 
 ::tweet{url="https://x.com/hachi_08/status/1906456524337123549"}
+
+## CodePen
+
+使用雙冒號語法 `::codepen{url="codepenUrl"}`，即可嵌入 CodePen 範例。
+
+### 語法
+
+```
+::codepen{url="https://codepen.io/jh3y/pen/NWdNMBJ"}
+```
+
+### 效果
+
+::codepen{url="https://codepen.io/jh3y/pen/NWdNMBJ"}
 
 ## Mermaid 圖表
 
