@@ -30,7 +30,7 @@ abbrlink: markdown-extended-features
 
 ## 提示块
 
-使用 GitHub 语法 `> [!TYPE]` 或三冒号语法 `:::type`，即可创建提示块。支持 `note`、`tip`、`important`、`warning` 和 `caution` 五种类型。
+使用 GitHub 语法 `> [!TYPE]` 或三冒号语法 `:::type`，即可创建提示块。支持 `note`、`tip`、`important`、`warning`、`caution` 五种类型。
 
 ### 语法
 
@@ -80,23 +80,49 @@ abbrlink: markdown-extended-features
 这是一个自定义标题的提示块。
 :::
 
-## 折叠部分
+## 折叠块
 
-使用三冒号语法 `:::fold[title]`，即可创建折叠部分。点击标题可以展开或收起。
+使用三冒号语法 `:::fold[title]`，即可创建折叠块。点击标题可以展开或收起。
 
 ### 语法
 
 ```
 :::fold[使用提示]
-如果需要添加并非所有读者都会感兴趣的内容，可以将其放在折叠部分。
+如果需要添加并非所有读者都会感兴趣的内容，可以将其放在折叠块中。
 :::
 ```
 
 ### 效果
 
 :::fold[使用提示]
-如果需要添加并非所有读者都会感兴趣的内容，可以将其放在折叠部分。
+如果需要添加并非所有读者都会感兴趣的内容，可以将其放在折叠块中。
 :::
+
+## Mermaid 图表
+
+使用代码块包裹 Mermaid 语法，并标注语言类型 `mermaid`，即可创建 Mermaid 图表。
+
+### 语法
+
+``````
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+``````
+
+### 效果
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
 
 ## 画廊
 
@@ -126,7 +152,7 @@ abbrlink: markdown-extended-features
 
 ## GitHub 仓库
 
-使用双冒号语法 `::github{repo="owner/repo"}`，即可创建 GitHub 仓库卡片。在页面加载时，从 GitHub API 实时获取仓库数据。
+使用双冒号语法 `::github{repo="owner/repo"}`，即可嵌入 GitHub 仓库。
 
 ### 语法
 
@@ -140,7 +166,7 @@ abbrlink: markdown-extended-features
 
 ## 视频
 
-使用双冒号语法 `::youtube{id="videoId"}`，即可嵌入视频。
+使用双冒号语法 `::youtube{id="video-id"}`，即可嵌入视频。
 
 ### 语法
 
@@ -156,9 +182,27 @@ abbrlink: markdown-extended-features
 
 ::bilibili{id="BV1sK4y1Z7KG"}
 
+## Spotify
+
+使用双冒号语法 `::spotify{url="spotify-url"}`，即可嵌入 Spotify 内容。
+
+### 语法
+
+```
+::spotify{url="https://open.spotify.com/track/0HYAsQwJIO6FLqpyTeD3l6"}
+
+::spotify{url="https://open.spotify.com/album/03QiFOKDh6xMiSTkOnsmMG"}
+```
+
+### 效果
+
+::spotify{url="https://open.spotify.com/track/0HYAsQwJIO6FLqpyTeD3l6"}
+
+::spotify{url="https://open.spotify.com/album/03QiFOKDh6xMiSTkOnsmMG"}
+
 ## X 推文
 
-使用双冒号语法 `::tweet{url="tweetUrl"}`，即可嵌入 X 推文。
+使用双冒号语法 `::tweet{url="tweet-url"}`，即可嵌入 X 推文。
 
 ### 语法
 
@@ -172,7 +216,7 @@ abbrlink: markdown-extended-features
 
 ## CodePen
 
-使用双冒号语法 `::codepen{url="codepenUrl"}`，即可嵌入 CodePen 演示。
+使用双冒号语法 `::codepen{url="codepen-url"}`，即可嵌入 CodePen 演示。
 
 ### 语法
 
@@ -183,29 +227,3 @@ abbrlink: markdown-extended-features
 ### 效果
 
 ::codepen{url="https://codepen.io/jh3y/pen/NWdNMBJ"}
-
-## Mermaid 图表
-
-使用代码块包裹 Mermaid 语法，并标注语言类型 `mermaid`，即可创建 Mermaid 图表。
-
-### 语法
-
-``````
-```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
-```
-``````
-
-### 效果
-
-```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
-```

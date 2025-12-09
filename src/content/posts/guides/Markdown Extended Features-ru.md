@@ -98,6 +98,32 @@ abbrlink: markdown-extended-features
 Контент, который может не заинтересовать всех читателей, можно поместить в сворачиваемый раздел.
 :::
 
+## Диаграммы Mermaid
+
+Для создания диаграмм Mermaid оберните синтаксис Mermaid в блоки кода и укажите тип языка как `mermaid`.
+
+### Синтаксис
+
+``````
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+``````
+
+### Результат
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+
 ## Галереи
 
 Для создания галерей изображений используйте контейнерную директиву `:::gallery`. Прокручивайте горизонтально, чтобы просмотреть больше изображений.
@@ -126,7 +152,7 @@ abbrlink: markdown-extended-features
 
 ## Репозитории GitHub
 
-Для создания карточки репозитория GitHub используйте листовую директиву `::github{repo="owner/repo"}`. Данные репозитория в режиме реального времени загружаются из API GitHub при загрузке страницы.
+Для встраивания репозиториев GitHub используйте листовую директиву `::github{repo="owner/repo"}`.
 
 ### Синтаксис
 
@@ -140,7 +166,7 @@ abbrlink: markdown-extended-features
 
 ## Видео
 
-Для встраивания видео используйте листовую директиву `::youtube{id="videoId"}`.
+Для встраивания видео используйте листовую директиву `::youtube{id="video-id"}`.
 
 ### Синтаксис
 
@@ -156,9 +182,27 @@ abbrlink: markdown-extended-features
 
 ::bilibili{id="BV1sK4y1Z7KG"}
 
+## Spotify
+
+Для встраивания контента Spotify используйте листовую директиву `::spotify{url="spotify-url"}`.
+
+### Синтаксис
+
+```
+::spotify{url="https://open.spotify.com/track/0HYAsQwJIO6FLqpyTeD3l6"}
+
+::spotify{url="https://open.spotify.com/album/03QiFOKDh6xMiSTkOnsmMG"}
+```
+
+### Результат
+
+::spotify{url="https://open.spotify.com/track/0HYAsQwJIO6FLqpyTeD3l6"}
+
+::spotify{url="https://open.spotify.com/album/03QiFOKDh6xMiSTkOnsmMG"}
+
 ## Твиты
 
-Для встраивания твитов используйте листовую директиву `::tweet{url="tweetUrl"}`.
+Для встраивания твитов используйте листовую директиву `::tweet{url="tweet-url"}`.
 
 ### Синтаксис
 
@@ -172,7 +216,7 @@ abbrlink: markdown-extended-features
 
 ## CodePen
 
-Для встраивания демо CodePen используйте листовую директиву `::codepen{url="codepenUrl"}`.
+Для встраивания демо CodePen используйте листовую директиву `::codepen{url="codepen-url"}`.
 
 ### Синтаксис
 
@@ -183,29 +227,3 @@ abbrlink: markdown-extended-features
 ### Результат
 
 ::codepen{url="https://codepen.io/jh3y/pen/NWdNMBJ"}
-
-## Диаграммы Mermaid
-
-Для создания диаграмм Mermaid оберните синтаксис Mermaid в блоки кода и укажите тип языка как `mermaid`.
-
-### Синтаксис
-
-``````
-```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
-```
-``````
-
-### Результат
-
-```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
-```

@@ -98,6 +98,32 @@ El contenido que pueda no interesar a todos los lectores puede colocarse en una 
 El contenido que pueda no interesar a todos los lectores puede colocarse en una sección plegable.
 :::
 
+## Diagramas Mermaid
+
+Para crear diagramas Mermaid, envuelva la sintaxis de Mermaid en bloques de código y especifique el tipo de lenguaje como `mermaid`.
+
+### Sintaxis
+
+``````
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+``````
+
+### Resultado
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+
 ## Galerías
 
 Para crear galerías de imágenes, utilice la directiva contenedor `:::gallery`. Desplácese horizontalmente para ver más imágenes.
@@ -126,7 +152,7 @@ Para crear galerías de imágenes, utilice la directiva contenedor `:::gallery`.
 
 ## Repositorios de GitHub
 
-Para crear una tarjeta de repositorio de GitHub, utilice la directiva hoja `::github{repo="owner/repo"}`. Los datos del repositorio se obtienen en tiempo real de la API de GitHub cuando la página se carga.
+Para incrustar repositorios de GitHub, utilice la directiva hoja `::github{repo="owner/repo"}`.
 
 ### Sintaxis
 
@@ -140,7 +166,7 @@ Para crear una tarjeta de repositorio de GitHub, utilice la directiva hoja `::gi
 
 ## Videos
 
-Para incrustar videos, utilice la directiva hoja `::youtube{id="videoId"}`.
+Para incrustar videos, utilice la directiva hoja `::youtube{id="video-id"}`.
 
 ### Sintaxis
 
@@ -156,9 +182,27 @@ Para incrustar videos, utilice la directiva hoja `::youtube{id="videoId"}`.
 
 ::bilibili{id="BV1sK4y1Z7KG"}
 
+## Spotify
+
+Para incrustar contenido de Spotify, utilice la directiva hoja `::spotify{url="spotify-url"}`.
+
+### Sintaxis
+
+```
+::spotify{url="https://open.spotify.com/track/0HYAsQwJIO6FLqpyTeD3l6"}
+
+::spotify{url="https://open.spotify.com/album/03QiFOKDh6xMiSTkOnsmMG"}
+```
+
+### Resultado
+
+::spotify{url="https://open.spotify.com/track/0HYAsQwJIO6FLqpyTeD3l6"}
+
+::spotify{url="https://open.spotify.com/album/03QiFOKDh6xMiSTkOnsmMG"}
+
 ## Tweets
 
-Para incrustar tweets, utilice la directiva hoja `::tweet{url="tweetUrl"}`.
+Para incrustar tweets, utilice la directiva hoja `::tweet{url="tweet-url"}`.
 
 ### Sintaxis
 
@@ -172,7 +216,7 @@ Para incrustar tweets, utilice la directiva hoja `::tweet{url="tweetUrl"}`.
 
 ## CodePen
 
-Para incrustar demostraciones de CodePen, utilice la directiva hoja `::codepen{url="codepenUrl"}`.
+Para incrustar demostraciones de CodePen, utilice la directiva hoja `::codepen{url="codepen-url"}`.
 
 ### Sintaxis
 
@@ -183,29 +227,3 @@ Para incrustar demostraciones de CodePen, utilice la directiva hoja `::codepen{u
 ### Resultado
 
 ::codepen{url="https://codepen.io/jh3y/pen/NWdNMBJ"}
-
-## Diagramas Mermaid
-
-Para crear diagramas Mermaid, envuelve la sintaxis de Mermaid en bloques de código y especifica el tipo de lenguaje como `mermaid`.
-
-### Sintaxis
-
-``````
-```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
-```
-``````
-
-### Resultado
-
-```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
-```
