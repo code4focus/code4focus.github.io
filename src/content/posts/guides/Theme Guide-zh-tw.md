@@ -163,8 +163,8 @@ seo: {
   googleAnalyticsID: ''
   // umami 網站分析
   umamiAnalyticsID: 'dab0e4b9-9cbf-43c3-af60-b09d3b545c38'
-  // follow 驗證
-  follow: {
+  // folo 驗證
+  folo: {
     // 訂閱 ID
     feedID: ''
     // 用戶 ID

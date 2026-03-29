@@ -163,8 +163,8 @@ seo: {
   googleAnalyticsID: ''
   // Umami Analytics
   umamiAnalyticsID: 'dab0e4b9-9cbf-43c3-af60-b09d3b545c38'
-  // フォロー認証
-  follow: {
+  // folo 認証
+  folo: {
     // フィード ID
     feedID: ''
     // ユーザーID

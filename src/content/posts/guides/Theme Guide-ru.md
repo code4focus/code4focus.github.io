@@ -163,8 +163,8 @@ seo: {
   googleAnalyticsID: ''
   // Umami Analytics
   umamiAnalyticsID: 'dab0e4b9-9cbf-43c3-af60-b09d3b545c38'
-  // верификация подписки
-  follow: {
+  // верификация folo
+  folo: {
     // ID ленты
     feedID: ''
     // ID пользователя
