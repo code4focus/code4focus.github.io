@@ -1,0 +1,30 @@
+[
+  {
+    "title": "process: example analysis task",
+    "type": "Analysis",
+    "objective": "Clarify the analysis output needed before implementation.",
+    "scopeIn": "Document the current workflow and constraints.",
+    "scopeOut": "Code changes.",
+    "acceptance": [
+      "The current workflow is summarized.",
+      "Open questions are identified."
+    ],
+    "validation": [
+      "Review the resulting issue body before submission."
+    ]
+  },
+  {
+    "title": "process: example implementation task",
+    "type": "Implementation",
+    "objective": "Implement the scoped workflow change.",
+    "scopeIn": "Repository files required for the change.",
+    "scopeOut": "Unrelated workflow automation.",
+    "dependencies": "Depends on the analysis task.",
+    "acceptance": [
+      "The implementation is scoped and reviewable."
+    ],
+    "validation": [
+      "Run the relevant local checks."
+    ]
+  }
+]
