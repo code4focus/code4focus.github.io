@@ -21,6 +21,8 @@ These instructions apply to the entire repository.
 - Do not use a standalone repository document as the primary record for a new RFC, process change, or bug report when the issue is intended to be the source of truth.
 - Use `$issue-rfc-draft` for new features, process changes, design changes, and other parent issues that define non-trivial work before implementation.
 - Use `$bug-report-draft` for parent bug issues covering defects, regressions, build failures, rendering problems, or compatibility issues.
+- Use `$implementation-strategy` before editing when an issue affects shared abstractions, pipelines, content models, repository structure, or requires phased execution planning.
+- Use `$code-change-verification` after code, configuration, build, or behavior changes before handoff.
 - Use the parent-issue templates for feature, process, design, and bug records.
 - Use the sub-issue template for concrete execution tasks under a parent issue.
 
