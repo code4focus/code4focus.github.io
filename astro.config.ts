@@ -11,10 +11,12 @@ import remarkMath from 'remark-math'
 import UnoCSS from 'unocss/astro'
 import { base, defaultLocale, themeConfig } from './src/config'
 import { langMap } from './src/i18n/config'
+import { rehypeCitation } from './src/plugins/rehype-citation.mjs'
 import { rehypeCodeCopyButton } from './src/plugins/rehype-code-copy-button.mjs'
 import { rehypeExternalLinks } from './src/plugins/rehype-external-links.mjs'
 import { rehypeHeadingAnchor } from './src/plugins/rehype-heading-anchor.mjs'
 import { rehypeImageProcessor } from './src/plugins/rehype-image-processor.mjs'
+import { remarkCitation } from './src/plugins/remark-citation.mjs'
 import { remarkContainerDirectives } from './src/plugins/remark-container-directives.mjs'
 import { remarkLeafDirectives } from './src/plugins/remark-leaf-directives.mjs'
 import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs'
@@ -64,6 +66,7 @@ export default defineConfig({
     remarkPlugins: [
       remarkDirective,
       remarkMath,
+      remarkCitation,
       remarkContainerDirectives,
       remarkLeafDirectives,
       remarkReadingTime,
@@ -73,6 +76,7 @@ export default defineConfig({
       [rehypeMermaid, { strategy: 'pre-mermaid' }],
       rehypeSlug,
       rehypeHeadingAnchor,
+      rehypeCitation,
       rehypeImageProcessor,
       rehypeExternalLinks,
       rehypeCodeCopyButton,

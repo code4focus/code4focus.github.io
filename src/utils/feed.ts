@@ -10,7 +10,7 @@ import sanitizeHtml from 'sanitize-html'
 import { base, defaultLocale, themeConfig } from '@/config'
 import { ui } from '@/i18n/ui'
 import { memoize } from '@/utils/cache'
-import { getPostDescription } from '@/utils/description'
+import { getPostDescription, stripCitationSyntax } from '@/utils/description'
 
 const markdownParser = new MarkdownIt()
 const { title, description, i18nTitle, url, author } = themeConfig.site
@@ -163,7 +163,7 @@ export async function generateFeed({ lang }: { lang?: Language } = {}) {
       ? sanitizeHtml(
           await fixRelativeImagePaths(
             // Remove HTML comments before rendering markdown
-            markdownParser.render(post.body.replace(/<!--[\s\S]*?-->/g, '')),
+            markdownParser.render(stripCitationSyntax(post.body).replace(/<!--[\s\S]*?-->/g, '')),
             `${url}${base}/`,
           ),
           {

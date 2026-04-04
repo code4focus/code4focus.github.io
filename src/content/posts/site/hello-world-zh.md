@@ -16,7 +16,7 @@ abbrlink: hello-world-zh
 
 新的博客已经搭起来了。
 
-我选择 `Astro + Retypeset` 作为第一版基础设施，原因很直接：
+我选择 `Astro + Retypeset` 作为第一版基础设施，原因很直接 :cite-ref[astro-docs]{preview="short"}，也和 :cite-ref[retypeset-demo]{preview="auto"} 提供的阅读体验有关。
 
 ## 为什么是这套组合
 
@@ -41,3 +41,11 @@ abbrlink: hello-world-zh
 - 更细致的中文字体与排版优化
 
 如果你正在读这篇文章，说明这个博客已经从想法进入了运行状态。
+
+::cite-def[astro-docs]{short="Astro 文档，Why Astro"}
+[Astro 官方文档](https://astro.build) 明确把 Astro 定位为适合内容型、静态优先网站的框架，这和这个博客当前的部署方式与维护目标是一致的。
+::
+
+::cite-def[retypeset-demo]{short="Retypeset 演示站"}
+[Retypeset 演示站](https://retypeset.radishzz.cc/) 所呈现的字距、留白和长文阅读体验，是我判断这套主题适合写作场景的重要依据。
+::

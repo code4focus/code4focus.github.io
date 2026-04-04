@@ -1,0 +1,68 @@
+.heti .cite-ref {
+  --at-apply: 'mx-0.15em top--0.45em';
+}
+
+.heti .cite-ref a {
+  --at-apply: 'inline-flex items-center justify-center rounded-full px-1.6 py-0.1em text-0.72em no-underline';
+  --at-apply: 'bg-secondary/8 c-secondary transition-colors ease-out hover:(bg-secondary/14 c-primary)';
+}
+
+.heti .cite-ref a:focus-visible,
+.citation-backref:focus-visible {
+  outline: 2px solid oklch(var(--un-preset-theme-colors-primary) / 0.2);
+  outline-offset: 2px;
+}
+
+.heti .citation-list {
+  --at-apply: 'mt-12 border-t border-secondary/12 pt-8';
+}
+
+.heti .citation-list ol {
+  --at-apply: 'my-0 pl-1.4em';
+}
+
+.heti .citation-list li {
+  --at-apply: 'mt-0 mb-6';
+}
+
+.heti .citation-list li:last-child {
+  --at-apply: 'mb-0';
+}
+
+.heti .citation-list li > :last-child {
+  --at-apply: 'mb-0';
+}
+
+.heti .citation-backrefs {
+  --at-apply: 'mt-3 text-sm c-secondary/75';
+}
+
+.citation-backref {
+  --at-apply: 'font-serif no-underline';
+}
+
+.citation-preview {
+  --at-apply: 'fixed z-999 hidden w-[min(calc(100vw-2rem),24rem)]';
+}
+
+.citation-preview.is-open {
+  display: block;
+}
+
+.citation-preview-card {
+  --at-apply: 'uno-round-border border-secondary/14 bg-background/98 p-4 shadow-lg';
+  backdrop-filter: blur(12px);
+  box-shadow: 0 18px 40px oklch(0 0 0 / 0.14);
+}
+
+.citation-preview-card :where(p, ul, ol, blockquote) {
+  --at-apply: 'mb-3';
+}
+
+.citation-preview-card :where(p:last-child, ul:last-child, ol:last-child, blockquote:last-child) {
+  --at-apply: 'mb-0';
+}
+
+.citation-preview-card :where(a) {
+  --at-apply: 'font-semibold tracking-normal underline underline-0.075em decoration-secondary/80 underline-offset-0.1em';
+}
