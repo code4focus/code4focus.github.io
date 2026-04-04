@@ -1,0 +1,4 @@
+interface:
+  display_name: Verify Code Changes
+  short_description: Run and report structured verification after implementation
+  default_prompt: Use $code-change-verification to run and summarize the relevant checks for this repository change.
