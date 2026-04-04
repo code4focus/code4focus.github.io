@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - master
+      - user/code4focus
   workflow_dispatch:
 
 permissions:
