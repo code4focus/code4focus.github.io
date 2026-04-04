@@ -19,6 +19,8 @@ These instructions apply to the entire repository.
 - If no issue exists for qualifying work, create or refine the issue before editing code.
 - If an issue exists but lacks a clear problem statement, goals, constraints, or acceptance criteria, strengthen the issue first.
 - Do not use a standalone repository document as the primary record for a new RFC, process change, or bug report when the issue is intended to be the source of truth.
+- Use `$issue-rfc-draft` for new features, process changes, design changes, and other parent issues that define non-trivial work before implementation.
+- Use `$bug-report-draft` for parent bug issues covering defects, regressions, build failures, rendering problems, or compatibility issues.
 - Use the parent-issue templates for feature, process, design, and bug records.
 - Use the sub-issue template for concrete execution tasks under a parent issue.
 
