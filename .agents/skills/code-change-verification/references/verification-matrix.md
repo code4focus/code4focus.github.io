@@ -41,9 +41,9 @@ The shared script layer should handle deterministic, repeatable checks only.
 Current script:
 
 - `scripts/verify.sh`: repository-wide lint, type and build verification
+- `scripts/pr/collect-pr-context.ts`: deterministic branch, commit, file, and diff context for delivery summaries
 
 Candidate future scripts:
 
 - change-scope detection
 - issue context collection
-- PR context summarization
