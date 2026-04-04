@@ -94,7 +94,21 @@ function createBacklinks(sourceId, referenceCount) {
     )
   }
 
-  return createElement('p', { className: ['citation-backrefs'] }, children)
+  return createElement('span', { className: ['citation-backrefs'] }, children)
+}
+
+function attachBacklinks(itemChildren, backlinks) {
+  if (!backlinks) {
+    return
+  }
+
+  const lastChild = itemChildren.at(-1)
+  if (lastChild?.type === 'element' && lastChild.tagName === 'p') {
+    lastChild.children.push(createText(' '), backlinks)
+    return
+  }
+
+  itemChildren.push(createElement('p', {}, [backlinks]))
 }
 
 function createCitationList(orderedSourceIds, definitions, definitionElements) {
@@ -106,9 +120,7 @@ function createCitationList(orderedSourceIds, definitions, definitionElements) {
       : [createElement('p', {}, [createText(definition.short || sourceId)])]
 
     const backlinks = createBacklinks(sourceId, definition.referenceCount)
-    if (backlinks) {
-      itemChildren.push(backlinks)
-    }
+    attachBacklinks(itemChildren, backlinks)
 
     return createElement('li', { id: `cite-${sourceId}` }, itemChildren)
   })
