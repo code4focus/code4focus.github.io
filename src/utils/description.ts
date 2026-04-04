@@ -2,6 +2,7 @@ import type { CollectionEntry } from 'astro:content'
 import type { Language } from '@/i18n/config'
 import MarkdownIt from 'markdown-it'
 import { defaultLocale } from '@/config'
+import { stripCitationSyntax } from '@/utils/citation'
 
 type ExcerptScene = 'list' | 'meta' | 'og' | 'feed'
 
@@ -32,33 +33,6 @@ const htmlEntityMap: Record<string, string> = {
   '&quot;': '"',
   '&apos;': '\'',
   '&nbsp;': ' ',
-}
-
-export function stripCitationSyntax(markdown: string): string {
-  const lines = markdown.split('\n')
-  const keptLines = []
-
-  for (let index = 0; index < lines.length; index++) {
-    const line = lines[index]
-    const isLegacyDefinition = /^\s*::cite-def\[[^\n]+\](?:\{[^\n]*\})?\s*$/.test(line)
-    const isContainerDefinition = /^\s*:::cite-def\[[^\n]+\](?:\{[^\n]*\})?\s*$/.test(line)
-
-    if (isLegacyDefinition || isContainerDefinition) {
-      const closingFence = isContainerDefinition ? ':::' : '::'
-
-      index += 1
-      while (index < lines.length && lines[index].trim() !== closingFence) {
-        index += 1
-      }
-      continue
-    }
-
-    keptLines.push(line)
-  }
-
-  return keptLines
-    .join('\n')
-    .replace(/:cite-ref\[[^\]]+\](?:\{[^}]*\})?/g, '')
 }
 
 // Creates a clean text excerpt with length limits by language and scene
