@@ -53,6 +53,7 @@ These instructions apply to the entire repository.
 - Summarize the implemented scope.
 - Report the validation that was run and any skipped checks.
 - Call out residual risks, follow-up work, or unresolved questions.
+- Prefer the shared issue workflow scripts for templated completion comments and GitHub issue closure when updating repository issue state.
 
 ## Guard Boundaries
 
