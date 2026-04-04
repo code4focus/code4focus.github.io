@@ -4,7 +4,7 @@ import { defineCollection } from 'astro:content'
 import { allLocales, themeConfig } from '@/config'
 
 const posts = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/posts' }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/posts/site' }),
   schema: z.object({
     // required
     title: z.string(),
@@ -29,7 +29,7 @@ const posts = defineCollection({
 })
 
 const about = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/about' }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/about/site' }),
   schema: z.object({
     lang: z.enum(['', ...allLocales]).optional().default(''),
   }),

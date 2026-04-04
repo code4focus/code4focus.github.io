@@ -1,9 +1,8 @@
 {
-  "name": "astro-theme-retypeset",
+  "name": "code4focus-site",
   "type": "module",
   "version": "1.0.0",
   "packageManager": "pnpm@10.33.0",
-  "repository": "https://github.com/radishzzz/astro-theme-retypeset",
   "scripts": {
     "dev": "astro check && astro dev",
     "build": "astro check && astro build && pnpm apply-lqip",
@@ -11,10 +10,10 @@
     "astro": "astro",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "new-post": "tsx scripts/new-post.ts",
-    "apply-lqip": "tsx scripts/apply-lqip.ts",
-    "format-posts": "tsx scripts/format-posts.ts",
-    "update-theme": "tsx scripts/update-theme.ts"
+    "new-post": "node --import tsx scripts/new-post.ts",
+    "apply-lqip": "node --import tsx scripts/apply-lqip.ts",
+    "format-posts": "node --import tsx scripts/format-posts.ts",
+    "update-theme": "node --import tsx scripts/update-theme.ts"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.3",
