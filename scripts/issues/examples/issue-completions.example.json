@@ -1,0 +1,21 @@
+[
+  {
+    "issue": 12,
+    "summary": "已完成。",
+    "scope": [
+      "新增 issue 收尾脚本",
+      "接入批量 issue 收尾流程"
+    ],
+    "commits": [
+      "abc1234 feat(workflow): add issue completion scripts"
+    ],
+    "validation": [
+      "pnpm lint",
+      "pnpm complete-issue --issue 13 --scope \"...\""
+    ],
+    "notes": [
+      "如需保留 issue 打开状态，可省略 close 或移除该字段"
+    ],
+    "close": false
+  }
+]
