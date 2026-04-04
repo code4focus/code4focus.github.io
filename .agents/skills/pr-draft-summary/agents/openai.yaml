@@ -1,0 +1,4 @@
+interface:
+  display_name: Draft PR Summary
+  short_description: Prepare delivery and pull request summary content after implementation
+  default_prompt: Use $pr-draft-summary to prepare the pull request title, summary, issue links, validation notes, and follow-up items for this change.

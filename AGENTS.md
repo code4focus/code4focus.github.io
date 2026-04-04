@@ -23,6 +23,7 @@ These instructions apply to the entire repository.
 - Use `$bug-report-draft` for parent bug issues covering defects, regressions, build failures, rendering problems, or compatibility issues.
 - Use `$implementation-strategy` before editing when an issue affects shared abstractions, pipelines, content models, repository structure, or requires phased execution planning.
 - Use `$code-change-verification` after code, configuration, build, or behavior changes before handoff.
+- Use `$pr-draft-summary` when preparing pull request or delivery summary content after implementation and verification.
 - Use the parent-issue templates for feature, process, design, and bug records.
 - Use the sub-issue template for concrete execution tasks under a parent issue.
 
@@ -52,3 +53,9 @@ These instructions apply to the entire repository.
 - Summarize the implemented scope.
 - Report the validation that was run and any skipped checks.
 - Call out residual risks, follow-up work, or unresolved questions.
+
+## Guard Boundaries
+
+- Keep guard mechanisms lightweight and optional.
+- Limit guards to session-start reminders, destructive-command gates, or handoff completeness checks.
+- Do not rely on guards to draft issues, plan implementation, run verification, or generate final delivery content.
