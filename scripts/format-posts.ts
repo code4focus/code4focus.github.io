@@ -36,7 +36,7 @@ function splitContent(content: string): MarkdownContent {
 // Get all Markdown files to process
 async function getMarkdownFiles(): Promise<string[]> {
   console.log('🔍 Scanning Markdown files...')
-  const files = await fg(['src/content/**/*.{md,mdx}'])
+  const files = await fg(['src/content/posts/site/**/*.{md,mdx}'])
   console.log(`📦 Found ${files.length} Markdown files`)
   return files
 }
