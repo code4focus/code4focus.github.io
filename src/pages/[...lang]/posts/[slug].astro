@@ -6,12 +6,14 @@ import Comment from '@/components/Comment/Index.astro'
 import PostDate from '@/components/PostDate.astro'
 import TagList from '@/components/TagList.astro'
 import BackButton from '@/components/Widgets/BackButton.astro'
+import CitationPreview from '@/components/Widgets/CitationPreview.astro'
 import TOC from '@/components/Widgets/TOC.astro'
 import { allLocales } from '@/config'
 import { getLangFromLocale, getLangRouteParam } from '@/i18n/lang'
 import Layout from '@/layouts/Layout.astro'
 import { checkPostSlugDuplication } from '@/utils/content'
 import { getPostDescription } from '@/utils/description'
+import '@/styles/citation.css'
 
 export async function getStaticPaths() {
   const posts: CollectionEntry<'posts'>[] = await getCollection('posts')
@@ -133,4 +135,5 @@ const { Content, headings, remarkPluginFrontmatter } = await render(post)
       <Comment />
     </div>
   </article>
+  {remarkPluginFrontmatter.hasCitationPreview && <CitationPreview />}
 </Layout>

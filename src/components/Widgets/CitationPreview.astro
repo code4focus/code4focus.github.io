@@ -1,0 +1,214 @@
+<script>
+const desktopMedia = window.matchMedia('(hover: hover) and (pointer: fine)')
+let activeAnchor: HTMLAnchorElement | null = null
+let closeTimer = 0
+let previewRoot: HTMLDivElement | null = null
+let previewCard: HTMLDivElement | null = null
+
+function getCitationAnchor(target: EventTarget | null) {
+  if (!(target instanceof Element)) {
+    return null
+  }
+
+  return target.closest('a[data-cite-id][data-cite-preview]') as HTMLAnchorElement | null
+}
+
+function ensurePreviewRoot() {
+  if (previewRoot && previewCard) {
+    return
+  }
+
+  previewRoot = document.createElement('div')
+  previewRoot.className = 'citation-preview'
+  previewRoot.setAttribute('role', 'dialog')
+  previewRoot.setAttribute('aria-label', 'Citation preview')
+  previewRoot.hidden = true
+
+  previewCard = document.createElement('div')
+  previewCard.className = 'citation-preview-card'
+  previewRoot.appendChild(previewCard)
+
+  previewRoot.addEventListener('pointerenter', cancelClose)
+  previewRoot.addEventListener('pointerleave', scheduleClose)
+  document.body.appendChild(previewRoot)
+}
+
+function lookupTemplate(sourceId: string, previewMode: string) {
+  const templateKey = `${sourceId}:${previewMode}`
+  const selector = `template[data-cite-template="${CSS.escape(templateKey)}"]`
+  return document.querySelector(selector) as HTMLTemplateElement | null
+}
+
+function positionPreview(anchor: HTMLAnchorElement) {
+  if (!previewRoot) {
+    return
+  }
+
+  const rect = anchor.getBoundingClientRect()
+  const previewRect = previewRoot.getBoundingClientRect()
+  const offset = 12
+  const viewportPadding = 16
+
+  let top = rect.bottom + offset
+  if (top + previewRect.height > window.innerHeight - viewportPadding) {
+    top = rect.top - previewRect.height - offset
+  }
+
+  top = Math.max(viewportPadding, top)
+
+  let left = rect.left + rect.width / 2 - previewRect.width / 2
+  left = Math.min(left, window.innerWidth - previewRect.width - viewportPadding)
+  left = Math.max(viewportPadding, left)
+
+  previewRoot.style.top = `${top}px`
+  previewRoot.style.left = `${left}px`
+}
+
+function closePreview() {
+  cancelClose()
+
+  if (activeAnchor) {
+    activeAnchor.removeAttribute('aria-expanded')
+  }
+
+  activeAnchor = null
+
+  if (!previewRoot || !previewCard) {
+    return
+  }
+
+  previewRoot.hidden = true
+  previewRoot.classList.remove('is-open')
+  previewCard.replaceChildren()
+}
+
+function showPreview(anchor: HTMLAnchorElement) {
+  if (!desktopMedia.matches) {
+    closePreview()
+    return
+  }
+
+  const { citeId, citePreview } = anchor.dataset
+  if (!citeId || !citePreview || citePreview === 'off') {
+    closePreview()
+    return
+  }
+
+  const template = lookupTemplate(citeId, citePreview)
+  if (!template) {
+    closePreview()
+    return
+  }
+
+  ensurePreviewRoot()
+  if (!previewRoot || !previewCard) {
+    return
+  }
+
+  cancelClose()
+
+  if (activeAnchor && activeAnchor !== anchor) {
+    activeAnchor.removeAttribute('aria-expanded')
+  }
+
+  activeAnchor = anchor
+  activeAnchor.setAttribute('aria-expanded', 'true')
+
+  previewCard.replaceChildren(template.content.cloneNode(true))
+  previewRoot.hidden = false
+  previewRoot.classList.add('is-open')
+  positionPreview(anchor)
+}
+
+function cancelClose() {
+  window.clearTimeout(closeTimer)
+  closeTimer = 0
+}
+
+function scheduleClose() {
+  cancelClose()
+  closeTimer = window.setTimeout(closePreview, 80)
+}
+
+function handlePointerOver(event: MouseEvent) {
+  const anchor = getCitationAnchor(event.target)
+  if (!anchor) {
+    if (previewRoot?.contains(event.target as Node)) {
+      return
+    }
+
+    scheduleClose()
+    return
+  }
+
+  if (anchor === activeAnchor) {
+    cancelClose()
+    return
+  }
+
+  showPreview(anchor)
+}
+
+function handleFocusIn(event: FocusEvent) {
+  const anchor = getCitationAnchor(event.target)
+  if (anchor) {
+    showPreview(anchor)
+  }
+}
+
+function handleFocusOut(event: FocusEvent) {
+  const relatedTarget = event.relatedTarget
+  if (relatedTarget instanceof Node && previewRoot?.contains(relatedTarget)) {
+    return
+  }
+
+  scheduleClose()
+}
+
+function handleKeydown(event: KeyboardEvent) {
+  if (event.key === 'Escape') {
+    const anchor = activeAnchor
+    closePreview()
+    anchor?.focus()
+  }
+}
+
+function handleViewportChange() {
+  if (!activeAnchor || !desktopMedia.matches) {
+    closePreview()
+    return
+  }
+
+  positionPreview(activeAnchor)
+}
+
+function setupCitationPreview() {
+  if (!document.querySelector('template[data-cite-template]')) {
+    return
+  }
+
+  document.addEventListener('mouseover', handlePointerOver)
+  document.addEventListener('focusin', handleFocusIn)
+  document.addEventListener('focusout', handleFocusOut)
+  document.addEventListener('keydown', handleKeydown)
+  window.addEventListener('resize', handleViewportChange)
+  document.addEventListener('scroll', handleViewportChange, true)
+}
+
+function cleanupCitationPreview() {
+  document.removeEventListener('mouseover', handlePointerOver)
+  document.removeEventListener('focusin', handleFocusIn)
+  document.removeEventListener('focusout', handleFocusOut)
+  document.removeEventListener('keydown', handleKeydown)
+  window.removeEventListener('resize', handleViewportChange)
+  document.removeEventListener('scroll', handleViewportChange, true)
+
+  closePreview()
+  previewRoot?.remove()
+  previewRoot = null
+  previewCard = null
+}
+
+document.addEventListener('astro:page-load', setupCitationPreview)
+document.addEventListener('astro:before-swap', cleanupCitationPreview)
+</script>

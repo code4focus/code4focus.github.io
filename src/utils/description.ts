@@ -34,6 +34,33 @@ const htmlEntityMap: Record<string, string> = {
   '&nbsp;': ' ',
 }
 
+export function stripCitationSyntax(markdown: string): string {
+  const lines = markdown.split('\n')
+  const keptLines = []
+
+  for (let index = 0; index < lines.length; index++) {
+    const line = lines[index]
+    const isLegacyDefinition = /^\s*::cite-def\[[^\n]+\](?:\{[^\n]*\})?\s*$/.test(line)
+    const isContainerDefinition = /^\s*:::cite-def\[[^\n]+\](?:\{[^\n]*\})?\s*$/.test(line)
+
+    if (isLegacyDefinition || isContainerDefinition) {
+      const closingFence = isContainerDefinition ? ':::' : '::'
+
+      index += 1
+      while (index < lines.length && lines[index].trim() !== closingFence) {
+        index += 1
+      }
+      continue
+    }
+
+    keptLines.push(line)
+  }
+
+  return keptLines
+    .join('\n')
+    .replace(/:cite-ref\[[^\]]+\](?:\{[^}]*\})?/g, '')
+}
+
 // Creates a clean text excerpt with length limits by language and scene
 function getExcerpt(text: string, lang: Language, scene: ExcerptScene): string {
   const isCJK = (lang: Language) => ['zh', 'zh-tw', 'ja', 'ko'].includes(lang)
@@ -80,7 +107,7 @@ export function getPostDescription(
   }
 
   const rawContent = post.body || ''
-  const cleanContent = rawContent
+  const cleanContent = stripCitationSyntax(rawContent)
     .replace(/<!--[\s\S]*?-->/g, '') // Remove HTML comments
     .replace(/```[\s\S]*?```/g, '') // Remove code blocks
     .replace(/^\s*#{1,6}\s+\S.*$/gm, '') // Remove Markdown headings

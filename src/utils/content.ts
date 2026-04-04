@@ -5,7 +5,7 @@ import { getCollection, render } from 'astro:content'
 import { defaultLocale } from '@/config'
 import { memoize } from '@/utils/cache'
 
-const metaCache = new Map<string, { minutes: number }>()
+const metaCache = new Map<string, { minutes: number, hasCitations: boolean, hasCitationPreview: boolean }>()
 
 /**
  * Add metadata including reading time to a post
@@ -24,7 +24,11 @@ async function addMetaToPost(post: CollectionEntry<'posts'>): Promise<Post> {
   }
 
   const { remarkPluginFrontmatter } = await render(post)
-  const meta = remarkPluginFrontmatter as { minutes: number }
+  const meta = remarkPluginFrontmatter as {
+    minutes: number
+    hasCitations: boolean
+    hasCitationPreview: boolean
+  }
   metaCache.set(cacheKey, meta)
 
   return {

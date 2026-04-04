@@ -4,6 +4,8 @@ import type { Language } from '@/i18n/config'
 export type Post = CollectionEntry<'posts'> & {
   remarkPluginFrontmatter: {
     minutes: number
+    hasCitations: boolean
+    hasCitationPreview: boolean
   }
 }
 
