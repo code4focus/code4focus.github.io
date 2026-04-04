@@ -1,0 +1,4 @@
+interface:
+  display_name: Draft RFC Issue
+  short_description: Create or strengthen a parent issue before implementation
+  default_prompt: Use $issue-rfc-draft to create or refine the parent issue for this non-trivial feature or process change.
