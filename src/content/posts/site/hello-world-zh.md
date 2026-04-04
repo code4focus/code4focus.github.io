@@ -16,7 +16,9 @@ abbrlink: hello-world-zh
 
 新的博客已经搭起来了。
 
-我选择 `Astro + Retypeset` 作为第一版基础设施，原因很直接 :cite-ref[astro-docs]{preview="short"}，也和 :cite-ref[retypeset-demo]{preview="auto"} 提供的阅读体验有关。
+我选择 `Astro + Retypeset` 作为第一版基础设施，原因很直接。
+
+作为对照，普通静态引用会尽量保持安静 :cite-ref[astro-docs]{preview="off"}。启用预览的引用则可以在桌面端就地补足上下文 :cite-ref[retypeset-demo]{preview="auto"}。
 
 ## 为什么是这套组合
 

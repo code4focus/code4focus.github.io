@@ -16,7 +16,9 @@ abbrlink: hello-world-en
 
 The new blog is now in place.
 
-I chose `Astro + Retypeset` as the first version of the stack for a few practical reasons :cite-ref[astro-docs]{preview="short"} and :cite-ref[retypeset-demo]{preview="auto"}.
+I chose `Astro + Retypeset` as the first version of the stack for a few practical reasons.
+
+For contrast, a plain static citation stays quiet in the reading flow :cite-ref[astro-docs]{preview="off"}. A preview-enabled citation can expose context inline on desktop :cite-ref[retypeset-demo]{preview="auto"}.
 
 ## Why this stack
 
