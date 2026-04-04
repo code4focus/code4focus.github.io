@@ -27,6 +27,8 @@ interface CliOptions {
   input: string
 }
 
+class HelpExit extends Error {}
+
 function fail(message: string): never {
   console.error(`❌ ${message}`)
   process.exit(1)
@@ -57,8 +59,7 @@ function parseArgs(argv: string[]): CliOptions {
       case '--help':
       case '-h':
         printHelp()
-        process.exit(0)
-        break
+        throw new HelpExit()
       default:
         fail(`Unknown argument: ${arg}`)
     }
@@ -141,4 +142,13 @@ function main() {
   }
 }
 
-main()
+try {
+  main()
+}
+catch (error) {
+  if (error instanceof HelpExit) {
+    process.exit(0)
+  }
+
+  throw error
+}
