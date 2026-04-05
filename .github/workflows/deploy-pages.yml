@@ -27,6 +27,8 @@ jobs:
 
       - name: Install, build, and upload site
         uses: withastro/action@v6
+        env:
+          PUBLIC_SITE_URL: https://code4focus.github.io
         with:
           path: .
           package-manager: pnpm@10.33.0
