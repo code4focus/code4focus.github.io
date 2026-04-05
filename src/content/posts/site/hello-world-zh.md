@@ -11,7 +11,7 @@ draft: false
 pin: 1
 toc: true
 lang: zh
-abbrlink: hello-world-zh
+abbrlink: hello-world
 ---
 
 新的博客已经搭起来了。

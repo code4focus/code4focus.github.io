@@ -11,7 +11,7 @@ draft: false
 pin: 1
 toc: true
 lang: en
-abbrlink: hello-world-en
+abbrlink: hello-world
 ---
 
 The new blog is now in place.
