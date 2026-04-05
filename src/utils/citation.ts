@@ -153,6 +153,75 @@ export function stripCitationSyntax(markdown: string): string {
   return strippedLines.join('\n')
 }
 
+function createOrderedReferenceItem(index: number, definitionMarkdown: string) {
+  const lines = definitionMarkdown.trim().split('\n')
+  const [firstLine = '', ...restLines] = lines
+
+  if (!firstLine.trim()) {
+    return `${index}.`
+  }
+
+  return [
+    `${index}. ${firstLine}`,
+    ...restLines.map(line => line ? `   ${line}` : ''),
+  ].join('\n')
+}
+
+export function normalizeCitationMarkdown(markdown: string): string {
+  const { content, definitions } = collectCitationDefinitions(markdown)
+  const lines = content.split('\n')
+  const normalizedLines: string[] = []
+  const orderedSourceIds: string[] = []
+  const indexes = new Map<string, number>()
+  let codeFence: { char: string, length: number } | null = null
+
+  for (const line of lines) {
+    if (codeFence) {
+      normalizedLines.push(line)
+
+      if (isClosingCodeFence(line, codeFence)) {
+        codeFence = null
+      }
+
+      continue
+    }
+
+    const nextFence = getCodeFence(line)
+    if (nextFence) {
+      codeFence = nextFence
+      normalizedLines.push(line)
+      continue
+    }
+
+    normalizedLines.push(
+      line.replace(citationRefPattern, (_, rawId: string) => {
+        const sourceId = normalizeCitationId(rawId)
+        if (!definitions.has(sourceId)) {
+          throw new Error(`Citation reference "${sourceId}" does not match any citation definition.`)
+        }
+
+        if (!indexes.has(sourceId)) {
+          indexes.set(sourceId, orderedSourceIds.length + 1)
+          orderedSourceIds.push(sourceId)
+        }
+
+        return `[${indexes.get(sourceId)}]`
+      }),
+    )
+  }
+
+  const normalizedContent = normalizedLines.join('\n').trim()
+  if (orderedSourceIds.length === 0) {
+    return normalizedContent
+  }
+
+  const referenceItems = orderedSourceIds
+    .map((sourceId, index) => createOrderedReferenceItem(index + 1, definitions.get(sourceId) ?? sourceId))
+    .join('\n\n')
+
+  return `${normalizedContent}\n\n## References\n\n${referenceItems}`
+}
+
 export function renderStaticCitationHtml(markdown: string, markdownParser: MarkdownIt): string {
   const { content, definitions } = collectCitationDefinitions(markdown)
   const lines = content.split('\n')

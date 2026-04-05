@@ -1,7 +1,6 @@
-import type { APIContext, ImageMetadata } from 'astro'
+import type { APIContext } from 'astro'
 import type { CollectionEntry } from 'astro:content'
 import type { Language } from '@/i18n/config'
-import { getImage } from 'astro:assets'
 import { getCollection } from 'astro:content'
 import { Feed } from 'feed'
 import MarkdownIt from 'markdown-it'
@@ -9,56 +8,13 @@ import { parse } from 'node-html-parser'
 import sanitizeHtml from 'sanitize-html'
 import { base, defaultLocale, themeConfig } from '@/config'
 import { ui } from '@/i18n/ui'
-import { memoize } from '@/utils/cache'
 import { renderStaticCitationHtml } from '@/utils/citation'
 import { getPostDescription } from '@/utils/description'
+import { getAbsolutePostImageUrl } from '@/utils/post-assets'
 
 const markdownParser = new MarkdownIt()
 const { title, description, i18nTitle, url, author } = themeConfig.site
 const { folo } = themeConfig.seo ?? {}
-
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-// Dynamically import all images from /src/content/posts/_images
-const imagesGlob = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/content/posts/_images/**/*.{jpeg,jpg,png,gif,webp}',
-)
-
-/**
- * Converts relative image paths to absolute URLs
- *
- * @param srcPath - Relative image path from markdown content
- * @param baseUrl - Site base URL
- * @returns Optimized image URL or null if processing fails
- */
-async function _getAbsoluteImageUrl(srcPath: string, baseUrl: string) {
-  // Remove relative path prefixes (../ and ./) from image source path
-  const prefixRemoved = srcPath.replace(/^(?:\.\.\/)+|^\.\//, '')
-  const absolutePath = `/src/content/posts/${prefixRemoved}`
-  const imageImporter = imagesGlob[absolutePath]
-
-  if (!imageImporter) {
-    return null
-  }
-
-  // Import image module and extract its metadata
-  const imageMetadata = await imageImporter()
-    .then(importedModule => importedModule.default)
-    .catch((error) => {
-      console.warn(`Failed to import image: ${absolutePath}`, error)
-      return null
-    })
-
-  if (!imageMetadata) {
-    return null
-  }
-
-  // Create optimized image from metadata
-  const optimizedImage = await getImage({ src: imageMetadata })
-  return new URL(optimizedImage.src, baseUrl).toString()
-}
-
-// Export memoized version
-const getAbsoluteImageUrl = memoize(_getAbsoluteImageUrl)
 
 /**
  * Fix relative image paths in HTML content
@@ -86,7 +42,7 @@ async function fixRelativeImagePaths(htmlContent: string, baseUrl: string): Prom
         }
 
         // Process images from src/content/posts/_images directory
-        const absoluteImageUrl = await getAbsoluteImageUrl(src, baseUrl)
+        const absoluteImageUrl = await getAbsolutePostImageUrl(src, baseUrl)
         if (absoluteImageUrl) {
           img.setAttribute('src', absoluteImageUrl)
         }
