@@ -12,6 +12,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "new-post": "node --import tsx scripts/new-post.ts",
+    "current-pr": "node --import tsx scripts/github/current-pr.ts",
+    "issue-comment": "node --import tsx scripts/github/issue-comment.ts",
     "create-sub-issue": "node --import tsx scripts/issues/create-sub-issue.ts",
     "create-sub-issues": "node --import tsx scripts/issues/create-sub-issues-from-json.ts",
     "issue-branch": "node --import tsx scripts/issues/use-issue-branch.ts",
