@@ -65,7 +65,8 @@ Retypeset is a static blog theme based on the [Astro](https://astro.build/) fram
 ## Environment
 
 - Local development and local builds default the canonical site/feed URL to `http://127.0.0.1:4321`.
-- Set `PUBLIC_SITE_URL` in your deployment environment to the final site origin, for example `https://code4focus.github.io`.
+- Set `PUBLIC_SITE_URL` in your deployment environment to the primary site origin, for example `https://code4focus.github.io`.
+- This repository may also mirror the same build to `https://code4focus.pages.dev`, but GitHub Pages remains the default canonical/feed/site URL unless a separate issue changes the primary domain.
 - See [.env.example](.env.example) for the expected variable name.
 
 &emsp;[![Deploy to Netlify](assets/images/deploy-netlify.svg)](https://app.netlify.com/start) [![Deploy to Vercel](assets/images/deploy-vercel.svg)](https://vercel.com/new)
