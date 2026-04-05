@@ -1,0 +1,105 @@
+.heti .cite-ref {
+  --at-apply: 'mx-0.08em top--0.32em';
+}
+
+.heti .cite-ref a {
+  --at-apply: 'inline rounded-0.15em px-0.15em py-0.02em text-0.74em font-medium leading-none no-underline tracking-normal';
+  --at-apply: 'bg-transparent c-secondary/78 transition-colors ease-out hover:c-primary';
+  text-decoration: none;
+  scroll-margin-top: 42vh;
+}
+
+.heti .cite-ref a[data-cite-preview]:not([data-cite-preview='off']) {
+  --at-apply: 'cursor-help';
+  box-shadow: inset 0 -0.42em 0 oklch(var(--un-preset-theme-colors-highlight) / 0.32);
+}
+
+.heti .cite-ref a[data-cite-preview]:not([data-cite-preview='off']):hover,
+.heti .cite-ref a[data-cite-preview]:not([data-cite-preview='off']):focus-visible {
+  box-shadow: inset 0 -0.5em 0 oklch(var(--un-preset-theme-colors-highlight) / 0.5);
+}
+
+.heti .cite-ref a:focus-visible,
+.citation-backref:focus-visible {
+  outline: 2px solid oklch(var(--un-preset-theme-colors-primary) / 0.2);
+  outline-offset: 2px;
+}
+
+.heti .cite-ref a:target {
+  --at-apply: 'c-primary';
+  animation: citation-target-flash 1.6s ease-out;
+  box-shadow: inset 0 -0.56em 0 oklch(var(--un-preset-theme-colors-highlight) / 0.62);
+}
+
+.heti .citation-list {
+  --at-apply: 'mt-12 border-t border-secondary/12 pt-8';
+}
+
+.heti .citation-list ol {
+  --at-apply: 'my-0 pl-1.4em';
+}
+
+.heti .citation-list li {
+  --at-apply: 'mt-0 mb-4';
+  scroll-margin-top: 22vh;
+}
+
+.heti .citation-list li:last-child {
+  --at-apply: 'mb-0';
+}
+
+.heti .citation-list li:target {
+  animation: citation-target-flash 1.6s ease-out;
+}
+
+.heti .citation-list li > p {
+  --at-apply: 'mb-2';
+}
+
+.heti .citation-list li > :last-child {
+  --at-apply: 'mb-0';
+}
+
+.heti .citation-backrefs {
+  --at-apply: 'text-0.92em c-secondary/72';
+}
+
+.citation-backref {
+  --at-apply: 'font-serif no-underline';
+  white-space: nowrap;
+}
+
+.citation-preview {
+  --at-apply: 'fixed z-999 hidden w-[min(calc(100vw-2rem),24rem)]';
+}
+
+.citation-preview.is-open {
+  display: block;
+}
+
+.citation-preview-card {
+  --at-apply: 'uno-round-border border-secondary/14 bg-background/98 p-4 shadow-lg';
+  backdrop-filter: blur(12px);
+  box-shadow: 0 18px 40px oklch(0 0 0 / 0.14);
+}
+
+.citation-preview-card :where(p, ul, ol, blockquote) {
+  --at-apply: 'mb-3';
+}
+
+.citation-preview-card :where(p:last-child, ul:last-child, ol:last-child, blockquote:last-child) {
+  --at-apply: 'mb-0';
+}
+
+.citation-preview-card :where(a) {
+  --at-apply: 'font-semibold tracking-normal underline underline-0.075em decoration-secondary/80 underline-offset-0.1em';
+}
+
+@keyframes citation-target-flash {
+  0% {
+    background-color: oklch(var(--un-preset-theme-colors-highlight) / 0.78);
+  }
+  100% {
+    background-color: transparent;
+  }
+}

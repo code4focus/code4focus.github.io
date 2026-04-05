@@ -10,6 +10,7 @@ import sanitizeHtml from 'sanitize-html'
 import { base, defaultLocale, themeConfig } from '@/config'
 import { ui } from '@/i18n/ui'
 import { memoize } from '@/utils/cache'
+import { renderStaticCitationHtml } from '@/utils/citation'
 import { getPostDescription } from '@/utils/description'
 
 const markdownParser = new MarkdownIt()
@@ -162,13 +163,16 @@ export async function generateFeed({ lang }: { lang?: Language } = {}) {
     const postContent = post.body
       ? sanitizeHtml(
           await fixRelativeImagePaths(
-            // Remove HTML comments before rendering markdown
-            markdownParser.render(post.body.replace(/<!--[\s\S]*?-->/g, '')),
+            renderStaticCitationHtml(
+              post.body.replace(/<!--[\s\S]*?-->/g, ''),
+              markdownParser,
+            ),
             `${url}${base}/`,
           ),
           {
-            // Allow <img> tags in feed content
-            allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img']),
+            allowedTags: sanitizeHtml.defaults.allowedTags.includes('img')
+              ? sanitizeHtml.defaults.allowedTags
+              : sanitizeHtml.defaults.allowedTags.concat(['img']),
           },
         )
       : ''
