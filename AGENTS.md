@@ -55,6 +55,11 @@ These instructions apply to the entire repository.
 - Call out residual risks, follow-up work, or unresolved questions.
 - Prefer the shared issue workflow scripts for templated completion comments and GitHub issue closure when updating repository issue state.
 
+## Commit Messages
+
+- Commits for non-trivial repository work must include an explicit issue reference such as `Refs #123`, `Closes #123`, or `Fixes #123`.
+- Merge and revert commits may use their default Git-generated subjects without an added issue-reference line.
+
 ## Guard Boundaries
 
 - Keep guard mechanisms lightweight and optional.
