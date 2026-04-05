@@ -35,7 +35,12 @@ Use this skill for parent bug issues before fix implementation begins.
    - `Acceptance Criteria`
    - `Planned Sub-issues`
 5. Keep the bug issue focused on problem definition, impact, and verification boundaries. Do not prematurely embed a full fix plan unless the user explicitly asks for it.
-6. If the user wants the issue created, use the configured GitHub workflow. Otherwise provide a ready-to-submit draft.
+6. If the user wants the issue created, use the configured GitHub workflow.
+   - In this repository, prefer `pnpm create-parent-issue --kind bug --title ... --body-file ...`.
+   - If the parent issue body has already been drafted, write that content to a temporary file and pass it via `--body-file`.
+   - If the repository script does not cover the needed operation, fall back to `gh`.
+   - Use GitHub MCP only for gaps or for structured GitHub reads.
+7. Otherwise provide a ready-to-submit draft.
 
 ## Output requirements
 
