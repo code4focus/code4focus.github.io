@@ -2,10 +2,18 @@ import type { CollectionEntry } from 'astro:content'
 import type { Language } from '@/i18n/config'
 import type { Post } from '@/types'
 import { getCollection, render } from 'astro:content'
-import { defaultLocale } from '@/config'
+import { allLocales, base, defaultLocale } from '@/config'
+import { getLangRouteParam } from '@/i18n/lang'
 import { memoize } from '@/utils/cache'
 
 const metaCache = new Map<string, { minutes: number, hasCitations: boolean, hasCitationPreview: boolean }>()
+
+export interface PostStaticPathProps {
+  post: CollectionEntry<'posts'>
+  routeLang: Language
+  slug: string
+  supportedLangs: Language[]
+}
 
 /**
  * Add metadata including reading time to a post
@@ -35,6 +43,24 @@ async function addMetaToPost(post: CollectionEntry<'posts'>): Promise<Post> {
     ...post,
     remarkPluginFrontmatter: meta,
   }
+}
+
+export function getPostSlug(post: CollectionEntry<'posts'>) {
+  return post.data.abbrlink || post.id
+}
+
+export function getPostPath(
+  slug: string,
+  lang: Language,
+  format: 'html' | 'markdown' = 'html',
+) {
+  const langParam = getLangRouteParam(lang)
+  const normalizedBase = base === '/' ? '' : base.replace(/\/$/, '')
+  const path = format === 'markdown'
+    ? `${normalizedBase}/${langParam ? `${langParam}/` : ''}exports/posts/${slug}.md`
+    : `${normalizedBase}/${langParam ? `${langParam}/` : ''}posts/${slug}/`
+
+  return path.replace(/\/{2,}/g, '/')
 }
 
 /**
@@ -71,6 +97,56 @@ export async function checkPostSlugDuplication(posts: CollectionEntry<'posts'>[]
   })
 
   return duplicates
+}
+
+export async function getPostStaticPaths() {
+  const posts: CollectionEntry<'posts'>[] = await getCollection('posts')
+
+  const duplicates = await checkPostSlugDuplication(posts)
+  if (duplicates.length > 0) {
+    throw new Error(`Duplicate post slugs:\n${duplicates.join('\n')}`)
+  }
+
+  const slugToLangsMap = new Map<string, Set<Language>>()
+
+  for (const post of posts) {
+    const slug = getPostSlug(post)
+    const lang = post.data.lang
+
+    let langSet = slugToLangsMap.get(slug)
+    if (!langSet) {
+      langSet = new Set()
+      slugToLangsMap.set(slug, langSet)
+    }
+
+    if (lang) {
+      langSet.add(lang as Language)
+    }
+    else {
+      allLocales.forEach(locale => langSet.add(locale))
+    }
+  }
+
+  const slugToLangs: Record<string, Language[]> = {}
+  for (const [slug, langs] of slugToLangsMap) {
+    slugToLangs[slug] = [...langs].sort((a, b) => allLocales.indexOf(a) - allLocales.indexOf(b))
+  }
+
+  return allLocales.flatMap(routeLang => posts
+    .filter(post => import.meta.env.DEV || !post.data.draft)
+    .filter(post => post.data.lang === routeLang || post.data.lang === '')
+    .map((post) => {
+      const slug = getPostSlug(post)
+      return {
+        params: { lang: getLangRouteParam(routeLang), slug },
+        props: {
+          post,
+          routeLang,
+          slug,
+          supportedLangs: slugToLangs[slug],
+        } satisfies PostStaticPathProps,
+      }
+    }))
 }
 
 /**
