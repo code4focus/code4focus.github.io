@@ -1,10 +1,8 @@
-name: Deploy to GitHub Pages
+name: Deploy site to GitHub Pages and Cloudflare Pages
 
 on:
   push:
     branches:
-      - main
-      - master
       - user/code4focus
   workflow_dispatch:
 
@@ -13,12 +11,17 @@ permissions:
   pages: write
   id-token: write
 
+env:
+  PRIMARY_SITE_URL: https://code4focus.github.io
+  CLOUDFLARE_PAGES_PROJECT_NAME: code4focus
+
 concurrency:
-  group: pages
+  group: site-deploy
   cancel-in-progress: true
 
 jobs:
   build:
+    if: github.ref_name == 'user/code4focus'
     runs-on: ubuntu-latest
 
     steps:
@@ -28,12 +31,20 @@ jobs:
       - name: Install, build, and upload site
         uses: withastro/action@v6
         env:
-          PUBLIC_SITE_URL: https://code4focus.github.io
+          PUBLIC_SITE_URL: ${{ env.PRIMARY_SITE_URL }}
         with:
           path: .
           package-manager: pnpm@10.33.0
 
-  deploy:
+      - name: Upload Cloudflare Pages artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare-pages-dist
+          path: dist
+          if-no-files-found: error
+          retention-days: 1
+
+  deploy-github-pages:
     needs: build
     runs-on: ubuntu-latest
 
@@ -45,3 +56,28 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+
+  deploy-cloudflare-pages:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Download Cloudflare Pages artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: cloudflare-pages-dist
+          path: .
+
+      - name: Deploy to Cloudflare Pages
+        id: deployment
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: >-
+            pages deploy dist
+            --project-name=${{ env.CLOUDFLARE_PAGES_PROJECT_NAME }}
+            --branch=${{ github.ref_name }}
