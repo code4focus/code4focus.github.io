@@ -49,7 +49,11 @@ export function getPostSlug(post: CollectionEntry<'posts'>) {
   return post.data.abbrlink || post.id
 }
 
-export function getPostPath(slug: string, lang: Language, format: 'html' | 'markdown' = 'html') {
+export function getPostPath(
+  slug: string,
+  lang: Language,
+  format: 'html' | 'markdown' = 'html',
+) {
   const langParam = getLangRouteParam(lang)
   const normalizedBase = base === '/' ? '' : base.replace(/\/$/, '')
   const path = format === 'markdown'
