@@ -12,6 +12,7 @@ interface Props {
   postTitle?: string
   postDescription?: string
   postSlug?: string
+  markdownExportPath?: string
   postPublished?: Date
   postUpdated?: Date
   postTags?: string[]
@@ -23,6 +24,7 @@ const {
   postTitle,
   postDescription,
   postSlug,
+  markdownExportPath,
   postPublished,
   postUpdated,
   postTags = [],
@@ -150,6 +152,14 @@ const articleJsonLd = isArticle && postPublished
 <link rel="sitemap" href={sitemapUrl} />
 <link rel="alternate" href={rssFeedUrl} type="application/rss+xml" title="RSS Feed" />
 <link rel="alternate" href={atomFeedUrl} type="application/atom+xml" title="Atom Feed" />
+{markdownExportPath && (
+  <link
+    rel="alternate"
+    href={new URL(markdownExportPath, siteOrigin).toString()}
+    type="text/markdown"
+    title="Markdown Export"
+  />
+)}
 {alternateLinks.map(({ href, hrefLang }) => (
   <link
     rel="alternate"
