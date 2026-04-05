@@ -35,7 +35,12 @@ Use this skill for parent issues that define new work before implementation.
    - `Acceptance Criteria`
    - `Planned Sub-issues`
 5. Keep implementation details high-level. Concrete tasks should be split into sub-issues, not embedded in the parent issue body.
-6. If the user wants the issue created, use the configured GitHub workflow. Otherwise provide a ready-to-submit draft.
+6. If the user wants the issue created, use the configured GitHub workflow.
+   - In this repository, prefer `pnpm create-parent-issue --kind feature --title ... --body-file ...`.
+   - If the parent issue body has already been drafted, write that content to a temporary file and pass it via `--body-file`.
+   - If the repository script does not cover the needed operation, fall back to `gh`.
+   - Use GitHub MCP only for gaps or for structured GitHub reads.
+7. Otherwise provide a ready-to-submit draft.
 
 ## Output requirements
 
