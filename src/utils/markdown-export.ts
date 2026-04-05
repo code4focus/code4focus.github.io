@@ -328,12 +328,19 @@ async function rewriteRelativeMarkdownImageUrls(markdown: string, baseUrl: strin
   return rewrittenLines.join('\n')
 }
 
-export function getPostAbsoluteUrl(slug: string, routeLang: Language, format: 'html' | 'markdown' = 'html') {
+export function getPostAbsoluteUrl(
+  slug: string,
+  routeLang: Language,
+  format: 'html' | 'markdown' = 'html',
+) {
   const path = getPostPath(slug, routeLang, format)
   return new URL(path, themeConfig.site.url).toString()
 }
 
-export async function renderPostMarkdownExport(post: CollectionEntry<'posts'>, routeLang: Language) {
+export async function renderPostMarkdownExport(
+  post: CollectionEntry<'posts'>,
+  routeLang: Language,
+) {
   const slug = getPostSlug(post)
   const siteBaseUrl = new URL(base, themeConfig.site.url).toString()
   const originalUrl = getPostAbsoluteUrl(slug, routeLang, 'html')
