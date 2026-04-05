@@ -18,6 +18,8 @@ The new blog is now in place.
 
 I chose `Astro + Retypeset` as the first version of the stack for a few practical reasons.
 
+For contrast, a plain static citation stays quiet in the reading flow :cite-ref[astro-docs]{preview="off"}. A preview-enabled citation can expose context inline on desktop :cite-ref[retypeset-demo]{preview="auto"}.
+
 ## Why this stack
 
 1. It is a strong fit for static deployment and works cleanly with `GitHub Pages`.
@@ -41,3 +43,11 @@ The next round will focus on:
 - more refined typography and visual tuning
 
 This post marks the point where the idea became a working site.
+
+::cite-def[astro-docs]{short="Astro Docs, Why Astro"}
+The official [Astro documentation](https://astro.build) presents Astro as a framework designed for content-heavy, static-first websites, which matches the deployment and maintenance goals of this blog.
+::
+
+::cite-def[retypeset-demo]{short="Retypeset demo site"}
+The original [Retypeset demo](https://retypeset.radishzz.cc/en/) shows the typography, spacing, and long-form reading experience that made this theme a strong fit for a writing-focused site.
+::

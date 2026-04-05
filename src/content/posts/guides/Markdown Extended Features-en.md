@@ -98,6 +98,32 @@ Content that may not interest all readers can be placed in a collapsible section
 Content that may not interest all readers can be placed in a collapsible section.
 :::
 
+## Citations
+
+To define first-class citations, use `::cite-def[id]{short="..."}` blocks together with inline `:cite-ref[id]{preview="..."}` references. The full citation content lives inside the definition block, while the optional `short` attribute provides a lighter preview variant.
+
+### Syntax
+
+```
+The static-first model matters here :cite-ref[astro-docs]{preview="auto"}.
+
+This reference keeps plain anchor behavior :cite-ref[astro-docs]{preview="off"}.
+
+::cite-def[astro-docs]{short="Astro Docs, Why Astro"}
+The official [Astro documentation](https://astro.build) explains why Astro is a strong fit for content-heavy sites.
+::
+```
+
+### Output
+
+The static-first model matters here :cite-ref[astro-docs]{preview="auto"}.
+
+This reference keeps plain anchor behavior :cite-ref[astro-docs]{preview="off"}.
+
+::cite-def[astro-docs]{short="Astro Docs, Why Astro"}
+The official [Astro documentation](https://astro.build) explains why Astro is a strong fit for content-heavy sites.
+::
+
 ## Mermaid Diagrams
 
 To create Mermaid diagrams, wrap Mermaid syntax in code blocks and specify the language type as `mermaid`.

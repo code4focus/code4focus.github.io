@@ -1,4 +1,26 @@
 import type { ThemeConfig } from '@/types'
+import process from 'node:process'
+
+const defaultLocalSiteUrl = 'http://127.0.0.1:4321'
+
+function normalizeSiteUrl(rawUrl: string) {
+  try {
+    return new URL(rawUrl.trim()).toString().replace(/\/$/, '')
+  }
+  catch {
+    throw new Error(`Invalid PUBLIC_SITE_URL: "${rawUrl}". Expected an absolute URL such as "https://code4focus.github.io".`)
+  }
+}
+
+function resolveSiteUrl() {
+  const envSiteUrl = process.env.PUBLIC_SITE_URL?.trim()
+
+  if (envSiteUrl) {
+    return normalizeSiteUrl(envSiteUrl)
+  }
+
+  return defaultLocalSiteUrl
+}
 
 export const themeConfig: ThemeConfig = {
   // SITE INFORMATION >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
@@ -14,7 +36,8 @@ export const themeConfig: ThemeConfig = {
     // author name
     author: 'Code4Focus',
     // site url
-    url: 'https://code4focus.github.io',
+    // defaults to localhost for local builds and previews; override with PUBLIC_SITE_URL in deployment environments
+    url: resolveSiteUrl(),
     // base path
     // root directory for all pages and assets
     base: '/', // e.g., '/blog', '/docs'

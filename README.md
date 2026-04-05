@@ -62,6 +62,12 @@ Retypeset is a static blog theme based on the [Astro](https://astro.build/) fram
 3. Refer to the [Theme Guide](https://retypeset.radishzz.cc/en/posts/theme-guide/) to customize your blog and create new posts.
 4. Refer to the [Astro Deployment Guides](https://docs.astro.build/en/guides/deploy/) to deploy your blog to Netlify, Vercel, or other platforms.
 
+## Environment
+
+- Local development and local builds default the canonical site/feed URL to `http://127.0.0.1:4321`.
+- Set `PUBLIC_SITE_URL` in your deployment environment to the final site origin, for example `https://code4focus.github.io`.
+- See [.env.example](.env.example) for the expected variable name.
+
 &emsp;[![Deploy to Netlify](assets/images/deploy-netlify.svg)](https://app.netlify.com/start) [![Deploy to Vercel](assets/images/deploy-vercel.svg)](https://vercel.com/new)
 
 ## Updates

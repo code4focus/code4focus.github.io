@@ -98,6 +98,32 @@ abbrlink: markdown-extended-features
 如果需要添加并非所有读者都会感兴趣的内容，可以将其放在折叠块中。
 :::
 
+## Citation 引用
+
+如果需要一等公民的引用能力，可使用 `::cite-def[id]{short="..."}` 定义引用源，并在正文中用 `:cite-ref[id]{preview="..."}` 插入引用点。完整引用内容写在定义块内部，`short` 属性则用于提供更轻量的预览版本。
+
+### 语法
+
+```
+这里强调静态优先的价值 :cite-ref[astro-docs]{preview="auto"}。
+
+这个引用点保留普通锚点跳转行为 :cite-ref[astro-docs]{preview="off"}。
+
+::cite-def[astro-docs]{short="Astro 文档，Why Astro"}
+[Astro 官方文档](https://astro.build) 解释了为什么 Astro 很适合内容型网站。
+::
+```
+
+### 效果
+
+这里强调静态优先的价值 :cite-ref[astro-docs]{preview="auto"}。
+
+这个引用点保留普通锚点跳转行为 :cite-ref[astro-docs]{preview="off"}。
+
+::cite-def[astro-docs]{short="Astro 文档，Why Astro"}
+[Astro 官方文档](https://astro.build) 解释了为什么 Astro 很适合内容型网站。
+::
+
 ## Mermaid 图表
 
 使用代码块包裹 Mermaid 语法，并标注语言类型 `mermaid`，即可创建 Mermaid 图表。
