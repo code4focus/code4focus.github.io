@@ -27,6 +27,14 @@ These instructions apply to the entire repository.
 - Use the parent-issue templates for feature, process, design, and bug records.
 - Use the sub-issue template for concrete execution tasks under a parent issue.
 
+## GitHub Issue Workflow
+
+- Prefer the shared issue workflow scripts for GitHub issue operations.
+- Use `pnpm create-parent-issue` for new parent issues and `pnpm create-sub-issue` / `pnpm create-sub-issues` for child tasks.
+- If no repository script covers the operation, use `gh` CLI next.
+- Use GitHub MCP only when repository scripts and `gh` do not cover the task well, or when the task is primarily structured GitHub inspection.
+- In this repository, “configured GitHub workflow” resolves to: repo-local scripts, then `gh`, then GitHub MCP.
+
 ## Parent Issue Responsibilities
 
 - Define the problem, scope, constraints, goals, non-goals, and acceptance criteria.
