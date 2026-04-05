@@ -14,6 +14,7 @@
     "new-post": "node --import tsx scripts/new-post.ts",
     "create-sub-issue": "node --import tsx scripts/issues/create-sub-issue.ts",
     "create-sub-issues": "node --import tsx scripts/issues/create-sub-issues-from-json.ts",
+    "issue-branch": "node --import tsx scripts/issues/use-issue-branch.ts",
     "complete-issue": "node --import tsx scripts/issues/complete-issue.ts",
     "complete-issues": "node --import tsx scripts/issues/complete-issues-from-json.ts",
     "pr-context": "node --import tsx scripts/pr/collect-pr-context.ts",
