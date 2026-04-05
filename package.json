@@ -15,6 +15,7 @@
     "current-pr": "node --import tsx scripts/github/current-pr.ts",
     "issue-comment": "node --import tsx scripts/github/issue-comment.ts",
     "issue-context": "node --import tsx scripts/github/issue-context.ts",
+    "merge-readiness": "node --import tsx scripts/github/merge-readiness.ts",
     "pr-open": "node --import tsx scripts/github/pr-open.ts",
     "pr-update": "node --import tsx scripts/github/pr-update.ts",
     "create-sub-issue": "node --import tsx scripts/issues/create-sub-issue.ts",
