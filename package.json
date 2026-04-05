@@ -18,6 +18,7 @@
     "merge-readiness": "node --import tsx scripts/github/merge-readiness.ts",
     "pr-open": "node --import tsx scripts/github/pr-open.ts",
     "pr-update": "node --import tsx scripts/github/pr-update.ts",
+    "create-parent-issue": "node --import tsx scripts/issues/create-parent-issue.ts",
     "create-sub-issue": "node --import tsx scripts/issues/create-sub-issue.ts",
     "create-sub-issues": "node --import tsx scripts/issues/create-sub-issues-from-json.ts",
     "issue-branch": "node --import tsx scripts/issues/use-issue-branch.ts",
