@@ -47,6 +47,13 @@ These instructions apply to the entire repository.
 - Different tasks require different validation paths.
 - The work is too large to complete as one reviewable change.
 
+## Branch Lines
+
+- Create one semantic work branch per parent issue, for example `user/issue-2-workflow-baseline`.
+- Sub-issues and reopened sub-issues under the same parent issue should reuse that parent-issue branch line by default.
+- Only create a separate sub-issue branch when explicit isolation is required and the user asks for it.
+- Prefer the shared issue-branch helper to resolve a sub-issue onto its parent-issue branch line.
+
 ## Handoff Requirements
 
 - Reference the relevant issue and sub-issue numbers.
