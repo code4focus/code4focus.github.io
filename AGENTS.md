@@ -47,6 +47,13 @@ These instructions apply to the entire repository.
 - Different tasks require different validation paths.
 - The work is too large to complete as one reviewable change.
 
+## Branch Lines
+
+- Create one semantic work branch per parent issue, for example `user/issue-2-workflow-baseline`.
+- Sub-issues and reopened sub-issues under the same parent issue should reuse that parent-issue branch line by default.
+- Only create a separate sub-issue branch when explicit isolation is required and the user asks for it.
+- Prefer the shared issue-branch helper to resolve a sub-issue onto its parent-issue branch line.
+
 ## Handoff Requirements
 
 - Reference the relevant issue and sub-issue numbers.
@@ -54,6 +61,11 @@ These instructions apply to the entire repository.
 - Report the validation that was run and any skipped checks.
 - Call out residual risks, follow-up work, or unresolved questions.
 - Prefer the shared issue workflow scripts for templated completion comments and GitHub issue closure when updating repository issue state.
+
+## Commit Messages
+
+- Commits for non-trivial repository work must include an explicit issue reference such as `Refs #123`, `Closes #123`, or `Fixes #123`.
+- Merge and revert commits may use their default Git-generated subjects without an added issue-reference line.
 
 ## Guard Boundaries
 
