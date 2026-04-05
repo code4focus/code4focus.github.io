@@ -7,12 +7,20 @@
     "dev": "astro check && astro dev",
     "build": "astro check && astro build && pnpm apply-lqip",
     "preview": "astro preview",
+    "prepare": "simple-git-hooks",
     "astro": "astro",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "new-post": "node --import tsx scripts/new-post.ts",
+    "current-pr": "node --import tsx scripts/github/current-pr.ts",
+    "issue-comment": "node --import tsx scripts/github/issue-comment.ts",
+    "issue-context": "node --import tsx scripts/github/issue-context.ts",
+    "merge-readiness": "node --import tsx scripts/github/merge-readiness.ts",
+    "pr-open": "node --import tsx scripts/github/pr-open.ts",
+    "pr-update": "node --import tsx scripts/github/pr-update.ts",
     "create-sub-issue": "node --import tsx scripts/issues/create-sub-issue.ts",
     "create-sub-issues": "node --import tsx scripts/issues/create-sub-issues-from-json.ts",
+    "issue-branch": "node --import tsx scripts/issues/use-issue-branch.ts",
     "complete-issue": "node --import tsx scripts/issues/complete-issue.ts",
     "complete-issues": "node --import tsx scripts/issues/complete-issues-from-json.ts",
     "pr-context": "node --import tsx scripts/pr/collect-pr-context.ts",
@@ -77,7 +85,8 @@
     }
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm lint-staged"
+    "pre-commit": "pnpm lint-staged",
+    "commit-msg": "node scripts/git-hooks/check-commit-msg.mjs --file \"$1\""
   },
   "lint-staged": {
     "*.{js,mjs,ts,astro}": "eslint --fix"
