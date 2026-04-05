@@ -2,6 +2,7 @@ import type { ThemeConfig } from '@/types'
 import process from 'node:process'
 
 const defaultLocalSiteUrl = 'http://127.0.0.1:4321'
+const defaultProductionSiteUrl = 'https://code4focus.github.io'
 
 function normalizeSiteUrl(rawUrl: string) {
   try {
@@ -19,7 +20,9 @@ function resolveSiteUrl() {
     return normalizeSiteUrl(envSiteUrl)
   }
 
-  return defaultLocalSiteUrl
+  return process.env.NODE_ENV === 'development'
+    ? defaultLocalSiteUrl
+    : defaultProductionSiteUrl
 }
 
 export const themeConfig: ThemeConfig = {
@@ -36,7 +39,7 @@ export const themeConfig: ThemeConfig = {
     // author name
     author: 'Code4Focus',
     // site url
-    // defaults to localhost for local builds and previews; override with PUBLIC_SITE_URL in deployment environments
+    // defaults to the production site in builds and localhost in development; override with PUBLIC_SITE_URL when needed
     url: resolveSiteUrl(),
     // base path
     // root directory for all pages and assets
