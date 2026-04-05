@@ -71,13 +71,15 @@ jobs:
           name: cloudflare-pages-dist
           path: .
 
+      - name: Install pnpm for Wrangler
+        run: npm install --global pnpm@10.33.0
+
       - name: Deploy to Cloudflare Pages
         id: deployment
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          packageManager: npm
           command: >-
             pages deploy dist
             --project-name=${{ env.CLOUDFLARE_PAGES_PROJECT_NAME }}
