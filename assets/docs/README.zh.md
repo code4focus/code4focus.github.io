@@ -8,17 +8,13 @@ Retypeset 是一款基于 [Astro](https://astro.build/) 框架的静态博客主
 ## 预览
 
 - [重新编排](https://retypeset.radishzz.cc/)
-- [重新編排](https://retypeset.radishzz.cc/zh-tw/)
-- [再組版](https://retypeset.radishzz.cc/ja/)
 - [Retypeset](https://retypeset.radishzz.cc/en/)
-- [Retipografía](https://retypeset.radishzz.cc/es/)
-- [Переверстка](https://retypeset.radishzz.cc/ru/)
 
 ## 特征
 
 - 基于 Astro 与 UnoCSS 开发
 - 支持 SEO、Sitemap、OpenGraph、RSS、MDX、LaTeX、Mermaid 和 TOC
-- i18n 多语言
+- 中英双语
 - 亮色 / 暗色模式
 - 优雅的过渡动画
 - 丰富的主题配置

@@ -9,8 +9,16 @@
     "preview": "astro preview",
     "prepare": "simple-git-hooks",
     "astro": "astro",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint": "pnpm lint:code && pnpm lint:content",
+    "lint:fix": "pnpm lint:code:fix && pnpm lint:content:fix",
+    "lint:code": "eslint .",
+    "lint:code:fix": "eslint . --fix",
+    "lint:content": "node --import tsx scripts/lint-posts.ts --scope all",
+    "lint:content:fix": "node --import tsx scripts/lint-posts.ts --scope all --fix",
+    "lint:posts": "node --import tsx scripts/lint-posts.ts --scope posts",
+    "lint:posts:fix": "node --import tsx scripts/lint-posts.ts --scope posts --fix",
+    "lint:about": "node --import tsx scripts/lint-posts.ts --scope about",
+    "lint:about:fix": "node --import tsx scripts/lint-posts.ts --scope about --fix",
     "new-post": "node --import tsx scripts/new-post.ts",
     "current-pr": "node --import tsx scripts/github/current-pr.ts",
     "issue-comment": "node --import tsx scripts/github/issue-comment.ts",
@@ -78,7 +86,8 @@
     "tsx": "^4.21.0",
     "typescript": "~6.0.2",
     "unocss": "66.6.7",
-    "unocss-preset-theme": "^0.14.1"
+    "unocss-preset-theme": "^0.14.1",
+    "yaml": "^2.8.3"
   },
   "pnpm": {
     "patchedDependencies": {
@@ -90,6 +99,8 @@
     "commit-msg": "node scripts/git-hooks/check-commit-msg.mjs --file \"$1\""
   },
   "lint-staged": {
-    "*.{js,mjs,ts,astro}": "eslint --fix"
+    "*.{js,mjs,ts,astro}": "eslint --fix",
+    "src/content/posts/site/**/*.{md,mdx}": "node --import tsx scripts/lint-posts.ts --scope posts --fix",
+    "src/content/about/site/**/*.{md,mdx}": "node --import tsx scripts/lint-posts.ts --scope about --fix"
   }
 }
