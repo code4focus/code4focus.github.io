@@ -271,6 +271,6 @@ html.dark .heti :where(u) {
 }
 
 /* Quotes */
-.heti :where(q:is(:lang(zh), :lang(ja), :lang(ko))) {
+.heti :where(q:is(:lang(zh))) {
   quotes: "「" "」" "『" "』";
 }

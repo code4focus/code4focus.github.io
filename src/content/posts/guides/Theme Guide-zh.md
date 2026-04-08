@@ -81,11 +81,11 @@ color: {
 global: {
   // 默认语言
   // 站点根路径 '/' 的语言
-  locale: 'zh' // de | en | es | fr | ja | ko | pl | pt | ru | zh
+  locale: 'zh' // en | zh
   // 更多语言
-  // 生成 '/en/' '/es/' 等多语言路径
+  // 生成 '/en/' 等多语言路径
   // 不要重复填写默认语言，可以为空 []
-  moreLocales: ['en', 'es', 'ja', 'ru'] // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh']
+  moreLocales: ['en'] // ['en', 'zh']
   // 字体样式
   fontStyle: 'sans' // sans | serif
   // 文章日期格式
@@ -250,7 +250,7 @@ shikiConfig: {
 // src/utils/description.ts
 
 const excerptLengths: Record<ExcerptScene, {
-  cjk: number // 中文、日文、韩文
+  cjk: number // 中文
   other: number // 其他语言
 }> = {
   list: { // 首页文章列表
@@ -335,7 +335,7 @@ tags:
 draft: true/false
 pin: 0-99
 toc: true/false
-lang: de/en/es/fr/ja/ko/pl/pt/ru/zh
+lang: en/zh
 abbrlink: theme-guide
 ---
 ```
@@ -360,19 +360,16 @@ abbrlink: theme-guide
 
 ```md
 # src/config.ts
-# locale: 'en'
-# moreLocales: ['es', 'ru']
+# locale: 'zh'
+# moreLocales: ['en']
 
 # lang: ''
 src/content/posts/apple.md   ->  example.com/posts/apple/
-                             ->  example.com/es/posts/apple/
-                             ->  example.com/ru/posts/apple/
-# lang: en
+                             ->  example.com/en/posts/apple/
+# lang: zh
 src/content/posts/apple.md   ->  example.com/posts/apple/
-# lang: es
-src/content/posts/apple.md   ->  example.com/es/posts/apple/
-# lang: ru
-src/content/posts/apple.md   ->  example.com/ru/posts/apple/
+# lang: en
+src/content/posts/apple.md   ->  example.com/en/posts/apple/
 ```
 
 #### abbrlink
@@ -381,31 +378,30 @@ src/content/posts/apple.md   ->  example.com/ru/posts/apple/
 
 ```md
 # src/config.ts
-# locale: 'en'
-# moreLocales: ['es', 'ru']
-# lang: 'es'
+# locale: 'zh'
+# moreLocales: ['en']
+# lang: 'en'
 
 # abbrlink: ''
-src/content/posts/apple.md           ->  example.com/es/posts/apple/
-src/content/posts/guide/apple.md     ->  example.com/es/posts/guide/apple/
-src/content/posts/2025/03/apple.md   ->  example.com/es/posts/2025/03/apple/
+src/content/posts/apple.md           ->  example.com/en/posts/apple/
+src/content/posts/guide/apple.md     ->  example.com/en/posts/guide/apple/
+src/content/posts/2025/03/apple.md   ->  example.com/en/posts/2025/03/apple/
 
 # abbrlink: 'banana'
-src/content/posts/apple.md           ->  example.com/es/posts/banana/
-src/content/posts/guide/apple.md     ->  example.com/es/posts/banana/
-src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
+src/content/posts/apple.md           ->  example.com/en/posts/banana/
+src/content/posts/guide/apple.md     ->  example.com/en/posts/banana/
+src/content/posts/2025/03/apple.md   ->  example.com/en/posts/banana/
 ```
 
 ### 混排优化
 
-执行 `pnpm format-posts`，可优化 `src/content/` 目录中 Markdown 文件的排版格式。在 CJK（中文、日文、韩文）与英文混写的场景下，补充正确的空格，纠正标点符号等。
+执行 `pnpm format-posts`，可优化 `src/content/` 目录中 Markdown 文件的排版格式。在中文与英文混写的场景下，补充正确的空格，纠正标点符号等。
 
 ```bash
 pnpm format-posts
 🔍 Scanning Markdown files...
-📦 Found 50 Markdown files
-✅ src/content/posts/guides/Theme Guide-ja.md
+📦 Found 23 Markdown files
 ✅ src/content/posts/guides/Theme Guide-en.md
 ✅ src/content/posts/guides/Theme Guide-zh.md
-✨ Formatted 3 files successfully
+✨ Formatted 2 files successfully
 ```

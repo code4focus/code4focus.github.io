@@ -11,7 +11,7 @@ type FocusLang = Language
 type Severity = 'error' | 'warning'
 type ContentProfile = 'post' | 'about'
 type ContentScope = 'posts' | 'about' | 'all'
-type ProseProfile = 'han' | 'japanese' | 'western' | 'french'
+type ProseProfile = 'han' | 'western'
 
 export interface PostLintOptions {
   fix?: boolean
@@ -85,15 +85,7 @@ const filenameLangPattern = new RegExp(`-(${supportedLanguages
   .map(lang => lang.replace('-', '\\-'))
   .join('|')})\\.(?:md|mdx)$`)
 const localeToProfile: Record<Language, ProseProfile> = {
-  de: 'western',
   en: 'western',
-  es: 'western',
-  fr: 'french',
-  ja: 'japanese',
-  ko: 'western',
-  pl: 'western',
-  pt: 'western',
-  ru: 'western',
   zh: 'han',
 }
 
@@ -159,29 +151,6 @@ const hanStopWords = new Set([
 ])
 
 const stopWordsByLanguage: Record<Language, Set<string>> = {
-  de: new Set([
-    'aber',
-    'als',
-    'auch',
-    'bei',
-    'das',
-    'dem',
-    'den',
-    'der',
-    'die',
-    'ein',
-    'eine',
-    'einer',
-    'einem',
-    'einen',
-    'für',
-    'ist',
-    'mit',
-    'nicht',
-    'oder',
-    'und',
-    'von',
-  ]),
   en: new Set([
     'a',
     'an',
@@ -218,121 +187,11 @@ const stopWordsByLanguage: Record<Language, Set<string>> = {
     'with',
     'writing',
   ]),
-  es: new Set([
-    'con',
-    'de',
-    'del',
-    'el',
-    'en',
-    'es',
-    'esta',
-    'este',
-    'la',
-    'las',
-    'los',
-    'para',
-    'por',
-    'que',
-    'un',
-    'una',
-    'y',
-  ]),
-  fr: new Set([
-    'avec',
-    'ce',
-    'cet',
-    'cette',
-    'dans',
-    'de',
-    'des',
-    'du',
-    'en',
-    'est',
-    'et',
-    'la',
-    'le',
-    'les',
-    'pour',
-    'que',
-    'qui',
-    'sur',
-    'une',
-    'un',
-  ]),
-  ja: new Set([
-    'これ',
-    'それ',
-    'ため',
-    'こと',
-    'よう',
-    'もの',
-    'ここ',
-    'そこ',
-  ]),
-  ko: new Set([
-    '그리고',
-    '그것',
-    '이것',
-    '있는',
-    '합니다',
-    '하는',
-  ]),
-  pl: new Set([
-    'ale',
-    'czy',
-    'dla',
-    'i',
-    'jak',
-    'jest',
-    'oraz',
-    'się',
-    'to',
-    'w',
-    'z',
-  ]),
-  pt: new Set([
-    'com',
-    'da',
-    'de',
-    'do',
-    'e',
-    'em',
-    'esta',
-    'este',
-    'para',
-    'por',
-    'que',
-    'um',
-    'uma',
-  ]),
-  ru: new Set([
-    'в',
-    'во',
-    'для',
-    'и',
-    'из',
-    'или',
-    'на',
-    'не',
-    'но',
-    'по',
-    'с',
-    'что',
-    'это',
-  ]),
   zh: hanStopWords,
 }
 
 const fallbackTagByLanguage: Record<Language, string> = {
-  de: 'Schreiben',
   en: 'Writing',
-  es: 'Escritura',
-  fr: 'Écriture',
-  ja: '執筆',
-  ko: '글쓰기',
-  pl: 'Pisanie',
-  pt: 'Escrita',
-  ru: 'Письмо',
   zh: '写作',
 }
 
@@ -518,28 +377,13 @@ function inferContentProfile(filePath: string): ContentProfile {
 
 function inferContentLang(text: string): FocusLang | undefined {
   const hanCount = (text.match(/\p{Script=Han}/gu) ?? []).length
-  const kanaCount = (text.match(/[\p{Script=Hiragana}\p{Script=Katakana}ー]/gu) ?? []).length
-  const hangulCount = (text.match(/\p{Script=Hangul}/gu) ?? []).length
-  const cyrillicCount = (text.match(/\p{Script=Cyrillic}/gu) ?? []).length
   const latinCount = (text.match(/[a-z]/gi) ?? []).length
-
-  if (kanaCount >= 6) {
-    return 'ja'
-  }
-
-  if (hangulCount >= 6) {
-    return 'ko'
-  }
-
-  if (cyrillicCount >= 12) {
-    return 'ru'
-  }
 
   if (hanCount >= 12 && hanCount >= Math.max(8, latinCount / 2)) {
     return 'zh'
   }
 
-  if (latinCount >= 40 && hanCount <= 6 && kanaCount === 0 && hangulCount === 0 && cyrillicCount === 0) {
+  if (latinCount >= 40 && hanCount <= 6) {
     return undefined
   }
 
@@ -636,18 +480,6 @@ function normalizeHanText(text: string) {
     .replace(/(?<=\p{Script=Han})\(([^()\n]+)\)(?=[\p{Script=Han}，。！？：；、\s]|$)/gu, '（$1）')
 }
 
-function normalizeJapaneseText(text: string) {
-  return text
-    .replace(/(?<=[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}])\.(?=$|[\s\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}])/gu, '。')
-    .replace(/(?<=[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]),(?=$|[\s\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}])/gu, '、')
-    .replace(/(?<=[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}])\?(?=$|[\s\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}])/gu, '？')
-    .replace(/(?<=[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}])!(?=$|[\s\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}])/gu, '！')
-    .replace(/(?<=[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]):(?=$|[\s\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}])/gu, '：')
-    .replace(/(?<=[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]);(?=$|[\s\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}])/gu, '；')
-    .replace(/\s+([、。！？：；）】」』])/gu, '$1')
-    .replace(/([（【「『])\s+/gu, '$1')
-}
-
 function normalizeWesternText(text: string) {
   let normalized = text
 
@@ -666,16 +498,6 @@ function normalizeWesternText(text: string) {
   return normalized
 }
 
-function normalizeFrenchText(text: string) {
-  let normalized = normalizeWesternText(text)
-  normalized = normalized
-    .replace(/\s*([:;!?])/g, ' $1')
-    .replace(/ {2,}/g, ' ')
-    .trim()
-
-  return normalized
-}
-
 function normalizeProseByLang(text: string, lang?: FocusLang) {
   const trimmed = text.trim()
   if (!trimmed) {
@@ -689,10 +511,6 @@ function normalizeProseByLang(text: string, lang?: FocusLang) {
   switch (getProseProfile(lang)) {
     case 'han':
       return normalizeHanText(trimmed)
-    case 'japanese':
-      return normalizeJapaneseText(trimmed)
-    case 'french':
-      return normalizeFrenchText(trimmed)
     case 'western':
       return normalizeWesternText(trimmed)
   }
@@ -749,19 +567,6 @@ function normalizeTagCandidate(rawToken: string, lang: FocusLang) {
 
     if (/\p{Script=Han}/u.test(token) && token.length >= 2 && !hanStopWords.has(token)) {
       return token
-    }
-
-    return ''
-  }
-
-  if (lang === 'ja') {
-    if (/^[a-z][a-z0-9.+-]*$/i.test(token)) {
-      return token.length >= 3 ? formatEnglishTag(token) : ''
-    }
-
-    if (/[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]/u.test(token)) {
-      const normalized = token.toLowerCase()
-      return token.length >= 2 && !stopWordsByLanguage.ja.has(normalized) ? token : ''
     }
 
     return ''
@@ -916,11 +721,7 @@ function analyzeBody(
         `${lang}-body-punctuation`,
         profile === 'han'
           ? 'Normalize Han-script punctuation and spacing for prose content.'
-          : profile === 'japanese'
-            ? 'Normalize Japanese punctuation conservatively for prose content.'
-            : profile === 'french'
-              ? 'Normalize French punctuation spacing and width for prose content.'
-              : 'Normalize punctuation width and spacing for prose content.',
+          : 'Normalize punctuation width and spacing for prose content.',
       ))
       fixesApplied += 1
     }
@@ -936,17 +737,6 @@ function analyzeBody(
       ))
     }
 
-    if (profile === 'japanese' && /["'](?=[^"\n]*[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}])/u.test(masked)) {
-      findings.push(createFinding(
-        filePath,
-        lineNumber,
-        prefix.length + masked.search(/["']/u) + 1,
-        'warning',
-        'ja-ascii-quotes',
-        'Japanese prose still contains ASCII quotes; review whether Japanese quotation marks are more appropriate.',
-      ))
-    }
-
     if (profile === 'han' && /([，。！？：；、])\1+/u.test(masked)) {
       findings.push(createFinding(
         filePath,
@@ -958,7 +748,7 @@ function analyzeBody(
       ))
     }
 
-    if ((profile === 'western' || profile === 'french') && /[「」『』【】]/u.test(masked)) {
+    if (profile === 'western' && /[「」『』【】]/u.test(masked)) {
       findings.push(createFinding(
         filePath,
         lineNumber,
@@ -966,17 +756,6 @@ function analyzeBody(
         'warning',
         `${lang}-nonstandard-quotes`,
         'This prose still contains CJK quotation or bracket marks that were not auto-converted.',
-      ))
-    }
-
-    if (profile === 'french' && /(?<!\s)[:;!?]/u.test(masked)) {
-      findings.push(createFinding(
-        filePath,
-        lineNumber,
-        prefix.length + masked.search(/(?<!\s)[:;!?]/u) + 1,
-        'warning',
-        'fr-spacing-review',
-        'French prose should usually keep a space before : ; ! and ?; review whether the current spacing is intentional.',
       ))
     }
 
