@@ -81,11 +81,11 @@ color: {
 global: {
   // 默认语言
   // 站点根路径 '/' 的语言
-  locale: 'zh' // de | en | es | fr | ja | ko | pl | pt | ru | zh | zh-tw
+  locale: 'zh' // de | en | es | fr | ja | ko | pl | pt | ru | zh
   // 更多语言
   // 生成 '/en/' '/es/' 等多语言路径
   // 不要重复填写默认语言，可以为空 []
-  moreLocales: ['en', 'es', 'ja', 'ru', 'zh-tw'] // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh', 'zh-tw']
+  moreLocales: ['en', 'es', 'ja', 'ru'] // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh']
   // 字体样式
   fontStyle: 'sans' // sans | serif
   // 文章日期格式
@@ -335,7 +335,7 @@ tags:
 draft: true/false
 pin: 0-99
 toc: true/false
-lang: de/en/es/fr/ja/ko/pl/pt/ru/zh/zh-tw
+lang: de/en/es/fr/ja/ko/pl/pt/ru/zh
 abbrlink: theme-guide
 ---
 ```
@@ -403,9 +403,9 @@ src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
 ```bash
 pnpm format-posts
 🔍 Scanning Markdown files...
-📦 Found 56 Markdown files
+📦 Found 50 Markdown files
 ✅ src/content/posts/guides/Theme Guide-ja.md
-✅ src/content/posts/guides/Theme Guide-zh-tw.md
+✅ src/content/posts/guides/Theme Guide-en.md
 ✅ src/content/posts/guides/Theme Guide-zh.md
 ✨ Formatted 3 files successfully
 ```

@@ -81,11 +81,11 @@ color: {
 global: {
   // デフォルト言語
   // サイトのルートパス '/' の言語
-  locale: 'zh' // de | en | es | fr | ja | ko | pl | pt | ru | zh | zh-tw
+  locale: 'zh' // de | en | es | fr | ja | ko | pl | pt | ru | zh
   // その他の言語
   // '/en/' '/es/' などの多言語パスを生成
   // デフォルト言語を重複して入力しないでください、空の配列 [] も可能です
-  moreLocales: ['en', 'es', 'ja', 'ru', 'zh-tw'] // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh', 'zh-tw']
+  moreLocales: ['en', 'es', 'ja', 'ru'] // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh']
   // 記事のフォントスタイル
   fontStyle: 'sans' // sans | serif
   // 記事の日付フォーマット
@@ -335,7 +335,7 @@ tags:
 draft: true/false
 pin: 0-99
 toc: true/false
-lang: de/en/es/fr/ja/ko/pl/pt/ru/zh/zh-tw
+lang: de/en/es/fr/ja/ko/pl/pt/ru/zh
 abbrlink: theme-guide
 ---
 ```
@@ -403,9 +403,9 @@ src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
 ```bash
 pnpm format-posts
 🔍 Scanning Markdown files...
-📦 Found 56 Markdown files
+📦 Found 50 Markdown files
 ✅ src/content/posts/guides/Theme Guide-ja.md
-✅ src/content/posts/guides/Theme Guide-zh-tw.md
+✅ src/content/posts/guides/Theme Guide-en.md
 ✅ src/content/posts/guides/Theme Guide-zh.md
 ✨ Formatted 3 files successfully
 ```

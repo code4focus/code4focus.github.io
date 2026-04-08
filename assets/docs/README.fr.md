@@ -11,7 +11,6 @@ Retypeset est un thème de blog statique basé sur le framework [Astro](https://
 - [Retipografía](https://retypeset.radishzz.cc/es/)
 - [Переверстка](https://retypeset.radishzz.cc/ru/)
 - [重新编排](https://retypeset.radishzz.cc/)
-- [重新編排](https://retypeset.radishzz.cc/zh-tw/)
 - [再組版](https://retypeset.radishzz.cc/ja/)
 
 ## Fonctionnalités

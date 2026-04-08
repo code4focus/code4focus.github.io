@@ -84,10 +84,10 @@ export const themeConfig: ThemeConfig = {
   // GLOBAL SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
   global: {
     // default language
-    locale: 'zh', // de | en | es | fr | ja | ko | pl | pt | ru | zh | zh-tw
+    locale: 'zh', // de | en | es | fr | ja | ko | pl | pt | ru | zh
     // more languages
     // not fill in the locale code above again, can be an empty array []
-    moreLocales: ['en'], // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh', 'zh-tw']
+    moreLocales: ['en'], // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh']
     // post font style
     fontStyle: 'serif', // sans | serif
     // post date format

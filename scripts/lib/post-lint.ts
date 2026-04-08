@@ -85,17 +85,16 @@ const filenameLangPattern = new RegExp(`-(${supportedLanguages
   .map(lang => lang.replace('-', '\\-'))
   .join('|')})\\.(?:md|mdx)$`)
 const localeToProfile: Record<Language, ProseProfile> = {
-  'de': 'western',
-  'en': 'western',
-  'es': 'western',
-  'fr': 'french',
-  'ja': 'japanese',
-  'ko': 'western',
-  'pl': 'western',
-  'pt': 'western',
-  'ru': 'western',
-  'zh': 'han',
-  'zh-tw': 'han',
+  de: 'western',
+  en: 'western',
+  es: 'western',
+  fr: 'french',
+  ja: 'japanese',
+  ko: 'western',
+  pl: 'western',
+  pt: 'western',
+  ru: 'western',
+  zh: 'han',
 }
 
 const hanStopWords = new Set([
@@ -160,7 +159,7 @@ const hanStopWords = new Set([
 ])
 
 const stopWordsByLanguage: Record<Language, Set<string>> = {
-  'de': new Set([
+  de: new Set([
     'aber',
     'als',
     'auch',
@@ -183,7 +182,7 @@ const stopWordsByLanguage: Record<Language, Set<string>> = {
     'und',
     'von',
   ]),
-  'en': new Set([
+  en: new Set([
     'a',
     'an',
     'and',
@@ -219,7 +218,7 @@ const stopWordsByLanguage: Record<Language, Set<string>> = {
     'with',
     'writing',
   ]),
-  'es': new Set([
+  es: new Set([
     'con',
     'de',
     'del',
@@ -238,7 +237,7 @@ const stopWordsByLanguage: Record<Language, Set<string>> = {
     'una',
     'y',
   ]),
-  'fr': new Set([
+  fr: new Set([
     'avec',
     'ce',
     'cet',
@@ -260,7 +259,7 @@ const stopWordsByLanguage: Record<Language, Set<string>> = {
     'une',
     'un',
   ]),
-  'ja': new Set([
+  ja: new Set([
     'これ',
     'それ',
     'ため',
@@ -270,7 +269,7 @@ const stopWordsByLanguage: Record<Language, Set<string>> = {
     'ここ',
     'そこ',
   ]),
-  'ko': new Set([
+  ko: new Set([
     '그리고',
     '그것',
     '이것',
@@ -278,7 +277,7 @@ const stopWordsByLanguage: Record<Language, Set<string>> = {
     '합니다',
     '하는',
   ]),
-  'pl': new Set([
+  pl: new Set([
     'ale',
     'czy',
     'dla',
@@ -291,7 +290,7 @@ const stopWordsByLanguage: Record<Language, Set<string>> = {
     'w',
     'z',
   ]),
-  'pt': new Set([
+  pt: new Set([
     'com',
     'da',
     'de',
@@ -306,7 +305,7 @@ const stopWordsByLanguage: Record<Language, Set<string>> = {
     'um',
     'uma',
   ]),
-  'ru': new Set([
+  ru: new Set([
     'в',
     'во',
     'для',
@@ -321,22 +320,20 @@ const stopWordsByLanguage: Record<Language, Set<string>> = {
     'что',
     'это',
   ]),
-  'zh': hanStopWords,
-  'zh-tw': hanStopWords,
+  zh: hanStopWords,
 }
 
 const fallbackTagByLanguage: Record<Language, string> = {
-  'de': 'Schreiben',
-  'en': 'Writing',
-  'es': 'Escritura',
-  'fr': 'Écriture',
-  'ja': '執筆',
-  'ko': '글쓰기',
-  'pl': 'Pisanie',
-  'pt': 'Escrita',
-  'ru': 'Письмо',
-  'zh': '写作',
-  'zh-tw': '寫作',
+  de: 'Schreiben',
+  en: 'Writing',
+  es: 'Escritura',
+  fr: 'Écriture',
+  ja: '執筆',
+  ko: '글쓰기',
+  pl: 'Pisanie',
+  pt: 'Escrita',
+  ru: 'Письмо',
+  zh: '写作',
 }
 
 const fullwidthToAsciiMap = new Map<string, string>([
@@ -525,7 +522,6 @@ function inferContentLang(text: string): FocusLang | undefined {
   const hangulCount = (text.match(/\p{Script=Hangul}/gu) ?? []).length
   const cyrillicCount = (text.match(/\p{Script=Cyrillic}/gu) ?? []).length
   const latinCount = (text.match(/[a-z]/gi) ?? []).length
-  const traditionalMarkers = (text.match(/[體臺萬與為國這個還讓們關於樣點後續擴]|繁體/gu) ?? []).length
 
   if (kanaCount >= 6) {
     return 'ja'
@@ -540,7 +536,7 @@ function inferContentLang(text: string): FocusLang | undefined {
   }
 
   if (hanCount >= 12 && hanCount >= Math.max(8, latinCount / 2)) {
-    return traditionalMarkers >= 2 ? 'zh-tw' : 'zh'
+    return 'zh'
   }
 
   if (latinCount >= 40 && hanCount <= 6 && kanaCount === 0 && hangulCount === 0 && cyrillicCount === 0) {

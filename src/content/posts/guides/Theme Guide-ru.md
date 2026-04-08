@@ -81,11 +81,11 @@ color: {
 global: {
   // язык по умолчанию
   // язык корневого пути сайта '/'
-  locale: 'zh' // de | en | es | fr | ja | ko | pl | pt | ru | zh | zh-tw
+  locale: 'zh' // de | en | es | fr | ja | ko | pl | pt | ru | zh
   // дополнительные языки
   // создает многоязычные пути, такие как '/en/' '/es/'
   // не указывайте код языка, указанный выше, можно оставить пустым массивом []
-  moreLocales: ['en', 'es', 'ja', 'ru', 'zh-tw'] // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh', 'zh-tw']
+  moreLocales: ['en', 'es', 'ja', 'ru'] // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh']
   // стиль шрифта статьи
   fontStyle: 'sans' // sans | serif
   // формат даты статьи
@@ -335,7 +335,7 @@ tags:
 draft: true/false
 pin: 0-99
 toc: true/false
-lang: de/en/es/fr/ja/ko/pl/pt/ru/zh/zh-tw
+lang: de/en/es/fr/ja/ko/pl/pt/ru/zh
 abbrlink: theme-guide
 ---
 ```
@@ -403,9 +403,9 @@ src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
 ```bash
 pnpm format-posts
 🔍 Scanning Markdown files...
-📦 Found 56 Markdown files
+📦 Found 50 Markdown files
 ✅ src/content/posts/guides/Theme Guide-ja.md
-✅ src/content/posts/guides/Theme Guide-zh-tw.md
+✅ src/content/posts/guides/Theme Guide-en.md
 ✅ src/content/posts/guides/Theme Guide-zh.md
 ✨ Formatted 3 files successfully
 ```

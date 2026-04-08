@@ -8,7 +8,6 @@ Retypeset は、日本語では「再組版」と呼ばれる、[Astro](https://
 ## デモ
 
 - [重新编排](https://retypeset.radishzz.cc/)
-- [重新編排](https://retypeset.radishzz.cc/zh-tw/)
 - [再組版](https://retypeset.radishzz.cc/ja/)
 - [Retypeset](https://retypeset.radishzz.cc/en/)
 - [Retipografía](https://retypeset.radishzz.cc/es/)

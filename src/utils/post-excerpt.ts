@@ -33,7 +33,7 @@ const htmlEntityMap: Record<string, string> = {
 }
 
 function isCJKLanguage(lang: string) {
-  return ['zh', 'zh-tw', 'ja', 'ko'].includes(lang)
+  return ['zh', 'ja', 'ko'].includes(lang)
 }
 
 function normalizeRenderedText(text: string) {

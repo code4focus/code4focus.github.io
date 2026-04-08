@@ -81,11 +81,11 @@ color: {
 global: {
   // idioma predeterminado
   // idioma de la ruta raíz del sitio '/'
-  locale: 'zh' // de | en | es | fr | ja | ko | pl | pt | ru | zh | zh-tw
+  locale: 'zh' // de | en | es | fr | ja | ko | pl | pt | ru | zh
   // más idiomas
   // genera rutas multilingües como '/en/' '/es/'
   // no incluir el código de idioma anterior nuevamente, puede ser un array vacío []
-  moreLocales: ['en', 'es', 'ja', 'ru', 'zh-tw'] // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh', 'zh-tw']
+  moreLocales: ['en', 'es', 'ja', 'ru'] // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh']
   // estilo de fuente de la publicación
   fontStyle: 'sans' // sans | serif
   // formato de fecha de la publicación
@@ -335,7 +335,7 @@ tags:
 draft: true/false
 pin: 0-99
 toc: true/false
-lang: de/en/es/fr/ja/ko/pl/pt/ru/zh/zh-tw
+lang: de/en/es/fr/ja/ko/pl/pt/ru/zh
 abbrlink: theme-guide
 ---
 ```
@@ -403,9 +403,9 @@ Ejecuta `pnpm format-posts` para optimizar el formato en los archivos Markdown d
 ```bash
 pnpm format-posts
 🔍 Scanning Markdown files...
-📦 Found 56 Markdown files
+📦 Found 50 Markdown files
 ✅ src/content/posts/guides/Theme Guide-ja.md
-✅ src/content/posts/guides/Theme Guide-zh-tw.md
+✅ src/content/posts/guides/Theme Guide-en.md
 ✅ src/content/posts/guides/Theme Guide-zh.md
 ✨ Formatted 3 files successfully
 ```

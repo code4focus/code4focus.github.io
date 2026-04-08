@@ -8,7 +8,6 @@ Retypeset 是一款基于 [Astro](https://astro.build/) 框架的静态博客主
 ## 预览
 
 - [重新编排](https://retypeset.radishzz.cc/)
-- [重新編排](https://retypeset.radishzz.cc/zh-tw/)
 - [再組版](https://retypeset.radishzz.cc/ja/)
 - [Retypeset](https://retypeset.radishzz.cc/en/)
 - [Retipografía](https://retypeset.radishzz.cc/es/)
