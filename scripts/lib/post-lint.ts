@@ -1,14 +1,17 @@
+import type { Language } from '../../src/i18n/config'
 import { readFile, writeFile } from 'node:fs/promises'
 import { basename } from 'node:path'
 import { format as autocorrectFormat } from 'autocorrect-node'
 import fg from 'fast-glob'
 import { parseDocument, stringify } from 'yaml'
+import { langMap } from '../../src/i18n/config'
 import { extractExcerptFromMarkdown, extractPlainTextFromMarkdown } from '../../src/utils/post-excerpt'
 
-type FocusLang = 'zh' | 'en'
+type FocusLang = Language
 type Severity = 'error' | 'warning'
 type ContentProfile = 'post' | 'about'
 type ContentScope = 'posts' | 'about' | 'all'
+type ProseProfile = 'han' | 'japanese' | 'western' | 'french'
 
 export interface PostLintOptions {
   fix?: boolean
@@ -75,8 +78,27 @@ const frontmatterOrder = [
   'lang',
   'abbrlink',
 ] as const
+const supportedLanguages = Object.keys(langMap) as Language[]
+const filenameLangPattern = new RegExp(`-(${supportedLanguages
+  .slice()
+  .sort((left, right) => right.length - left.length)
+  .map(lang => lang.replace('-', '\\-'))
+  .join('|')})\\.(?:md|mdx)$`)
+const localeToProfile: Record<Language, ProseProfile> = {
+  'de': 'western',
+  'en': 'western',
+  'es': 'western',
+  'fr': 'french',
+  'ja': 'japanese',
+  'ko': 'western',
+  'pl': 'western',
+  'pt': 'western',
+  'ru': 'western',
+  'zh': 'han',
+  'zh-tw': 'han',
+}
 
-const zhStopWords = new Set([
+const hanStopWords = new Set([
   '的',
   '了',
   '和',
@@ -126,44 +148,196 @@ const zhStopWords = new Set([
   '普通',
   '平均',
   '似乎',
+  '與',
+  '這',
+  '這個',
+  '這種',
+  '那個',
+  '為什麼',
+  '還有',
+  '讓',
+  '營生',
 ])
 
-const enStopWords = new Set([
-  'a',
-  'an',
-  'and',
-  'are',
-  'as',
-  'at',
-  'be',
-  'blog',
-  'build',
-  'by',
-  'for',
-  'from',
-  'how',
-  'in',
-  'into',
-  'is',
-  'it',
-  'its',
-  'new',
-  'of',
-  'on',
-  'or',
-  'post',
-  'site',
-  'that',
-  'the',
-  'their',
-  'this',
-  'to',
-  'used',
-  'using',
-  'validate',
-  'with',
-  'writing',
-])
+const stopWordsByLanguage: Record<Language, Set<string>> = {
+  'de': new Set([
+    'aber',
+    'als',
+    'auch',
+    'bei',
+    'das',
+    'dem',
+    'den',
+    'der',
+    'die',
+    'ein',
+    'eine',
+    'einer',
+    'einem',
+    'einen',
+    'für',
+    'ist',
+    'mit',
+    'nicht',
+    'oder',
+    'und',
+    'von',
+  ]),
+  'en': new Set([
+    'a',
+    'an',
+    'and',
+    'are',
+    'as',
+    'at',
+    'be',
+    'blog',
+    'build',
+    'by',
+    'for',
+    'from',
+    'how',
+    'in',
+    'into',
+    'is',
+    'it',
+    'its',
+    'new',
+    'of',
+    'on',
+    'or',
+    'post',
+    'site',
+    'that',
+    'the',
+    'their',
+    'this',
+    'to',
+    'used',
+    'using',
+    'validate',
+    'with',
+    'writing',
+  ]),
+  'es': new Set([
+    'con',
+    'de',
+    'del',
+    'el',
+    'en',
+    'es',
+    'esta',
+    'este',
+    'la',
+    'las',
+    'los',
+    'para',
+    'por',
+    'que',
+    'un',
+    'una',
+    'y',
+  ]),
+  'fr': new Set([
+    'avec',
+    'ce',
+    'cet',
+    'cette',
+    'dans',
+    'de',
+    'des',
+    'du',
+    'en',
+    'est',
+    'et',
+    'la',
+    'le',
+    'les',
+    'pour',
+    'que',
+    'qui',
+    'sur',
+    'une',
+    'un',
+  ]),
+  'ja': new Set([
+    'これ',
+    'それ',
+    'ため',
+    'こと',
+    'よう',
+    'もの',
+    'ここ',
+    'そこ',
+  ]),
+  'ko': new Set([
+    '그리고',
+    '그것',
+    '이것',
+    '있는',
+    '합니다',
+    '하는',
+  ]),
+  'pl': new Set([
+    'ale',
+    'czy',
+    'dla',
+    'i',
+    'jak',
+    'jest',
+    'oraz',
+    'się',
+    'to',
+    'w',
+    'z',
+  ]),
+  'pt': new Set([
+    'com',
+    'da',
+    'de',
+    'do',
+    'e',
+    'em',
+    'esta',
+    'este',
+    'para',
+    'por',
+    'que',
+    'um',
+    'uma',
+  ]),
+  'ru': new Set([
+    'в',
+    'во',
+    'для',
+    'и',
+    'из',
+    'или',
+    'на',
+    'не',
+    'но',
+    'по',
+    'с',
+    'что',
+    'это',
+  ]),
+  'zh': hanStopWords,
+  'zh-tw': hanStopWords,
+}
+
+const fallbackTagByLanguage: Record<Language, string> = {
+  'de': 'Schreiben',
+  'en': 'Writing',
+  'es': 'Escritura',
+  'fr': 'Écriture',
+  'ja': '執筆',
+  'ko': '글쓰기',
+  'pl': 'Pisanie',
+  'pt': 'Escrita',
+  'ru': 'Письмо',
+  'zh': '写作',
+  'zh-tw': '寫作',
+}
 
 const fullwidthToAsciiMap = new Map<string, string>([
   ['，', ','],
@@ -314,17 +488,31 @@ function normalizeLang(value: unknown) {
   return normalized
 }
 
+function isSupportedLanguage(value: string): value is Language {
+  return supportedLanguages.includes(value as Language)
+}
+
+function getProseProfile(lang: Language) {
+  return localeToProfile[lang]
+}
+
 function getFilenameLang(filePath: string): FocusLang | undefined {
-  const match = basename(filePath).match(/-(zh|en)\.(?:md|mdx)$/)
+  const match = basename(filePath).match(filenameLangPattern)
   return match?.[1] as FocusLang | undefined
 }
 
 function inferContentProfile(filePath: string): ContentProfile {
-  if (filePath.includes('/src/content/posts/site/') || filePath.startsWith('src/content/posts/site/')) {
+  if (
+    filePath.includes('/src/content/posts/')
+    || filePath.startsWith('src/content/posts/')
+  ) {
     return 'post'
   }
 
-  if (filePath.includes('/src/content/about/site/') || filePath.startsWith('src/content/about/site/')) {
+  if (
+    filePath.includes('/src/content/about/')
+    || filePath.startsWith('src/content/about/')
+  ) {
     return 'about'
   }
 
@@ -333,14 +521,30 @@ function inferContentProfile(filePath: string): ContentProfile {
 
 function inferContentLang(text: string): FocusLang | undefined {
   const hanCount = (text.match(/\p{Script=Han}/gu) ?? []).length
+  const kanaCount = (text.match(/[\p{Script=Hiragana}\p{Script=Katakana}ー]/gu) ?? []).length
+  const hangulCount = (text.match(/\p{Script=Hangul}/gu) ?? []).length
+  const cyrillicCount = (text.match(/\p{Script=Cyrillic}/gu) ?? []).length
   const latinCount = (text.match(/[a-z]/gi) ?? []).length
+  const traditionalMarkers = (text.match(/[體臺萬與為國這個還讓們關於樣點後續擴]|繁體/gu) ?? []).length
 
-  if (hanCount >= 12 && hanCount >= Math.max(8, latinCount / 2)) {
-    return 'zh'
+  if (kanaCount >= 6) {
+    return 'ja'
   }
 
-  if (latinCount >= 40 && hanCount <= 6) {
-    return 'en'
+  if (hangulCount >= 6) {
+    return 'ko'
+  }
+
+  if (cyrillicCount >= 12) {
+    return 'ru'
+  }
+
+  if (hanCount >= 12 && hanCount >= Math.max(8, latinCount / 2)) {
+    return traditionalMarkers >= 2 ? 'zh-tw' : 'zh'
+  }
+
+  if (latinCount >= 40 && hanCount <= 6 && kanaCount === 0 && hangulCount === 0 && cyrillicCount === 0) {
+    return undefined
   }
 
   return undefined
@@ -429,14 +633,26 @@ function unmaskInlineSegments(text: string, tokens: string[]) {
   )
 }
 
-function normalizeZhText(text: string) {
+function normalizeHanText(text: string) {
   return autocorrectFormat(text)
     .replace(/\s+([，。！？：；、）】」』”’])/gu, '$1')
     .replace(/([（【「『“‘])\s+/gu, '$1')
     .replace(/(?<=\p{Script=Han})\(([^()\n]+)\)(?=[\p{Script=Han}，。！？：；、\s]|$)/gu, '（$1）')
 }
 
-function normalizeEnglishText(text: string) {
+function normalizeJapaneseText(text: string) {
+  return text
+    .replace(/(?<=[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}])\.(?=$|[\s\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}])/gu, '。')
+    .replace(/(?<=[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]),(?=$|[\s\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}])/gu, '、')
+    .replace(/(?<=[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}])\?(?=$|[\s\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}])/gu, '？')
+    .replace(/(?<=[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}])!(?=$|[\s\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}])/gu, '！')
+    .replace(/(?<=[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]):(?=$|[\s\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}])/gu, '：')
+    .replace(/(?<=[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]);(?=$|[\s\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}])/gu, '；')
+    .replace(/\s+([、。！？：；）】」』])/gu, '$1')
+    .replace(/([（【「『])\s+/gu, '$1')
+}
+
+function normalizeWesternText(text: string) {
   let normalized = text
 
   fullwidthToAsciiMap.forEach((ascii, fullwidth) => {
@@ -446,10 +662,20 @@ function normalizeEnglishText(text: string) {
   normalized = normalized
     .replace(/\s+([,.;:!?)}\]])/g, '$1')
     .replace(/([([{])\s+/g, '$1')
-    .replace(/([,;:!?])(?=["'(a-z])/gi, '$1 ')
-    .replace(/([a-z])\.([A-Z])/g, '$1. $2')
-    .replace(/([a-z])\.(["'(][A-Z])/g, '$1. $2')
+    .replace(/([,;:!?])(?=["'(\p{Letter}])/gu, '$1 ')
+    .replace(/(\p{Ll})\.(\p{Lu})/gu, '$1. $2')
+    .replace(/(\p{Ll})\.(["'(]\p{Lu})/gu, '$1. $2')
     .replace(/ {2,}/g, ' ')
+
+  return normalized
+}
+
+function normalizeFrenchText(text: string) {
+  let normalized = normalizeWesternText(text)
+  normalized = normalized
+    .replace(/\s*([:;!?])/g, ' $1')
+    .replace(/ {2,}/g, ' ')
+    .trim()
 
   return normalized
 }
@@ -460,15 +686,20 @@ function normalizeProseByLang(text: string, lang?: FocusLang) {
     return ''
   }
 
-  if (lang === 'zh') {
-    return normalizeZhText(trimmed)
+  if (!lang) {
+    return trimmed
   }
 
-  if (lang === 'en') {
-    return normalizeEnglishText(trimmed)
+  switch (getProseProfile(lang)) {
+    case 'han':
+      return normalizeHanText(trimmed)
+    case 'japanese':
+      return normalizeJapaneseText(trimmed)
+    case 'french':
+      return normalizeFrenchText(trimmed)
+    case 'western':
+      return normalizeWesternText(trimmed)
   }
-
-  return trimmed
 }
 
 function getLineNumberForKey(frontmatter: string, key: string) {
@@ -515,28 +746,48 @@ function normalizeTagCandidate(rawToken: string, lang: FocusLang) {
     return ''
   }
 
-  if (lang === 'zh') {
+  if (getProseProfile(lang) === 'han') {
     if (/^[a-z][a-z0-9.+-]*$/i.test(token)) {
       return token.length >= 3 ? formatEnglishTag(token) : ''
     }
 
-    if (/\p{Script=Han}/u.test(token) && token.length >= 2 && !zhStopWords.has(token)) {
+    if (/\p{Script=Han}/u.test(token) && token.length >= 2 && !hanStopWords.has(token)) {
       return token
     }
 
     return ''
   }
 
-  const normalized = token.toLowerCase()
-  if (!/^[a-z][a-z0-9.+-]*$/i.test(token) || normalized.length < 3 || enStopWords.has(normalized)) {
+  if (lang === 'ja') {
+    if (/^[a-z][a-z0-9.+-]*$/i.test(token)) {
+      return token.length >= 3 ? formatEnglishTag(token) : ''
+    }
+
+    if (/[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]/u.test(token)) {
+      const normalized = token.toLowerCase()
+      return token.length >= 2 && !stopWordsByLanguage.ja.has(normalized) ? token : ''
+    }
+
     return ''
   }
 
-  return formatEnglishTag(token)
+  const normalized = token.toLowerCase()
+  const stopWords = stopWordsByLanguage[lang]
+  if (/^\p{Letter}[\p{Letter}\p{Number}.+-]*$/u.test(token)) {
+    if (normalized.length < 2 || stopWords.has(normalized)) {
+      return ''
+    }
+
+    return /^[a-z][a-z0-9.+-]*$/i.test(token)
+      ? formatEnglishTag(token)
+      : token
+  }
+
+  return ''
 }
 
 function collectWeightedTokens(text: string, lang: FocusLang, weight: number, scores: Map<string, { score: number, display: string }>) {
-  const segmenter = new Intl.Segmenter(lang === 'zh' ? 'zh' : 'en', { granularity: 'word' })
+  const segmenter = new Intl.Segmenter(lang, { granularity: 'word' })
   for (const segment of segmenter.segment(text)) {
     if (!segment.isWordLike) {
       continue
@@ -547,9 +798,11 @@ function collectWeightedTokens(text: string, lang: FocusLang, weight: number, sc
       continue
     }
 
-    const key = lang === 'en' ? candidate.toLowerCase() : candidate
-    const current = scores.get(key)
-    scores.set(key, {
+    const normalizedKey = /^[\p{Letter}\p{Number}.+-]+$/u.test(candidate)
+      ? candidate.toLocaleLowerCase(lang)
+      : candidate
+    const current = scores.get(normalizedKey)
+    scores.set(normalizedKey, {
       score: (current?.score ?? 0) + weight,
       display: current?.display ?? candidate,
     })
@@ -577,7 +830,7 @@ function generateTags(title: string, body: string, bodyPlainText: string, lang: 
     return generated
   }
 
-  return [lang === 'zh' ? '写作' : 'Writing']
+  return [fallbackTagByLanguage[lang]]
 }
 
 function analyzeBody(
@@ -653,9 +906,8 @@ function analyzeBody(
 
     const { prefix, content } = splitMarkdownLinePrefix(line)
     const { masked, tokens } = maskInlineSegments(content)
-    const normalizedMasked = lang === 'zh'
-      ? normalizeZhText(masked)
-      : normalizeEnglishText(masked)
+    const profile = getProseProfile(lang)
+    const normalizedMasked = normalizeProseByLang(masked, lang)
     const restored = unmaskInlineSegments(normalizedMasked, tokens)
 
     if (restored !== content) {
@@ -666,43 +918,69 @@ function analyzeBody(
         prefix.length + diffIndex + 1,
         'error',
         `${lang}-body-punctuation`,
-        lang === 'zh'
-          ? 'Normalize Chinese punctuation and spacing for prose content.'
-          : 'Normalize English punctuation width and spacing for prose content.',
+        profile === 'han'
+          ? 'Normalize Han-script punctuation and spacing for prose content.'
+          : profile === 'japanese'
+            ? 'Normalize Japanese punctuation conservatively for prose content.'
+            : profile === 'french'
+              ? 'Normalize French punctuation spacing and width for prose content.'
+              : 'Normalize punctuation width and spacing for prose content.',
       ))
       fixesApplied += 1
     }
 
-    if (lang === 'zh' && /["'](?=[^"\n]*\p{Script=Han})/u.test(masked)) {
+    if (profile === 'han' && /["'](?=[^"\n]*\p{Script=Han})/u.test(masked)) {
       findings.push(createFinding(
         filePath,
         lineNumber,
         prefix.length + masked.search(/["']/u) + 1,
         'warning',
-        'zh-ascii-quotes',
-        'Chinese prose still contains ASCII quotes; review whether Chinese quotation marks are more appropriate.',
+        `${lang}-ascii-quotes`,
+        'Han-script prose still contains ASCII quotes; review whether CJK quotation marks are more appropriate.',
       ))
     }
 
-    if (lang === 'zh' && /([，。！？：；、])\1+/u.test(masked)) {
+    if (profile === 'japanese' && /["'](?=[^"\n]*[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}])/u.test(masked)) {
+      findings.push(createFinding(
+        filePath,
+        lineNumber,
+        prefix.length + masked.search(/["']/u) + 1,
+        'warning',
+        'ja-ascii-quotes',
+        'Japanese prose still contains ASCII quotes; review whether Japanese quotation marks are more appropriate.',
+      ))
+    }
+
+    if (profile === 'han' && /([，。！？：；、])\1+/u.test(masked)) {
       findings.push(createFinding(
         filePath,
         lineNumber,
         prefix.length + masked.search(/([，。！？：；、])\1+/u) + 1,
         'warning',
-        'zh-duplicate-punctuation',
-        'Chinese prose contains repeated punctuation marks; review whether the emphasis is intentional.',
+        `${lang}-duplicate-punctuation`,
+        'Han-script prose contains repeated punctuation marks; review whether the emphasis is intentional.',
       ))
     }
 
-    if (lang === 'en' && /[「」『』【】]/u.test(masked)) {
+    if ((profile === 'western' || profile === 'french') && /[「」『』【】]/u.test(masked)) {
       findings.push(createFinding(
         filePath,
         lineNumber,
         prefix.length + masked.search(/[「」『』【】]/u) + 1,
         'warning',
-        'en-nonstandard-quotes',
-        'English prose still contains CJK quotation or bracket marks that were not auto-converted.',
+        `${lang}-nonstandard-quotes`,
+        'This prose still contains CJK quotation or bracket marks that were not auto-converted.',
+      ))
+    }
+
+    if (profile === 'french' && /(?<!\s)[:;!?]/u.test(masked)) {
+      findings.push(createFinding(
+        filePath,
+        lineNumber,
+        prefix.length + masked.search(/(?<!\s)[:;!?]/u) + 1,
+        'warning',
+        'fr-spacing-review',
+        'French prose should usually keep a space before : ; ! and ?; review whether the current spacing is intentional.',
       ))
     }
 
@@ -766,7 +1044,7 @@ function analyzePostFrontmatter(
   const filenameLang = getFilenameLang(filePath)
   const contentLang = inferContentLang(`${normalizeString(rawData.title)}\n${bodyPlainText}`)
   const expectedLang = filenameLang ?? contentLang
-  const lintLang = currentLang === 'zh' || currentLang === 'en'
+  const lintLang = isSupportedLanguage(currentLang)
     ? currentLang
     : expectedLang
 
@@ -878,6 +1156,27 @@ function analyzePostFrontmatter(
     ))
     fixesApplied += 1
   }
+  else if (!currentLang) {
+    findings.push(createFinding(
+      filePath,
+      getLineNumberForKey(frontmatter, 'lang'),
+      1,
+      'error',
+      'frontmatter-lang-required',
+      'Post front matter requires an explicit `lang` unless the locale can be inferred safely from the filename or body.',
+    ))
+  }
+  else if (currentLang && !isSupportedLanguage(currentLang)) {
+    findings.push(createFinding(
+      filePath,
+      getLineNumberForKey(frontmatter, 'lang'),
+      1,
+      'error',
+      'frontmatter-lang-unsupported',
+      `Front matter \`lang\` value \`${currentLang}\` is not in the repository's supported locale list.`,
+    ))
+    nextData.lang = currentLang
+  }
   else if (currentLang && filenameLang && currentLang !== filenameLang) {
     nextData.lang = filenameLang
     findings.push(createFinding(
@@ -932,7 +1231,7 @@ function analyzePostFrontmatter(
   const nextFrontmatter = buildOrderedFrontmatter(nextData)
   return {
     frontmatter: nextFrontmatter,
-    effectiveLang: (nextData.lang === 'zh' || nextData.lang === 'en') ? nextData.lang : lintLang,
+    effectiveLang: isSupportedLanguage(normalizeLang(nextData.lang)) ? normalizeLang(nextData.lang) as Language : lintLang,
     findings,
     fixesApplied,
   }
@@ -1000,6 +1299,27 @@ function analyzeAboutFrontmatter(
     ))
     fixesApplied += 1
   }
+  else if (!currentLang) {
+    findings.push(createFinding(
+      filePath,
+      getLineNumberForKey(frontmatter, 'lang'),
+      1,
+      'error',
+      'about-lang-required',
+      'About front matter requires an explicit `lang` unless the locale can be inferred safely from the filename or body.',
+    ))
+  }
+  else if (currentLang && !isSupportedLanguage(currentLang)) {
+    findings.push(createFinding(
+      filePath,
+      getLineNumberForKey(frontmatter, 'lang'),
+      1,
+      'error',
+      'about-lang-unsupported',
+      `About front matter \`lang\` value \`${currentLang}\` is not in the repository's supported locale list.`,
+    ))
+    nextData.lang = currentLang
+  }
   else if (currentLang && filenameLang && currentLang !== filenameLang) {
     nextData.lang = filenameLang
     findings.push(createFinding(
@@ -1029,7 +1349,7 @@ function analyzeAboutFrontmatter(
 
   return {
     frontmatter: buildOrderedFrontmatter(nextData),
-    effectiveLang: (nextData.lang === 'zh' || nextData.lang === 'en') ? nextData.lang : expectedLang,
+    effectiveLang: isSupportedLanguage(normalizeLang(nextData.lang)) ? normalizeLang(nextData.lang) as Language : expectedLang,
     findings,
     fixesApplied,
   }
@@ -1084,7 +1404,7 @@ async function lintFile(target: LintTargetFile, options: Required<PostLintOption
     }
     else {
       const currentLang = normalizeLang(parseDocument(frontmatter, { schema: 'failsafe' }).get('lang'))
-      effectiveLang = currentLang === 'zh' || currentLang === 'en' ? currentLang : undefined
+      effectiveLang = isSupportedLanguage(currentLang) ? currentLang : undefined
     }
 
     if (options.includeBody) {
@@ -1144,12 +1464,13 @@ async function lintFile(target: LintTargetFile, options: Required<PostLintOption
             : analyzeAboutFrontmatter(filePath, reparsedFrontmatter, bodyPlainText)
         )
       : {
-          effectiveLang: normalizeLang(parseDocument(reparsedFrontmatter, { schema: 'failsafe' }).get('lang')) as FocusLang | undefined,
+          effectiveLang: (() => {
+            const currentLang = normalizeLang(parseDocument(reparsedFrontmatter, { schema: 'failsafe' }).get('lang'))
+            return isSupportedLanguage(currentLang) ? currentLang : undefined
+          })(),
           findings: [] as PostLintFinding[],
         }
-    const finalLang = metadataResult.effectiveLang === 'zh' || metadataResult.effectiveLang === 'en'
-      ? metadataResult.effectiveLang
-      : undefined
+    const finalLang = metadataResult.effectiveLang
 
     finalFindings.push(...metadataResult.findings)
 
