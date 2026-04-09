@@ -6,6 +6,7 @@ import { allLocales, base, defaultLocale, themeConfig } from '@/config'
 import { langMap } from '@/i18n/config'
 import { getNextLangPath } from '@/i18n/path'
 import { ui } from '@/i18n/ui'
+import { getFeedAbsoluteUrl } from '@/utils/distribution'
 import { getPageInfo } from '@/utils/page'
 
 interface Props {
@@ -67,9 +68,8 @@ const siteOrigin = Astro.site ?? new URL(themeConfig.site.url)
 const canonicalUrl = new URL(`${Astro.url.pathname}${Astro.url.search}`, siteOrigin).toString()
 const pageTitle = postTitle ? `${postTitle} | ${siteTitle}` : `${siteTitle} - ${siteSubtitle}`
 const pageDescription = postDescription || siteDescription
-const feedPrefix = currentLang === defaultLocale ? '' : `/${currentLang}`
-const rssFeedUrl = new URL(`${base}${feedPrefix}/rss.xml`, siteOrigin).toString()
-const atomFeedUrl = new URL(`${base}${feedPrefix}/atom.xml`, siteOrigin).toString()
+const rssFeedUrl = getFeedAbsoluteUrl(currentLang, 'rss', siteOrigin)
+const atomFeedUrl = getFeedAbsoluteUrl(currentLang, 'atom', siteOrigin)
 const sitemapUrl = new URL(`${base}/sitemap-index.xml`, siteOrigin).toString()
 const pageImage = postSlug
   ? new URL(`${base}/og/${postSlug}.png`, siteOrigin).toString()

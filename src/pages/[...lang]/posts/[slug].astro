@@ -12,9 +12,12 @@ import BackButton from '@/components/Widgets/BackButton.astro'
 import CitationPreview from '@/components/Widgets/CitationPreview.astro'
 import TOC from '@/components/Widgets/TOC.astro'
 import { getLangFromLocale } from '@/i18n/lang'
+import { getLocalizedPath } from '@/i18n/path'
+import { ui } from '@/i18n/ui'
 import Layout from '@/layouts/Layout.astro'
 import { getAdjacentPosts, getPostPath, getPostSlug, getPostStaticPaths, getRelatedPosts, getSemanticGroup } from '@/utils/content'
 import { getPostDescription } from '@/utils/description'
+import { getFeedPath } from '@/utils/distribution'
 import '@/styles/citation.css'
 
 export async function getStaticPaths() {
@@ -28,9 +31,14 @@ interface Props {
 
 const { post, supportedLangs } = Astro.props
 const currentLang = getLangFromLocale(Astro.currentLocale)
+const currentUI = ui[currentLang]
 const slug = getPostSlug(post)
 const description = getPostDescription(post, 'meta')
 const markdownExportPath = getPostPath(slug, currentLang, 'markdown')
+const followPath = getLocalizedPath('/follow/', currentLang)
+const rssPath = getFeedPath(currentLang, 'rss')
+const atomPath = getFeedPath(currentLang, 'atom')
+const actionLinkClass = 'inline-flex items-center rounded-full border border-solid px-4 py-2 text-3 font-navbar leading-none transition-colors hover:c-primary'
 const { Content, headings, remarkPluginFrontmatter } = await render(post)
 const seriesGroup = post.data.series?.id
   ? await getSemanticGroup(post.data.series.id, currentLang)
@@ -89,6 +97,32 @@ const hasPostDiscovery = Boolean(previousPost || nextPost || relatedPosts.length
       group={seriesGroup}
       lang={currentLang}
     />
+    <section class="mb-10 border rounded-5 border-solid px-5 py-4.5">
+      <p class="mb-2 text-2.8 c-secondary tracking-[0.22em] font-navbar uppercase">
+        {currentUI.follow.nav}
+      </p>
+      <h2 class="mb-2 text-4.6 c-primary font-title">
+        {currentUI.follow.postTitle}
+      </h2>
+      <p class="text-3.1 c-secondary leading-1.7">
+        {currentUI.follow.postBody}
+      </p>
+
+      <div class="mt-4 flex flex-wrap gap-2.5">
+        <a href={markdownExportPath} download class={`${actionLinkClass} c-primary`}>
+          {currentUI.follow.markdownAction}
+        </a>
+        <a href={followPath} class={`${actionLinkClass} c-secondary`}>
+          {currentUI.follow.pageAction}
+        </a>
+        <a href={rssPath} class={`${actionLinkClass} c-secondary`} target="_blank" rel="noopener noreferrer">
+          RSS
+        </a>
+        <a href={atomPath} class={`${actionLinkClass} c-secondary`} target="_blank" rel="noopener noreferrer">
+          Atom
+        </a>
+      </div>
+    </section>
     <!-- TOC -->
     {post.data.toc && <TOC headings={headings} />}
     <!-- Content -->

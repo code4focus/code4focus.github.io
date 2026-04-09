@@ -46,6 +46,10 @@ export function isSeriesPage(path: string) {
   return matchPageType(path, 'series')
 }
 
+export function isFollowPage(path: string) {
+  return matchPageType(path, 'follow')
+}
+
 // Returns page context with language, page types and localization helper
 export function getPageInfo(path: string) {
   const currentLang = getLangFromPath(path)
@@ -54,6 +58,7 @@ export function getPageInfo(path: string) {
   const isTag = isTagPage(path)
   const isAbout = isAboutPage(path)
   const isSeries = isSeriesPage(path)
+  const isFollow = isFollowPage(path)
 
   return {
     currentLang,
@@ -62,6 +67,7 @@ export function getPageInfo(path: string) {
     isTag,
     isAbout,
     isSeries,
+    isFollow,
     getLocalizedPath: (targetPath: string) =>
       getLocalizedPath(targetPath, currentLang),
   }
