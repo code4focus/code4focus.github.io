@@ -3,8 +3,11 @@ import HomeTimeline from '@/components/HomeTimeline.astro'
 import PostList from '@/components/PostList.astro'
 import { allLocales } from '@/config'
 import { getLangFromLocale, getLangRouteParam } from '@/i18n/lang'
+import { getLocalizedPath } from '@/i18n/path'
+import { ui } from '@/i18n/ui'
 import Layout from '@/layouts/Layout.astro'
 import { getPinnedPosts, getPostsByYear } from '@/utils/content'
+import { getFeedPath } from '@/utils/distribution'
 
 export async function getStaticPaths() {
   return allLocales.map(lang => ({
@@ -13,11 +16,42 @@ export async function getStaticPaths() {
 }
 
 const currentLang = getLangFromLocale(Astro.currentLocale)
+const currentUI = ui[currentLang]
+const followPath = getLocalizedPath('/follow/', currentLang)
+const rssPath = getFeedPath(currentLang, 'rss')
+const atomPath = getFeedPath(currentLang, 'atom')
+const actionLinkClass = 'inline-flex items-center rounded-full border border-solid px-4 py-2 text-3 font-navbar leading-none transition-colors hover:c-primary'
 const pinnedPosts = await getPinnedPosts(currentLang)
 const postsByYear = await getPostsByYear(currentLang)
 ---
 
 <Layout>
+  <section class="mb-7.5 border rounded-5 border-solid px-5 py-5 lg:flex lg:items-end lg:justify-between lg:gap-6">
+    <div class="max-w-2xl">
+      <p class="mb-2 text-2.8 c-secondary tracking-[0.24em] font-navbar uppercase">
+        {currentUI.follow.nav}
+      </p>
+      <h2 class="mb-2 text-5.2 c-primary font-title">
+        {currentUI.follow.homeTitle}
+      </h2>
+      <p class="text-3.2 c-secondary leading-1.7">
+        {currentUI.follow.homeBody}
+      </p>
+    </div>
+
+    <div class="mt-4 flex flex-wrap gap-2.5 lg:mt-0 lg:justify-end">
+      <a href={followPath} class={`${actionLinkClass} c-primary`}>
+        {currentUI.follow.pageAction}
+      </a>
+      <a href={rssPath} class={`${actionLinkClass} c-secondary`} target="_blank" rel="noopener noreferrer">
+        RSS
+      </a>
+      <a href={atomPath} class={`${actionLinkClass} c-secondary`} target="_blank" rel="noopener noreferrer">
+        Atom
+      </a>
+    </div>
+  </section>
+
   <!-- Pinned Posts -->
   {pinnedPosts.length > 0 && (
     <section class="mb-7.5">

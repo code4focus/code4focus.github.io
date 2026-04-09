@@ -1,5 +1,31 @@
 import type { Language } from '@/i18n/config'
 
+interface FollowTranslation {
+  nav: string
+  pageTitle: string
+  pageDescription: string
+  heroTitle: string
+  heroBody: string
+  homeTitle: string
+  homeBody: string
+  pageAction: string
+  postTitle: string
+  postBody: string
+  rssTitle: string
+  rssDescription: string
+  rssAction: string
+  atomTitle: string
+  atomDescription: string
+  atomAction: string
+  markdownTitle: string
+  markdownDescription: string
+  markdownAction: string
+  browsePostsAction: string
+  recentExportsTitle: string
+  recentExportsDescription: string
+  viewPostAction: string
+}
+
 interface Translation {
   title: string
   subtitle: string
@@ -21,6 +47,7 @@ interface Translation {
   kindSeries: string
   kindTimeline: string
   kindEvergreen: string
+  follow: FollowTranslation
 }
 
 export const ui: Record<Language, Translation> = {
@@ -45,6 +72,34 @@ export const ui: Record<Language, Translation> = {
     kindSeries: 'Series',
     kindTimeline: 'Timeline',
     kindEvergreen: 'Evergreen',
+    kindSeries: 'Series',
+    kindTimeline: 'Timeline',
+    kindEvergreen: 'Evergreen',
+    follow: {
+      nav: 'Follow',
+      pageTitle: 'Follow Code4Focus',
+      pageDescription: 'Use RSS or Atom to keep up with new posts, and grab clean Markdown exports when you want a portable copy.',
+      heroTitle: 'Follow without the growth stack',
+      heroBody: 'Code4Focus stays static-first: no popups, no embedded email forms, just durable links you can keep in your reader, automation, or notes workflow.',
+      homeTitle: 'Follow without the noise',
+      homeBody: 'Use RSS or Atom for new posts, or open the follow page for the lightweight subscription options.',
+      pageAction: 'Open follow options',
+      postTitle: 'Keep this post close',
+      postBody: 'Download a Markdown copy of this article, or follow the site via RSS and Atom for future updates.',
+      rssTitle: 'RSS feed',
+      rssDescription: 'Best default for most feed readers, automations, and inbox services that speak RSS.',
+      rssAction: 'Open RSS feed',
+      atomTitle: 'Atom feed',
+      atomDescription: 'Use Atom when your reader prefers richer update metadata or already expects Atom.',
+      atomAction: 'Open Atom feed',
+      markdownTitle: 'Markdown exports',
+      markdownDescription: 'Every post exposes a clean `.md` export for offline reading, clipping, or pulling into your own notes.',
+      markdownAction: 'Download Markdown',
+      browsePostsAction: 'Browse posts',
+      recentExportsTitle: 'Portable copies',
+      recentExportsDescription: 'Recent posts also ship with Markdown exports. Pick a post and keep a portable copy.',
+      viewPostAction: 'Open post',
+    },
   },
   zh: {
     title: 'Code4Focus',
@@ -67,5 +122,33 @@ export const ui: Record<Language, Translation> = {
     kindSeries: '系列',
     kindTimeline: '时间线',
     kindEvergreen: '长青',
+    kindSeries: '系列',
+    kindTimeline: '时间线',
+    kindEvergreen: '长青',
+    follow: {
+      nav: '订阅',
+      pageTitle: '订阅 Code4Focus',
+      pageDescription: '通过 RSS 或 Atom 跟进新文章，需要便携副本时可直接导出 Markdown。',
+      heroTitle: '用最轻的方式订阅',
+      heroBody: 'Code4Focus 保持静态优先：没有弹窗，没有沉重的表单插件，只有可以长期保存的链接，适合阅读器、自动化和笔记流。',
+      homeTitle: '轻量订阅，无需噪音',
+      homeBody: '用 RSS 或 Atom 跟进新文章，或进入订阅页查看全部轻量订阅选项。',
+      pageAction: '查看订阅选项',
+      postTitle: '把这篇文章带走',
+      postBody: '你可以下载这篇文章的 Markdown 副本，也可以通过 RSS 或 Atom 持续跟进后续更新。',
+      rssTitle: 'RSS 订阅',
+      rssDescription: '大多数阅读器、自动化服务和 inbox 工具都优先支持 RSS。',
+      rssAction: '打开 RSS feed',
+      atomTitle: 'Atom 订阅',
+      atomDescription: '如果你的阅读器偏好 Atom，或需要更完整的更新元数据，可以使用它。',
+      atomAction: '打开 Atom feed',
+      markdownTitle: 'Markdown 导出',
+      markdownDescription: '每篇文章都提供干净的 `.md` 导出，适合离线阅读、收藏剪藏或纳入你的笔记系统。',
+      markdownAction: '下载 Markdown',
+      browsePostsAction: '浏览文章',
+      recentExportsTitle: '便携副本',
+      recentExportsDescription: '最近发布的文章也都带有 Markdown 导出入口，你可以直接挑一篇保存。',
+      viewPostAction: '打开文章',
+    },
   },
 }
