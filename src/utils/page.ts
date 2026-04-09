@@ -12,7 +12,7 @@ function matchPageType(path: string, prefix: string = '') {
   // Remove leading and trailing slashes from the path
   const normalizedPath = pathWithoutBase.replace(/^\/|\/$/g, '')
 
-  // Homepage check: matches root path ('') or language code ('en', 'zh-tw')
+  // Homepage check: matches root path ('') or an enabled language code
   if (prefix === '') {
     return normalizedPath === '' || (moreLocales as readonly string[]).includes(normalizedPath)
   }

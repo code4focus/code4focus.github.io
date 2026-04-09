@@ -64,7 +64,7 @@ export default defineConfig({
       }
       return {
         matcher: matcher.slice(4),
-        selector: s => `${s}:is(:lang(zh), :lang(ja), :lang(ko))`,
+        selector: s => `${s}:is(:lang(zh))`,
       }
     },
   ],

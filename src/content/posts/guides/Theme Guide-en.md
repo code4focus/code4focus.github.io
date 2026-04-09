@@ -81,11 +81,11 @@ color: {
 global: {
   // default language
   // language of the site root path '/'
-  locale: 'zh' // de | en | es | fr | ja | ko | pl | pt | ru | zh | zh-tw
+  locale: 'zh' // en | zh
   // more languages
-  // generate multi-language paths such as '/en/' '/es/'
+  // generate multi-language paths such as '/en/'
   // not fill in the locale code above again, can be an empty array []
-  moreLocales: ['en', 'es', 'ja', 'ru', 'zh-tw'] // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh', 'zh-tw']
+  moreLocales: ['en'] // ['en', 'zh']
   // post font style
   fontStyle: 'sans' // sans | serif
   // post date format
@@ -250,7 +250,7 @@ Character count for automatic post excerpts.
 // src/utils/description.ts
 
 const excerptLengths: Record<ExcerptScene, {
-  cjk: number // Chinese, Japanese, Korean
+  cjk: number // Chinese
   other: number // Other languages
 }> = {
   list: { // Homepage post list
@@ -335,7 +335,7 @@ tags:
 draft: true/false
 pin: 0-99
 toc: true/false
-lang: de/en/es/fr/ja/ko/pl/pt/ru/zh/zh-tw
+lang: en/zh
 abbrlink: theme-guide
 ---
 ```
@@ -360,19 +360,16 @@ Specifies the post language. Only one language can be specified. If not specifie
 
 ```md
 # src/config.ts
-# locale: 'en'
-# moreLocales: ['es', 'ru']
+# locale: 'zh'
+# moreLocales: ['en']
 
 # lang: ''
 src/content/posts/apple.md   ->  example.com/posts/apple/
-                             ->  example.com/es/posts/apple/
-                             ->  example.com/ru/posts/apple/
-# lang: en
+                             ->  example.com/en/posts/apple/
+# lang: zh
 src/content/posts/apple.md   ->  example.com/posts/apple/
-# lang: es
-src/content/posts/apple.md   ->  example.com/es/posts/apple/
-# lang: ru
-src/content/posts/apple.md   ->  example.com/ru/posts/apple/
+# lang: en
+src/content/posts/apple.md   ->  example.com/en/posts/apple/
 ```
 
 #### abbrlink
@@ -381,31 +378,30 @@ Customizes the post URL. Can only contain lowercase letters, numbers, and hyphen
 
 ```md
 # src/config.ts
-# locale: 'en'
-# moreLocales: ['es', 'ru']
-# lang: 'es'
+# locale: 'zh'
+# moreLocales: ['en']
+# lang: 'en'
 
 # abbrlink: ''
-src/content/posts/apple.md           ->  example.com/es/posts/apple/
-src/content/posts/guide/apple.md     ->  example.com/es/posts/guide/apple/
-src/content/posts/2025/03/apple.md   ->  example.com/es/posts/2025/03/apple/
+src/content/posts/apple.md           ->  example.com/en/posts/apple/
+src/content/posts/guide/apple.md     ->  example.com/en/posts/guide/apple/
+src/content/posts/2025/03/apple.md   ->  example.com/en/posts/2025/03/apple/
 
 # abbrlink: 'banana'
-src/content/posts/apple.md           ->  example.com/es/posts/banana/
-src/content/posts/guide/apple.md     ->  example.com/es/posts/banana/
-src/content/posts/2025/03/apple.md   ->  example.com/es/posts/banana/
+src/content/posts/apple.md           ->  example.com/en/posts/banana/
+src/content/posts/guide/apple.md     ->  example.com/en/posts/banana/
+src/content/posts/2025/03/apple.md   ->  example.com/en/posts/banana/
 ```
 
 ### Mixed Text Formatting
 
-Run `pnpm format-posts` to optimize the formatting in Markdown files within the `src/content/` directory. This command automatically fixes spacing between CJK (Chinese, Japanese, Korean) and Latin characters, corrects punctuation marks, and improves overall text readability.
+Run `pnpm format-posts` to optimize the formatting in Markdown files within the `src/content/` directory. This command automatically fixes spacing between Chinese and Latin characters, corrects punctuation marks, and improves overall text readability.
 
 ```bash
 pnpm format-posts
 🔍 Scanning Markdown files...
-📦 Found 56 Markdown files
-✅ src/content/posts/guides/Theme Guide-ja.md
-✅ src/content/posts/guides/Theme Guide-zh-tw.md
+📦 Found 23 Markdown files
+✅ src/content/posts/guides/Theme Guide-en.md
 ✅ src/content/posts/guides/Theme Guide-zh.md
-✨ Formatted 3 files successfully
+✨ Formatted 2 files successfully
 ```

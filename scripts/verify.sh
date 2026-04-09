@@ -72,7 +72,7 @@ run_step() {
 }
 
 if [[ $run_lint -eq 1 ]]; then
-  run_step "eslint" ./node_modules/.bin/eslint .
+  run_step "repository lint" pnpm lint
 fi
 
 if [[ $run_check -eq 1 ]]; then
