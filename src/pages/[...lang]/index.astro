@@ -1,4 +1,5 @@
 ---
+import HomeTimeline from '@/components/HomeTimeline.astro'
 import PostList from '@/components/PostList.astro'
 import { allLocales } from '@/config'
 import { getLangFromLocale, getLangRouteParam } from '@/i18n/lang'
@@ -25,11 +26,9 @@ const postsByYear = await getPostsByYear(currentLang)
     </section>
   )}
 
-  <!-- Regular Posts -->
-  {Array.from(postsByYear.entries(), ([_year, posts]) => (
-    <section class="mb-7.5">
-      <div class="uno-decorative-line" />
-      <PostList posts={posts} lang={currentLang} />
-    </section>
-  ))}
+  <!-- Timeline Archive -->
+  <HomeTimeline
+    postsByYear={postsByYear}
+    lang={currentLang}
+  />
 </Layout>
