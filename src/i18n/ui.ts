@@ -14,6 +14,7 @@ interface Translation {
   continueReading: string
   previousArticle: string
   nextArticle: string
+  relatedReading: string
   tags: string
   about: string
   toc: string
@@ -37,6 +38,7 @@ export const ui: Record<Language, Translation> = {
     continueReading: 'Continue reading',
     previousArticle: 'Previous article',
     nextArticle: 'Next article',
+    relatedReading: 'Related reading',
     tags: 'Tags',
     about: 'About',
     toc: 'Table of Contents',
@@ -58,6 +60,7 @@ export const ui: Record<Language, Translation> = {
     continueReading: '继续阅读',
     previousArticle: '上一篇',
     nextArticle: '下一篇',
+    relatedReading: '相关文章',
     tags: '标签',
     about: '关于',
     toc: '目录',

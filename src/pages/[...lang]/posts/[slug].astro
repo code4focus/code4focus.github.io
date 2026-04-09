@@ -4,6 +4,7 @@ import type { Language } from '@/i18n/config'
 import { render } from 'astro:content'
 import Comment from '@/components/Comment/Index.astro'
 import AdjacentArticleNavigation from '@/components/Post/AdjacentArticleNavigation.astro'
+import RelatedReading from '@/components/Post/RelatedReading.astro'
 import PostDate from '@/components/PostDate.astro'
 import SeriesContext from '@/components/Semantic/SeriesContext.astro'
 import TagList from '@/components/TagList.astro'
@@ -12,7 +13,7 @@ import CitationPreview from '@/components/Widgets/CitationPreview.astro'
 import TOC from '@/components/Widgets/TOC.astro'
 import { getLangFromLocale } from '@/i18n/lang'
 import Layout from '@/layouts/Layout.astro'
-import { getAdjacentPosts, getPostPath, getPostStaticPaths, getSemanticGroup } from '@/utils/content'
+import { getAdjacentPosts, getPostPath, getPostStaticPaths, getRelatedPosts, getSemanticGroup } from '@/utils/content'
 import { getPostDescription } from '@/utils/description'
 import '@/styles/citation.css'
 
@@ -35,6 +36,13 @@ const seriesGroup = post.data.series?.id
   ? await getSemanticGroup(post.data.series.id, currentLang)
   : null
 const { next: nextPost, previous: previousPost } = await getAdjacentPosts(post, currentLang)
+const adjacentPostIds = new Set(
+  [previousPost?.id, nextPost?.id].filter((postId): postId is string => Boolean(postId)),
+)
+const relatedCandidates = await getRelatedPosts(post, currentLang, 6)
+const dedupedRelatedPosts = relatedCandidates.filter(candidate => !adjacentPostIds.has(candidate.id))
+const relatedPosts = (dedupedRelatedPosts.length > 0 ? dedupedRelatedPosts : relatedCandidates).slice(0, 3)
+const hasPostDiscovery = Boolean(previousPost || nextPost || relatedPosts.length > 0)
 ---
 
 <Layout
@@ -96,14 +104,22 @@ const { next: nextPost, previous: previousPost } = await getAdjacentPosts(post, 
           lang={currentLang}
         />
       )}
-      {(previousPost || nextPost) && (
+      {hasPostDiscovery && (
         <>
           <div class="mt-12.6 uno-decorative-line" />
-          <AdjacentArticleNavigation
-            previousPost={previousPost}
-            nextPost={nextPost}
-            lang={currentLang}
-          />
+          {(previousPost || nextPost) && (
+            <AdjacentArticleNavigation
+              previousPost={previousPost}
+              nextPost={nextPost}
+              lang={currentLang}
+            />
+          )}
+          {relatedPosts.length > 0 && (
+            <RelatedReading
+              posts={relatedPosts}
+              lang={currentLang}
+            />
+          )}
         </>
       )}
       <!-- Comment -->
