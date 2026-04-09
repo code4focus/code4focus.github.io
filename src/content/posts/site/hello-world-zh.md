@@ -7,6 +7,11 @@ tags:
   - Astro
   - Blogging
   - Typography
+series:
+  id: site-foundations
+  kind: series
+  order: "1"
+  title: 站点基线记录
 draft: false
 pin: 1
 toc: true
@@ -51,3 +56,4 @@ abbrlink: hello-world
 ::cite-def[retypeset-demo]{short="Retypeset 演示站"}
 [Retypeset 演示站](https://retypeset.radishzz.cc/) 所呈现的字距、留白和长文阅读体验，是我判断这套主题适合写作场景的重要依据。
 ::
+

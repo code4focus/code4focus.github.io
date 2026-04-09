@@ -185,6 +185,17 @@ async function _getSemanticGroups(lang?: Language): Promise<PostSemanticGroup<Po
 
 export const getSemanticGroups = memoize(_getSemanticGroups)
 
+async function _getAllSemanticGroups(): Promise<PostSemanticGroup<CollectionEntry<'posts'>>[]> {
+  const posts = await getCollection(
+    'posts',
+    ({ data }) => import.meta.env.DEV || !data.draft,
+  )
+
+  return buildSemanticGroups(posts)
+}
+
+export const getAllSemanticGroups = memoize(_getAllSemanticGroups)
+
 async function _getSemanticGroupsByKind(kind: PostSeriesKind, lang?: Language) {
   const groups = await getSemanticGroups(lang)
   return groups.filter(group => group.kind === kind)
@@ -203,7 +214,7 @@ async function _getSemanticSupportedLangs(seriesId: string): Promise<Language[]>
   const posts = await getCollection(
     'posts',
     ({ data }) =>
-      !data.draft
+      (import.meta.env.DEV || !data.draft)
       && data.series?.id === seriesId,
   )
 

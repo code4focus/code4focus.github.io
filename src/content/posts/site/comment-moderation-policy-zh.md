@@ -7,6 +7,11 @@ tags:
   - Comments
   - Community
   - Moderation
+series:
+  id: site-foundations
+  kind: series
+  order: "2"
+  title: 站点基线记录
 draft: false
 pin: 0
 toc: true
@@ -54,3 +59,4 @@ abbrlink: comment-moderation-policy
 - 简要说明评论原意，以及你认为被误判的原因
 
 我会优先按公开规则复核，而不是让隐藏规则替代说明。
+

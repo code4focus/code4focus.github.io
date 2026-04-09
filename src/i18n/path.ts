@@ -33,6 +33,35 @@ export function getPostPath(slug: string, lang: Language): string {
 }
 
 /**
+ * Get path to the localized series index page
+ *
+ * @param lang Current language code
+ * @returns Path to series index
+ */
+export function getSeriesIndexPath(lang: Language): string {
+  const seriesPath = lang === defaultLocale
+    ? '/series/'
+    : `/${lang}/series/`
+
+  return base ? `${base}${seriesPath}` : seriesPath
+}
+
+/**
+ * Get path to a specific series page with language support
+ *
+ * @param seriesId Series identifier
+ * @param lang Current language code
+ * @returns Path to series detail page
+ */
+export function getSeriesPath(seriesId: string, lang: Language): string {
+  const seriesPath = lang === defaultLocale
+    ? `/series/${seriesId}/`
+    : `/${lang}/series/${seriesId}/`
+
+  return base ? `${base}${seriesPath}` : seriesPath
+}
+
+/**
  * Generate localized path based on current language
  *
  * @param path Path to localize

@@ -1,0 +1,23 @@
+---
+import type { Language } from '@/i18n/config'
+import type { PostSeriesKind } from '@/utils/content-semantics'
+import { ui } from '@/i18n/ui'
+
+interface Props {
+  kind: PostSeriesKind
+  lang: Language
+}
+
+const { kind, lang } = Astro.props
+const currentUI = ui[lang]
+
+const labelByKind = {
+  series: currentUI.kindSeries,
+  timeline: currentUI.kindTimeline,
+  evergreen: currentUI.kindEvergreen,
+} satisfies Record<PostSeriesKind, string>
+---
+
+<span class="inline-flex items-center border border-secondary/20 rounded-full bg-secondary/5 px-2.6 py-0.7 text-2.9 c-secondary/80 tracking-wide font-navbar">
+  {labelByKind[kind]}
+</span>

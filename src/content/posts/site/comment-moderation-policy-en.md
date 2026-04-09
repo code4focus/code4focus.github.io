@@ -7,6 +7,11 @@ tags:
   - Comments
   - Community
   - Moderation
+series:
+  id: site-foundations
+  kind: series
+  order: "2"
+  title: Site Foundations
 draft: false
 pin: 0
 toc: true
@@ -56,3 +61,4 @@ If your comment was minimized and you believe that was wrong:
 - explain the original intent of the comment and why the minimization looks incorrect
 
 Review will follow the public policy above instead of an undisclosed private rule set.
+

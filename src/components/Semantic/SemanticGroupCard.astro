@@ -1,0 +1,61 @@
+---
+import type { Language } from '@/i18n/config'
+import type { Post } from '@/types'
+import type { PostSemanticGroup } from '@/utils/content-semantics'
+import PostDate from '@/components/PostDate.astro'
+import SemanticKindBadge from '@/components/Semantic/SemanticKindBadge.astro'
+import { getPostPath, getSeriesPath } from '@/i18n/path'
+import { ui } from '@/i18n/ui'
+
+interface Props {
+  group: PostSemanticGroup<Post>
+  lang: Language
+}
+
+const { group, lang } = Astro.props
+const currentUI = ui[lang]
+const latestPost = group.posts.at(-1)
+---
+
+<article class="border border-secondary/15 rounded-3xl bg-secondary/4 px-4.4 py-4.3 transition-[border-color,background-color] ease-out hover:(border-secondary/28 bg-secondary/6)">
+  <div class="flex flex-wrap items-center gap-2.2">
+    <SemanticKindBadge
+      kind={group.kind}
+      lang={lang}
+    />
+    <span class="text-3 c-secondary/75 font-navbar">
+      {group.posts.length} {currentUI.entries}
+    </span>
+  </div>
+
+  <h3 class="mt-2.5 text-5.2 c-primary font-semibold lg:text-5.6 cjk:tracking-wide">
+    <a
+      href={getSeriesPath(group.id, lang)}
+      class="transition-colors hover:c-primary"
+    >
+      {group.title}
+    </a>
+  </h3>
+
+  {latestPost && (
+    <>
+      <div class="mt-1.5 text-3.15 c-secondary/78 font-time">
+        <PostDate
+          date={latestPost.data.published}
+          updatedDate={latestPost.data.updated}
+          minutes={latestPost.remarkPluginFrontmatter.minutes}
+        />
+      </div>
+
+      <p class="mt-2.4 text-3.5 c-secondary/88 leading-1.55em cjk:text-justify">
+        <span class="c-secondary/70 font-navbar">{currentUI.latest}: </span>
+        <a
+          href={getPostPath(latestPost.data.abbrlink || latestPost.id, lang)}
+          class="transition-colors hover:c-primary"
+        >
+          {latestPost.data.title}
+        </a>
+      </p>
+    </>
+  )}
+</article>
