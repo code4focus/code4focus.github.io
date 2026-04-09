@@ -31,7 +31,7 @@ site: {
   // 作者名称
   author: 'radishzz'
   // 站点地址
-  url: 'https://retypeset.radishzz.cc'
+  url: 'https://code4focus.github.io'
   // 基础路径
   // 所有页面和资产的根目录
   base: '/' // 例如 '/blog', '/docs'
@@ -262,7 +262,7 @@ const excerptLengths: Record<ExcerptScene, {
 
 ### Open Graph
 
-[Open Graph 社交卡片](https://orcascan.com/tools/open-graph-validator?url=https%3A%2F%2Fretypeset.radishzz.cc%2Fposts%2Ftheme-guide%2F) 样式。
+[Open Graph 社交卡片](https://orcascan.com/tools/open-graph-validator?url=https%3A%2F%2Fcode4focus.github.io%2Fposts%2Ftheme-guide%2F) 样式。
 
 ```ts
 // src/pages/og/[...image].ts
@@ -291,7 +291,7 @@ getImageOptions: (_path, page) => ({
 
 ### RSS 订阅
 
-[RSS 订阅页](https://retypeset.radishzz.cc/atom.xml) 配色。
+[RSS 订阅页](https://code4focus.github.io/atom.xml) 配色。
 
 ```html
 <!-- public/feeds/xxx-style.xsl -->

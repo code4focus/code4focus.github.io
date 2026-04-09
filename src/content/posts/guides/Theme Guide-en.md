@@ -31,7 +31,7 @@ site: {
   // author name
   author: 'radishzz'
   // site url
-  url: 'https://retypeset.radishzz.cc'
+  url: 'https://code4focus.github.io'
   // base path
   // root directory for all pages and assets
   base: '/' // e.g., '/blog', '/docs'
@@ -262,7 +262,7 @@ const excerptLengths: Record<ExcerptScene, {
 
 ### Open Graph
 
-[Open Graph social card](https://orcascan.com/tools/open-graph-validator?url=https%3A%2F%2Fretypeset.radishzz.cc%2Fen%2Fposts%2Ftheme-guide%2F) styles.
+[Open Graph social card](https://orcascan.com/tools/open-graph-validator?url=https%3A%2F%2Fcode4focus.github.io%2Fen%2Fposts%2Ftheme-guide%2F) styles.
 
 ```ts
 // src/pages/og/[...image].ts
@@ -291,7 +291,7 @@ getImageOptions: (_path, page) => ({
 
 ### RSS Feed
 
-[RSS feed page](https://retypeset.radishzz.cc/en/atom.xml) styles.
+[RSS feed page](https://code4focus.github.io/en/atom.xml) styles.
 
 ```html
 <!-- public/feeds/xxx-style.xsl -->

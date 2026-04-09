@@ -26,12 +26,7 @@ Retypeset is a static blog theme based on the [Astro](https://astro.build/) fram
 
 ## Performance
 
-<br>
-<p align="center">
-  <a href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fretypeset.radishzz.cc%2Fen%2F&form_factor=desktop">
-    <img width="710" alt="Retypeset Lighthouse Score" src="assets/images/retypeset-lighthouse-score.svg">
-  <a>
-</p>
+- [PageSpeed Insights (desktop)](https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fcode4focus.github.io%2F&form_factor=desktop) for the current GitHub Pages homepage.
 
 ## Getting Started
 
