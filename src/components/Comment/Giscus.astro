@@ -45,14 +45,18 @@ const giscusConfig = {
 />
 
 <!-- Giscus Script >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
-<script>
-let giscusContainer: HTMLElement | null = null
+<script
+  is:inline
+  define:vars={{
+    giscusThemeBase: base ? `${base}/giscus` : '/giscus',
+  }}
+>
+let giscusContainer = null
 
 function getThemeUrl() {
   const isDark = document.documentElement.classList.contains('dark')
-  return isDark
-    ? `https://cdn.jsdelivr.net/gh/radishzzz/astro-theme-retypeset@master/public/giscus/theme-dark.css`
-    : `https://cdn.jsdelivr.net/gh/radishzzz/astro-theme-retypeset@master/public/giscus/theme-light.css`
+  const themePath = isDark ? `${giscusThemeBase}/theme-dark.css` : `${giscusThemeBase}/theme-light.css`
+  return new URL(themePath, window.location.origin).toString()
 }
 
 function updateGiscusTheme() {
@@ -60,7 +64,7 @@ function updateGiscusTheme() {
     return
   }
 
-  const giscusWindow = giscusContainer.querySelector<HTMLIFrameElement>('iframe.giscus-frame')?.contentWindow
+  const giscusWindow = giscusContainer.querySelector('iframe.giscus-frame')?.contentWindow
   if (!giscusWindow) {
     return
   }
@@ -88,7 +92,7 @@ function setupGiscus() {
     const config = JSON.parse(giscusContainer.dataset.config)
     const { category, ...restConfig } = config
 
-    const dataAttributes: Record<string, string> = {
+    const dataAttributes = {
       ...restConfig,
       ...(category && { category }),
       theme: getThemeUrl(),

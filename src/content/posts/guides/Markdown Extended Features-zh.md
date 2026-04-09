@@ -8,7 +8,7 @@ lang: zh
 abbrlink: markdown-extended-features
 ---
 
-本文介绍 Retypeset 主题支持的 Markdown 扩展功能，包括语法示例与效果展示。
+本文介绍 Code4Focus 当前发布栈支持的 Markdown 扩展功能，包括语法示例与效果展示。
 
 ## 图注
 
@@ -183,12 +183,12 @@ graph TD;
 ### 语法
 
 ```
-::github{repo="radishzzz/astro-theme-retypeset"}
+::github{repo="code4focus/code4focus.github.io"}
 ```
 
 ### 效果
 
-::github{repo="radishzzz/astro-theme-retypeset"}
+::github{repo="code4focus/code4focus.github.io"}
 
 ## 视频
 

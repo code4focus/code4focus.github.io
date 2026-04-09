@@ -8,7 +8,7 @@ lang: en
 abbrlink: markdown-extended-features
 ---
 
-Here are some extended Markdown features supported by Retypeset, including syntax examples and their stylistic effects.
+Here are some extended Markdown features supported by the current Code4Focus publishing stack, including syntax examples and their stylistic effects.
 
 ## Figure Captions
 
@@ -183,12 +183,12 @@ To embed GitHub repositories, use the leaf directive `::github{repo="owner/repo"
 ### Syntax
 
 ```
-::github{repo="radishzzz/astro-theme-retypeset"}
+::github{repo="code4focus/code4focus.github.io"}
 ```
 
 ### Output
 
-::github{repo="radishzzz/astro-theme-retypeset"}
+::github{repo="code4focus/code4focus.github.io"}
 
 ## Videos
 

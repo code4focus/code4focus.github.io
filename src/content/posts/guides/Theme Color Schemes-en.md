@@ -8,9 +8,9 @@ lang: en
 abbrlink: theme-color-schemes
 ---
 
-Retypeset defines theme color schemes based on the [OKLCH](https://oklch.com/) color space, with a default black, white, and gray color scheme that simulates a print style.
+The Code4Focus theme layer defines color schemes based on the [OKLCH](https://oklch.com/) color space, with a default black, white, and gray palette that simulates a print style.
 
-To meet personalization needs, I've created several color schemes for the theme. You can replace the default color scheme in [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) and restart the development server to preview the new color scheme.
+To meet personalization needs, I've created several color schemes for the theme. You can replace the default color scheme in [src/config.ts](https://github.com/code4focus/code4focus.github.io/blob/main/src/config.ts) and restart the development server to preview the new color scheme.
 
 ## Scallion White
 
