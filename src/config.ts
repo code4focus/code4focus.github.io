@@ -104,16 +104,16 @@ export const themeConfig: ThemeConfig = {
   // COMMENT SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
   comment: {
     // enable comment system
-    enabled: false, // true | false
+    enabled: true, // true | false
     // giscus
     // https://giscus.app/
     giscus: {
-      repo: '',
-      repoId: '',
-      category: '',
-      categoryId: '',
+      repo: 'code4focus/code4focus.github.io',
+      repoId: 'R_kgDOR5wUfw',
+      category: 'General',
+      categoryId: 'DIC_kwDOR5wUf84C6c-n',
       mapping: 'pathname',
-      strict: '0',
+      strict: '1',
       reactionsEnabled: '1',
       emitMetadata: '0',
       inputPosition: 'bottom',

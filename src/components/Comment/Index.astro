@@ -4,8 +4,10 @@ import Giscus from '@/components/Comment/Giscus.astro'
 import Twikoo from '@/components/Comment/Twikoo.astro'
 import Waline from '@/components/Comment/Waline.astro'
 import { themeConfig } from '@/config'
+import { getPageInfo } from '@/utils/page'
 
 const { enabled: enableComment } = themeConfig.comment
+const { currentLang, getLocalizedPath } = getPageInfo(Astro.url.pathname)
 
 // Disqus
 // const disqusShortname = themeConfig.comment.disqus?.shortname ?? ''
@@ -22,9 +24,39 @@ const showTwikoo = enableComment && Boolean(twikooEnvId.trim())
 // Waline
 const walineURL = themeConfig.comment.waline?.serverURL ?? ''
 const showWaline = enableComment && Boolean(walineURL.trim())
+
+const showCommentPolicy = showGiscus || showTwikoo || showWaline
+const commentPolicyPath = getLocalizedPath('/posts/comment-moderation-policy/')
+const commentPolicyCopy = currentLang === 'zh'
+  ? {
+      description: '发表评论即表示你同意遵守公开评论规则。明显广告或恶意内容可能被自动最小化，其余情况保留人工处理。',
+      linkText: '查看评论审核规则',
+    }
+  : {
+      description: 'By commenting here, you agree to the public moderation rules. Obvious spam or malicious content may be minimized automatically; anything else stays manual.',
+      linkText: 'Read the comment moderation policy',
+    }
 ---
 
 <!-- {showDisqus && <Disqus />} -->
+{showCommentPolicy && (
+  <div
+    class="mt-12 border rounded-4 border-solid px-4 py-3 text-3.2 c-secondary leading-1.7"
+    style="border-color: oklch(var(--un-preset-theme-colors-primary) / 0.15); background-color: oklch(var(--un-preset-theme-colors-background) / 0.75);"
+  >
+    <p>
+      {commentPolicyCopy.description}
+    </p>
+    <p class="mt-1.5">
+      <a
+        href={commentPolicyPath}
+        class="highlight-hover c-primary font-semibold after:bottom-0.35em hover:font-bold"
+      >
+        {commentPolicyCopy.linkText}
+      </a>
+    </p>
+  </div>
+)}
 {showGiscus && <Giscus />}
 {showTwikoo && <Twikoo />}
 {showWaline && <Waline />}
