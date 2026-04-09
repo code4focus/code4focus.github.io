@@ -1,5 +1,6 @@
 ---
 import type { Language } from '@/i18n/config'
+import type { JsonLdNode } from '@/utils/seo'
 import Button from '@/components/Button.astro'
 import Footer from '@/components/Footer.astro'
 import Header from '@/components/Header.astro'
@@ -21,6 +22,8 @@ import '@/styles/markdown.css'
 import '@/styles/transition.css'
 
 interface Props {
+  pageTitle?: string
+  pageDescription?: string
   postTitle?: string
   postDescription?: string
   postSlug?: string
@@ -28,10 +31,13 @@ interface Props {
   postPublished?: Date
   postUpdated?: Date
   postTags?: string[]
+  structuredData?: JsonLdNode[]
   supportedLangs?: Language[]
 }
 
 const {
+  pageTitle,
+  pageDescription,
   postTitle,
   postDescription,
   postSlug,
@@ -39,6 +45,7 @@ const {
   postPublished,
   postUpdated,
   postTags,
+  structuredData = [],
   supportedLangs = [],
 } = Astro.props
 const { isPost } = getPageInfo(Astro.url.pathname)
@@ -56,6 +63,8 @@ const MarginBottom = isPost && themeConfig.comment.enabled
   ]}
 >
   <Head
+    {pageTitle}
+    {pageDescription}
     {postTitle}
     {postDescription}
     {postSlug}
@@ -63,6 +72,7 @@ const MarginBottom = isPost && themeConfig.comment.enabled
     {postPublished}
     {postUpdated}
     {postTags}
+    {structuredData}
     {supportedLangs}
   />
   <body>

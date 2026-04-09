@@ -1,10 +1,13 @@
 ---
 import PostList from '@/components/PostList.astro'
 import TagList from '@/components/TagList.astro'
-import { allLocales } from '@/config'
+import { allLocales, themeConfig } from '@/config'
 import { getLangFromLocale, getLangRouteParam } from '@/i18n/lang'
+import { getLocalizedPath } from '@/i18n/path'
+import { ui } from '@/i18n/ui'
 import Layout from '@/layouts/Layout.astro'
 import { getAllTags, getPostsByTag, getTagSupportedLangs } from '@/utils/content'
+import { createBreadcrumbSchema, createItemListSchema, createPostListItems, createWebPageSchema, getSiteOrigin } from '@/utils/seo'
 
 export async function getStaticPaths() {
   const paths = await Promise.all(allLocales.map(async (lang) => {
@@ -23,12 +26,39 @@ interface Props {
 
 const { tag } = Astro.props
 const currentLang = getLangFromLocale(Astro.currentLocale)
+const currentUI = ui[currentLang]
 const posts = await getPostsByTag(tag, currentLang)
 const allTags = await getAllTags(currentLang)
 const supportedLangs = await getTagSupportedLangs(tag)
+const siteOrigin = getSiteOrigin(Astro.site ?? themeConfig.site.url)
+const pageTitle = currentUI.seo.tagTitle(tag)
+const pageDescription = currentUI.seo.tagDescription(tag, posts.length)
+const structuredData = [
+  createWebPageSchema({
+    type: 'CollectionPage',
+    name: pageTitle,
+    description: pageDescription,
+    path: Astro.url.pathname,
+    lang: currentLang,
+    siteOrigin,
+  }),
+  ...(posts.length > 0
+    ? [createItemListSchema(createPostListItems(posts, currentLang), siteOrigin, pageTitle)]
+    : []),
+  createBreadcrumbSchema([
+    { name: currentUI.title, path: getLocalizedPath('/', currentLang) },
+    { name: currentUI.tags, path: getLocalizedPath('/tags', currentLang) },
+    { name: tag, path: Astro.url.pathname },
+  ], siteOrigin),
+]
 ---
 
-<Layout supportedLangs={supportedLangs}>
+<Layout
+  pageTitle={pageTitle}
+  pageDescription={pageDescription}
+  structuredData={structuredData}
+  supportedLangs={supportedLangs}
+>
   <!-- Decorative Line -->
   <div class="uno-decorative-line" />
   <!-- Tag List -->
