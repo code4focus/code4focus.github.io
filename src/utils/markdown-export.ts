@@ -264,6 +264,23 @@ function buildMarkdownFrontmatter(
     post.data.tags.forEach(tag => frontmatterLines.push(`  - ${toYamlScalar(tag)}`))
   }
 
+  if (post.data.series?.id) {
+    frontmatterLines.push('series:')
+    frontmatterLines.push(`  id: ${toYamlScalar(post.data.series.id)}`)
+
+    if (post.data.series.title) {
+      frontmatterLines.push(`  title: ${toYamlScalar(post.data.series.title)}`)
+    }
+
+    if (post.data.series.kind) {
+      frontmatterLines.push(`  kind: ${toYamlScalar(post.data.series.kind)}`)
+    }
+
+    if (typeof post.data.series.order === 'number') {
+      frontmatterLines.push(`  order: ${post.data.series.order}`)
+    }
+  }
+
   frontmatterLines.push('---')
   return frontmatterLines.join('\n')
 }

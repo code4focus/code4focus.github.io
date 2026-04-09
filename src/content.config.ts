@@ -2,6 +2,7 @@ import { glob } from 'astro/loaders'
 import { z } from 'astro/zod'
 import { defineCollection } from 'astro:content'
 import { allLocales, themeConfig } from '@/config'
+import { postSeriesKinds } from '@/utils/content-semantics'
 
 const posts = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/posts/site' }),
@@ -16,6 +17,15 @@ const posts = defineCollection({
       z.date().optional(),
     ),
     tags: z.array(z.string()).optional().default([]),
+    series: z.object({
+      id: z.string().trim().min(1).regex(
+        /^[a-z0-9-]+$/,
+        'Series IDs can only contain lowercase letters, numbers and hyphens',
+      ),
+      kind: z.enum(postSeriesKinds).optional().default('series'),
+      order: z.number().int().positive().optional(),
+      title: z.string().trim().min(1).optional(),
+    }).strict().optional(),
     // Advanced
     draft: z.boolean().optional().default(false),
     pin: z.number().int().min(0).max(99).optional().default(0),
