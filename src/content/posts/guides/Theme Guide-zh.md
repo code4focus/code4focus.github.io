@@ -10,26 +10,26 @@ lang: zh
 abbrlink: theme-guide
 ---
 
-Retypeset 是一款基于 [Astro](https://astro.build/) 框架的静态博客主题，中文名为重新编排。本文为 Retypeset 主题上手指南，主要介绍如何修改主题配置与创建新文章，来帮助你快速搭建个人博客。
+本文介绍 Code4Focus 当前采用的站点配置，以及其背后的 Retypeset 衍生主题层，帮助你按自己的写作工作流调整站点。
 
 ## 主题配置
 
-通过修改配置文件 [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts) 来自定义你的博客。
+通过修改配置文件 [src/config.ts](https://github.com/code4focus/code4focus.github.io/blob/main/src/config.ts) 来自定义你的博客。
 
 ### 站点信息
 
 ```ts
 site: {
   // 站点标题
-  title: 'Retypeset'
+  title: 'Code4Focus'
   // 站点副标题
-  subtitle: 'Revive the beauty of typography'
+  subtitle: 'Build with focus, write with clarity'
   // 站点描述
-  description: 'Retypeset is a static blog theme...'
+  description: 'Code4Focus is a personal blog built with Astro and Retypeset, focused on software, AI, product thinking, and long-term craftsmanship.'
   // 使用 src/i18n/ui.ts 中的多语言标题/副标题/站点描述，代替上方静态配置
   i18nTitle: true // true | false
   // 作者名称
-  author: 'radishzz'
+  author: 'Code4Focus'
   // 站点地址
   url: 'https://code4focus.github.io'
   // 基础路径
@@ -87,7 +87,7 @@ global: {
   // 不要重复填写默认语言，可以为空 []
   moreLocales: ['en'] // ['en', 'zh']
   // 字体样式
-  fontStyle: 'sans' // sans | serif
+  fontStyle: 'serif' // sans | serif
   // 文章日期格式
   // YYYY-MM-DD | MM-DD-YYYY | DD-MM-YYYY | MMM D YYYY | D MMM YYYY
   // 2025-04-13, 04-13-2025, 13-04-2025, Apr 13 2025，13 Apr 2025
@@ -127,7 +127,7 @@ comment: {
   // waline 评论系统
   waline: {
     // 服务器地址
-    serverURL: 'https://retypeset-comment.radishzz.cc'
+    serverURL: ''
     // emoji 表情地址
     emoji: [
       'https://unpkg.com/@waline/emojis@1.2.0/tw-emoji'
@@ -147,13 +147,13 @@ comment: {
 ```ts
 seo: {
   // @twitter ID
-  twitterID: '@radishzz_'
+  twitterID: ''
   // 站点验证
   verification: {
     // google 搜索控制台
-    google: 'AUCrz5F1e5qbnmKKDXl2Sf8u6y0kOpEO1wLs6HMMmlM'
+    google: ''
     // bing 网站管理员工具
-    bing: '64708CD514011A7965C84DDE1D169F87'
+    bing: ''
     // yandex 网站管理员
     yandex: ''
     // baidu 站长工具
@@ -162,7 +162,7 @@ seo: {
   // google 网站分析
   googleAnalyticsID: ''
   // umami 网站分析
-  umamiAnalyticsID: 'dab0e4b9-9cbf-43c3-af60-b09d3b545c38'
+  umamiAnalyticsID: ''
   // folo 验证
   folo: {
     // 订阅 ID
@@ -189,19 +189,15 @@ footer: {
     },
     {
       name: 'GitHub',
-      url: 'https://github.com/radishzzz/astro-theme-retypeset',
-    },
-    {
-      name: 'Email',
-      url: 'email@radishzz.cc',
+      url: 'https://github.com/code4focus',
     }
     // {
     //   name: 'X',
-    //   url: 'https://x.com/radishzz_',
+    //   url: 'https://x.com/your-handle',
     // },
   ]
   // 建站年份
-  startYear: 2025
+  startYear: 2026
 }
 ```
 
@@ -211,13 +207,13 @@ footer: {
 preload: {
   // 图床地址
   // 优化远程图片并生成低质量占位符
-  imageHostURL: 'image.radishzz.cc'
+  imageHostURL: ''
   // 定制 google analytics 跟踪脚本
   // 适用于代理跟踪脚本到自定义域名的用户
   customGoogleAnalyticsJS: ''
   // 定制 umami 跟踪脚本
   // 适用于自部署 umami 或代理跟踪脚本到自定义域名的用户
-  customUmamiAnalyticsJS: 'https://views.radishzz.cc/script.js'
+  customUmamiAnalyticsJS: ''
 }
 ```
 

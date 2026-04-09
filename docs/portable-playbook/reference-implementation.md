@@ -5,10 +5,10 @@
 | Convention | Current files | What the current repo demonstrates |
 | --- | --- | --- |
 | Value statement and visual first impression | `README.md`, `assets/docs/README.zh.md` | The repo opens with a concise identity statement, paired screenshots, and an immediate language switch. |
-| Capability summary | `README.md`, `assets/docs/README.zh.md` | Feature bullets establish what the theme supports before a reader installs it. |
-| Evaluation and activation paths | `README.md`, `assets/docs/README.zh.md` | Demo links, getting-started steps, deployment guides, and deploy badges reduce the gap between discovery and first use. |
+| Capability summary | `README.md`, `assets/docs/README.zh.md` | Feature bullets establish what the Code4Focus repository includes before a reader starts exploring the project. |
+| Evaluation and activation paths | `README.md`, `assets/docs/README.zh.md` | Live-site links, local-development steps, and environment notes reduce the gap between discovery and first use. |
 | Operational assumptions | `README.md`, `.env.example` | The repo documents canonical URL handling and the required environment variable name. |
-| Trust and status signals | `README.md`, `assets/docs/README.zh.md` | The current implementation uses PageSpeed proof and Star History rather than a long badge wall. |
+| Trust and status signals | `README.md`, `assets/docs/README.zh.md` | The current implementation uses PageSpeed proof plus explicit attribution and license framing rather than trend widgets or badge walls. |
 
 ## Issue-Driven Flow Layer｜Issue-Driven 流程层
 

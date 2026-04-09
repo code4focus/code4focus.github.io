@@ -10,26 +10,26 @@ lang: en
 abbrlink: theme-guide
 ---
 
-Retypeset is a static blog theme based on the [Astro](https://astro.build/) framework. This guide introduces how to modify theme configuration and create new posts, helping you quickly set up your personal blog.
+This guide walks through the configuration used by Code4Focus and the Retypeset-derived theme layer behind it, helping you adapt the site for your own writing workflow.
 
 ## Theme Configuration
 
-Customize your blog by modifying the configuration file [src/config.ts](https://github.com/radishzzz/astro-theme-retypeset/blob/master/src/config.ts).
+Customize your blog by modifying the configuration file [src/config.ts](https://github.com/code4focus/code4focus.github.io/blob/main/src/config.ts).
 
 ### Site Information
 
 ```ts
 site: {
   // site title
-  title: 'Retypeset'
+  title: 'Code4Focus'
   // site subtitle
-  subtitle: 'Revive the beauty of typography'
+  subtitle: 'Build with focus, write with clarity'
   // site description
-  description: 'Retypeset is a static blog theme...'
+  description: 'Code4Focus is a personal blog built with Astro and Retypeset, focused on software, AI, product thinking, and long-term craftsmanship.'
   // use i18n title/subtitle/description from src/i18n/ui.ts instead of static ones above
   i18nTitle: true // true | false
   // author name
-  author: 'radishzz'
+  author: 'Code4Focus'
   // site url
   url: 'https://code4focus.github.io'
   // base path
@@ -87,7 +87,7 @@ global: {
   // not fill in the locale code above again, can be an empty array []
   moreLocales: ['en'] // ['en', 'zh']
   // post font style
-  fontStyle: 'sans' // sans | serif
+  fontStyle: 'serif' // sans | serif
   // post date format
   // YYYY-MM-DD | MM-DD-YYYY | DD-MM-YYYY | MMM D YYYY | D MMM YYYY
   // 2025-04-13, 04-13-2025, 13-04-2025, Apr 13 2025，13 Apr 2025
@@ -127,7 +127,7 @@ comment: {
   // waline comment system
   waline: {
     // server url
-    serverURL: 'https://retypeset-comment.radishzz.cc'
+    serverURL: ''
     // emoji url
     emoji: [
       'https://unpkg.com/@waline/emojis@1.2.0/tw-emoji'
@@ -147,13 +147,13 @@ comment: {
 ```ts
 seo: {
   // @twitter ID
-  twitterID: '@radishzz_'
+  twitterID: ''
   // site verification
   verification: {
     // google search console
-    google: 'AUCrz5F1e5qbnmKKDXl2Sf8u6y0kOpEO1wLs6HMMmlM'
+    google: ''
     // bing webmaster tools
-    bing: '64708CD514011A7965C84DDE1D169F87'
+    bing: ''
     // yandex webmaster
     yandex: ''
     // baidu search
@@ -162,7 +162,7 @@ seo: {
   // google analytics
   googleAnalyticsID: ''
   // umami analytics
-  umamiAnalyticsID: 'dab0e4b9-9cbf-43c3-af60-b09d3b545c38'
+  umamiAnalyticsID: ''
   // folo verification
   folo: {
     // feed ID
@@ -189,19 +189,15 @@ footer: {
     },
     {
       name: 'GitHub',
-      url: 'https://github.com/radishzzz/astro-theme-retypeset',
-    },
-    {
-      name: 'Email',
-      url: 'email@radishzz.cc',
+      url: 'https://github.com/code4focus',
     }
     // {
     //   name: 'X',
-    //   url: 'https://x.com/radishzz_',
+    //   url: 'https://x.com/your-handle',
     // },
   ]
   // year of website start
-  startYear: 2025
+  startYear: 2026
 }
 ```
 
@@ -211,13 +207,13 @@ footer: {
 preload: {
   // image hosting url
   // optimize remote images and generate low-quality placeholders
-  imageHostURL: 'image.radishzz.cc'
+  imageHostURL: ''
   // custom google analytics js
   // for users who proxy tracking scripts to a custom domain
   customGoogleAnalyticsJS: ''
   // custom umami analytics js
   // for users who self-deploy umami or proxy tracking scripts to a custom domain
-  customUmamiAnalyticsJS: 'https://views.radishzz.cc/script.js'
+  customUmamiAnalyticsJS: ''
 }
 ```
 

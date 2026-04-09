@@ -1,57 +1,41 @@
-# Retypeset
+# Code4Focus
 
 ![Cover Image](assets/images/v1/retypeset-en-desktop.webp)
 ![Cover Image](assets/images/v1/retypeset-en-mobile.webp)
 
 [简体中文](assets/docs/README.zh.md)
 
-Retypeset is a static blog theme based on the [Astro](https://astro.build/) framework. Inspired by [Typography](https://astro-theme-typography.vercel.app/), Retypeset establishes a new visual standard and reimagines the layout of all pages, creating a reading experience reminiscent of paper books, reviving the beauty of typography. Details in every sight, elegance in every space.
+Code4Focus is the source repository for the Code4Focus writing site. The project runs on [Astro](https://astro.build/) and a customized adaptation of [Retypeset](https://github.com/radishzzz/astro-theme-retypeset), with repository-specific content, workflow, and publishing settings for long-form writing about software, AI, product thinking, and craftsmanship.
 
-## Demo
+## Live Site
 
-- [Retypeset](https://retypeset.radishzz.cc/en/)
-- [重新编排](https://retypeset.radishzz.cc/)
+- [Primary site](https://code4focus.github.io/)
+- [Mirror](https://code4focus.pages.dev/)
 
-## Features
+## Repository Scope
 
-- Built with Astro and UnoCSS
-- Support for SEO, Sitemap, OpenGraph, RSS, MDX, LaTeX, Mermaid, and TOC
-- Bilingual zh/en support
-- Light / Dark mode
-- Elegant view transitions
-- Rich theme customization
-- Optimized typography
-- Responsive design
-- Comment system
+- Bilingual zh/en publishing workflow
+- SEO, sitemap, OpenGraph, RSS, MDX, KaTeX, Mermaid, and TOC support
+- Typography-first reading experience with responsive layout and theme controls
+- Optional comment and analytics integrations
+- Deterministic repository verification with `pnpm verify:repo`
 
 ## Performance
 
 - [PageSpeed Insights (desktop)](https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fcode4focus.github.io%2F&form_factor=desktop) for the current GitHub Pages homepage.
 
-## Getting Started
+## Local Development
 
-1. [Fork](https://github.com/radishzzz/astro-theme-retypeset/fork) this repository, or use this template to create a new repository.
-2. Run the following commands in your terminal:
+1. Clone this repository.
+2. Install dependencies with `pnpm install`.
+3. Start the development server with `pnpm dev`.
 
-   ```bash
-   # Clone the repository
-   git clone <repository-url>
-
-   # Navigate to the project directory
-   cd <repository-name>
-
-   # Install pnpm globally (if not already installed)
-   npm install -g pnpm
-
-   # Install dependencies
-   pnpm install
-
-   # Start the development server
-   pnpm dev
-   ```
-
-3. Refer to the [Theme Guide](https://retypeset.radishzz.cc/en/posts/theme-guide/) to customize your blog and create new posts.
-4. Refer to the [Astro Deployment Guides](https://docs.astro.build/en/guides/deploy/) to deploy your blog to Netlify, Vercel, or other platforms.
+```bash
+git clone https://github.com/code4focus/code4focus.github.io.git
+cd code4focus.github.io
+pnpm install
+pnpm dev
+```
 
 ## Environment
 
@@ -60,28 +44,23 @@ Retypeset is a static blog theme based on the [Astro](https://astro.build/) fram
 - This repository may also mirror the same build to `https://code4focus.pages.dev`, but GitHub Pages remains the default canonical/feed/site URL unless a separate issue changes the primary domain.
 - See [.env.example](.env.example) for the expected variable name.
 
-&emsp;[![Deploy to Netlify](assets/images/deploy-netlify.svg)](https://app.netlify.com/start) [![Deploy to Vercel](assets/images/deploy-vercel.svg)](https://vercel.com/new)
+## Attribution And License
 
-## Updates
+- Code4Focus is a customized derivative of [Retypeset](https://github.com/radishzzz/astro-theme-retypeset).
+- The upstream project is released under the MIT License, and this repository preserves the required copyright and license notice in [LICENSE](LICENSE).
+- Attribution is kept intentionally while project-facing copy, links, and operational guidance are maintained for Code4Focus itself.
 
-Retypeset releases [new features](https://github.com/radishzzz/astro-theme-retypeset/issues/18) from time to time. Simply run `pnpm update-theme` to update the theme. If you encounter merge conflicts, please refer to [this video](https://youtu.be/lz5OuKzvadQ?si=sH_ALNgqxrYqNVQT) for manual resolution.
+## Upstream Maintenance
+
+- Maintainers can review selected upstream theme changes with `pnpm update-theme`.
+- Upstream syncs should be treated as code import work, not as a reason to restore upstream branding or repository-facing marketing modules.
 
 ## Credits
 
+- [Retypeset](https://github.com/radishzzz/astro-theme-retypeset)
 - [Typography](https://github.com/moeyua/astro-theme-typography)
 - [Fuwari](https://github.com/saicaca/fuwari)
 - [Redefine](https://github.com/EvanNotFound/hexo-theme-redefine)
 - [AstroPaper](https://github.com/satnaing/astro-paper)
 - [heti](https://github.com/sivan/heti)
 - [EarlySummerSerif](https://github.com/GuiWonder/EarlySummerSerif)
-
-## Star History
-
-<p align="center">
-<a href="https://star-history.com/#radishzzz/astro-theme-retypeset&Date">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=radishzzz/astro-theme-retypeset&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=radishzzz/astro-theme-retypeset&type=Date" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=radishzzz/astro-theme-retypeset&type=Date" />
-  </picture>
-</p>

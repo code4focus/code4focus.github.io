@@ -12,12 +12,12 @@
 | --- | --- | --- | --- | --- |
 | Clear value statement plus project identity | `core` | Every repo homepage needs to explain what the project is and why it matters in one screen. | The exact tone, visuals, and product framing can vary. | Intro paragraph in `README.md` and `assets/docs/README.zh.md` |
 | Capability summary that tells readers what they can do with the repo | `core` | Replaces feature hunting with an explicit scope statement. | The section can be features, use cases, or supported scenarios depending on repo type. | `Features` / `特征` |
-| Practical entry points such as demo, quickstart, deployment, or docs | `core` | Readers need a next action after trust is established. | A live demo is not mandatory for every repo, but at least one usage or evaluation path is. | `Demo`, `Getting Started`, deploy badges |
+| Practical entry points such as demo, quickstart, deployment, or docs | `core` | Readers need a next action after trust is established. | A live demo is not mandatory for every repo, but at least one usage or evaluation path is. | `Live Site`, `Local Development`, `Environment` |
 | Environment and deployment assumptions | `core` | Repos need to explain canonical URLs, env vars, and operational expectations. | Keep only assumptions that affect real usage or deployment. | `Environment` |
 | Performance or quality proof modules | `optional` | Useful when the repo makes claims about speed, quality, or production readiness. | Only include objective evidence the repo can maintain over time. | `Performance` |
-| Status and trend signals such as build badges or star history | `optional` | Helpful for trust-building when signals stay current. | Avoid vanity sections that are not tied to a decision or trust signal. | `Star History`; future build badges can fit here |
+| Status and trend signals such as build badges or star history | `optional` | Helpful for trust-building when signals stay current. | Avoid vanity sections that are not tied to a decision or trust signal. | PageSpeed proof is kept; star-history widgets are intentionally omitted |
 | Multi-language README variants | `optional` | Useful for communities that actively maintain more than one audience path. | Only portable when translation upkeep is realistic. | English and Chinese README variants |
-| Theme-specific cover images and one-click deploy badges | `repo-specific` | They fit template distribution here, but should not be treated as a universal baseline. | Copy only when the target repo is also a template-like product. | Top hero images and Netlify/Vercel badges |
+| Theme-specific cover images and one-click deploy badges | `repo-specific` | They fit template distribution here, but should not be treated as a universal baseline. | Copy only when the target repo is also a template-like product. | Top hero images remain; one-click deploy badges were removed |
 
 ## Issue-Driven Flow Layer｜Issue-Driven 流程层
 
