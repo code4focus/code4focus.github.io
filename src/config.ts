@@ -1,5 +1,6 @@
 import type { ThemeConfig } from '@/types'
 import process from 'node:process'
+import { defaultGlobalToc } from './config/shared'
 
 const defaultLocalSiteUrl = 'http://127.0.0.1:4321'
 const defaultProductionSiteUrl = 'https://code4focus.github.io'
@@ -93,7 +94,7 @@ export const themeConfig: ThemeConfig = {
     // post date format
     dateFormat: 'YYYY-MM-DD', // YYYY-MM-DD | MM-DD-YYYY | DD-MM-YYYY | MMM D YYYY | D MMM YYYY
     // enable table of contents
-    toc: true, // true | false
+    toc: defaultGlobalToc, // true | false
     // enable katex math rendering
     katex: true, // true | false
     // reduce motion

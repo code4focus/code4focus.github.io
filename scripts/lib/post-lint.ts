@@ -4,6 +4,7 @@ import { basename } from 'node:path'
 import { format as autocorrectFormat } from 'autocorrect-node'
 import fg from 'fast-glob'
 import { parseDocument, stringify } from 'yaml'
+import { defaultGlobalToc } from '../../src/config/shared'
 import { langMap } from '../../src/i18n/config'
 import { extractExcerptFromMarkdown, extractPlainTextFromMarkdown } from '../../src/utils/post-excerpt'
 
@@ -12,6 +13,7 @@ type Severity = 'error' | 'warning'
 type ContentProfile = 'post' | 'about'
 type ContentScope = 'posts' | 'about' | 'all'
 type ProseProfile = 'han' | 'western'
+type ComparablePostField = 'published' | 'updated' | 'draft' | 'pin' | 'toc' | 'abbrlink'
 
 export interface PostLintOptions {
   fix?: boolean
@@ -50,11 +52,29 @@ interface FrontmatterAnalysis {
   findings: PostLintFinding[]
   effectiveLang?: FocusLang
   fixesApplied: number
+  normalizedData?: Record<string, unknown>
 }
 
 interface LintTargetFile {
   filePath: string
   profile: ContentProfile
+}
+
+interface MetadataSnapshot {
+  filePath: string
+  profile: ContentProfile
+  pairKey: string
+  lang?: FocusLang
+  fieldLines: Partial<Record<ComparablePostField | 'lang', number>>
+  values: Partial<Record<ComparablePostField, string | number | boolean>>
+  hasComparableMetadata: boolean
+}
+
+interface LintFileResult {
+  changed: boolean
+  findings: PostLintFinding[]
+  fixesApplied: number
+  snapshot?: MetadataSnapshot
 }
 
 const defaultPatternsByScope: Record<ContentScope, string[]> = {
@@ -85,6 +105,19 @@ const filenameLangPattern = new RegExp(`-(${supportedLanguages
   .sort((left, right) => right.length - left.length)
   .map(lang => lang.replace('-', '\\-'))
   .join('|')})\\.(?:md|mdx)$`)
+const filenameLangSuffixPattern = new RegExp(`-(${supportedLanguages
+  .slice()
+  .sort((left, right) => right.length - left.length)
+  .map(lang => lang.replace('-', '\\-'))
+  .join('|')})$`)
+const pairedPostFieldLabels: Record<ComparablePostField, string> = {
+  published: 'published date',
+  updated: 'updated date',
+  draft: 'draft state',
+  pin: 'pin priority',
+  toc: 'table-of-contents setting',
+  abbrlink: 'slug (`abbrlink`)',
+}
 const localeToProfile: Record<Language, ProseProfile> = {
   en: 'western',
   zh: 'han',
@@ -229,6 +262,10 @@ function splitMarkdownContent(content: string): SplitMarkdownContent {
 
 function normalizeLineEndings(value: string) {
   return value.replace(/\r\n/g, '\n')
+}
+
+function normalizeFilePathKey(filePath: string) {
+  return filePath.replace(/\\/g, '/')
 }
 
 function getCodeFence(line: string) {
@@ -521,6 +558,289 @@ function getLineNumberForKey(frontmatter: string, key: string) {
   const lines = frontmatter.split('\n')
   const index = lines.findIndex(line => line.match(new RegExp(`^${key}:\\s*`)))
   return index >= 0 ? index + 2 : 2
+}
+
+function getPairKey(filePath: string) {
+  return normalizeFilePathKey(filePath)
+    .replace(/\.(?:md|mdx)$/i, '')
+    .replace(filenameLangSuffixPattern, '')
+}
+
+function getComparablePostFieldValue(field: ComparablePostField, rawValue: unknown) {
+  switch (field) {
+    case 'published':
+    case 'updated':
+    case 'abbrlink':
+      return normalizeOptionalString(rawValue)
+    case 'draft':
+      return normalizeBoolean(rawValue)
+    case 'pin':
+      return normalizeInteger(rawValue)
+    case 'toc':
+      return normalizeBoolean(rawValue, defaultGlobalToc)
+  }
+}
+
+function formatComparablePostFieldValue(value: string | number | boolean) {
+  if (typeof value === 'string') {
+    return value ? `\`${value}\`` : '`(empty)`'
+  }
+
+  return `\`${String(value)}\``
+}
+
+function buildMetadataSnapshot(
+  filePath: string,
+  profile: ContentProfile,
+  frontmatter: string,
+  normalizedData: Record<string, unknown>,
+  effectiveLang?: FocusLang,
+): MetadataSnapshot {
+  const resolvedLang = isSupportedLanguage(normalizeLang(normalizedData.lang))
+    ? normalizeLang(normalizedData.lang) as FocusLang
+    : effectiveLang
+  const fieldLines: Partial<Record<ComparablePostField | 'lang', number>> = {
+    lang: getLineNumberForKey(frontmatter, 'lang'),
+  }
+  const values: Partial<Record<ComparablePostField, string | number | boolean>> = {}
+
+  if (profile === 'post') {
+    const comparableFields: ComparablePostField[] = ['published', 'updated', 'draft', 'pin', 'toc', 'abbrlink']
+    comparableFields.forEach((field) => {
+      fieldLines[field] = getLineNumberForKey(frontmatter, field)
+      values[field] = getComparablePostFieldValue(field, normalizedData[field])
+    })
+  }
+
+  return {
+    filePath,
+    profile,
+    pairKey: getPairKey(filePath),
+    lang: resolvedLang,
+    fieldLines,
+    values,
+    hasComparableMetadata: true,
+  }
+}
+
+function buildPresenceSnapshot(
+  filePath: string,
+  profile: ContentProfile,
+  lang?: FocusLang,
+): MetadataSnapshot {
+  return {
+    filePath,
+    profile,
+    pairKey: getPairKey(filePath),
+    lang,
+    fieldLines: {},
+    values: {},
+    hasComparableMetadata: false,
+  }
+}
+
+function getPairLabel(pairKey: string, profile: ContentProfile) {
+  const normalized = normalizeFilePathKey(pairKey)
+  const prefix = profile === 'post'
+    ? '/src/content/posts/site/'
+    : '/src/content/about/site/'
+  const prefixIndex = normalized.lastIndexOf(prefix)
+
+  if (prefixIndex >= 0) {
+    return normalized.slice(prefixIndex + prefix.length)
+  }
+
+  return normalized
+}
+
+async function readMetadataSnapshot(filePath: string): Promise<MetadataSnapshot | null> {
+  const profile = inferContentProfile(filePath)
+  const fallbackLang = getFilenameLang(filePath)
+
+  try {
+    const source = normalizeLineEndings(await readFile(filePath, 'utf8'))
+    const { frontmatter, body, hasFrontmatter } = splitMarkdownContent(source)
+    if (!hasFrontmatter) {
+      return buildPresenceSnapshot(filePath, profile, fallbackLang)
+    }
+
+    const bodyPlainText = extractPlainTextFromMarkdown(body)
+    const metadataResult = profile === 'post'
+      ? analyzePostFrontmatter(filePath, frontmatter, body, bodyPlainText)
+      : analyzeAboutFrontmatter(filePath, frontmatter, bodyPlainText)
+
+    if (!metadataResult.normalizedData) {
+      return buildPresenceSnapshot(
+        filePath,
+        profile,
+        metadataResult.effectiveLang ?? fallbackLang,
+      )
+    }
+
+    return buildMetadataSnapshot(
+      filePath,
+      profile,
+      metadataResult.frontmatter,
+      metadataResult.normalizedData,
+      metadataResult.effectiveLang,
+    )
+  }
+  catch (error) {
+    const reason = error instanceof Error ? error.message : String(error)
+    if (/ENOENT/i.test(reason)) {
+      return null
+    }
+
+    throw error
+  }
+}
+
+async function collectPairingSnapshots(targetSnapshots: MetadataSnapshot[]) {
+  const snapshots = new Map<string, MetadataSnapshot>()
+
+  targetSnapshots.forEach((snapshot) => {
+    snapshots.set(normalizeFilePathKey(snapshot.filePath), snapshot)
+  })
+
+  for (const snapshot of targetSnapshots) {
+    const candidatePaths = [
+      `${snapshot.pairKey}.md`,
+      `${snapshot.pairKey}.mdx`,
+      ...supportedLanguages.flatMap(lang => [
+        `${snapshot.pairKey}-${lang}.md`,
+        `${snapshot.pairKey}-${lang}.mdx`,
+      ]),
+    ]
+
+    for (const candidatePath of candidatePaths) {
+      const normalizedCandidate = normalizeFilePathKey(candidatePath)
+      if (snapshots.has(normalizedCandidate)) {
+        continue
+      }
+
+      const siblingSnapshot = await readMetadataSnapshot(candidatePath)
+      if (siblingSnapshot) {
+        snapshots.set(normalizedCandidate, siblingSnapshot)
+      }
+    }
+  }
+
+  return [...snapshots.values()]
+}
+
+function collectBilingualPairingFindings(
+  snapshots: MetadataSnapshot[],
+  reportablePaths: Set<string>,
+) {
+  const findings: PostLintFinding[] = []
+  const groups = new Map<string, MetadataSnapshot[]>()
+
+  snapshots
+    .filter(snapshot => snapshot.lang)
+    .forEach((snapshot) => {
+      const groupKey = `${snapshot.profile}:${snapshot.pairKey}`
+      const current = groups.get(groupKey)
+      if (current) {
+        current.push(snapshot)
+      }
+      else {
+        groups.set(groupKey, [snapshot])
+      }
+    })
+
+  for (const group of groups.values()) {
+    const byLang = new Map<FocusLang, MetadataSnapshot[]>()
+
+    group.forEach((snapshot) => {
+      const lang = snapshot.lang
+      if (!lang) {
+        return
+      }
+
+      const current = byLang.get(lang)
+      if (current) {
+        current.push(snapshot)
+      }
+      else {
+        byLang.set(lang, [snapshot])
+      }
+    })
+
+    for (const [lang, localeSnapshots] of byLang.entries()) {
+      if (localeSnapshots.length <= 1) {
+        continue
+      }
+
+      localeSnapshots
+        .filter(snapshot => reportablePaths.has(normalizeFilePathKey(snapshot.filePath)))
+        .forEach((snapshot) => {
+          findings.push(createFinding(
+            snapshot.filePath,
+            snapshot.fieldLines.lang ?? 2,
+            1,
+            'error',
+            'bilingual-pair-duplicate-locale',
+            `Pair \`${getPairLabel(snapshot.pairKey, snapshot.profile)}\` has multiple files for locale \`${lang}\`; keep one file per locale.`,
+          ))
+        })
+    }
+
+    const missingLangs = supportedLanguages.filter(lang => !byLang.has(lang))
+    if (missingLangs.length > 0) {
+      group
+        .filter(snapshot => reportablePaths.has(normalizeFilePathKey(snapshot.filePath)))
+        .forEach((snapshot) => {
+          findings.push(createFinding(
+            snapshot.filePath,
+            snapshot.fieldLines.lang ?? 2,
+            1,
+            'error',
+            'bilingual-pair-missing-locale',
+            `Pair \`${getPairLabel(snapshot.pairKey, snapshot.profile)}\` is missing locale(s) ${missingLangs.map(lang => `\`${lang}\``).join(', ')}.`,
+          ))
+        })
+      continue
+    }
+
+    if (group[0]?.profile !== 'post') {
+      continue
+    }
+
+    const uniqueSnapshots = supportedLanguages
+      .map(lang => byLang.get(lang)?.find(snapshot => snapshot.hasComparableMetadata))
+      .filter((snapshot): snapshot is MetadataSnapshot => Boolean(snapshot))
+
+    if (uniqueSnapshots.length !== supportedLanguages.length) {
+      continue
+    }
+
+    const comparableFields: ComparablePostField[] = ['published', 'updated', 'draft', 'pin', 'toc', 'abbrlink']
+    comparableFields.forEach((field) => {
+      const distinctValues = new Set(uniqueSnapshots.map(snapshot => JSON.stringify(snapshot.values[field])))
+      if (distinctValues.size <= 1) {
+        return
+      }
+
+      const valueSummary = uniqueSnapshots
+        .map(snapshot => `${snapshot.lang}: ${formatComparablePostFieldValue(snapshot.values[field] ?? '')}`)
+        .join(', ')
+
+      uniqueSnapshots
+        .filter(snapshot => reportablePaths.has(normalizeFilePathKey(snapshot.filePath)))
+        .forEach((snapshot) => {
+          findings.push(createFinding(
+            snapshot.filePath,
+            snapshot.fieldLines[field] ?? 2,
+            1,
+            'error',
+            `bilingual-pair-${field}`,
+            `Pair \`${getPairLabel(snapshot.pairKey, snapshot.profile)}\` must keep the same ${pairedPostFieldLabels[field]} across locales; found ${valueSummary}.`,
+          ))
+        })
+    })
+  }
+
+  return findings
 }
 
 function buildOrderedFrontmatter(rawData: Record<string, unknown>) {
@@ -1010,6 +1330,7 @@ function analyzePostFrontmatter(
     effectiveLang: isSupportedLanguage(normalizeLang(nextData.lang)) ? normalizeLang(nextData.lang) as Language : lintLang,
     findings,
     fixesApplied,
+    normalizedData: nextData,
   }
 }
 
@@ -1128,6 +1449,7 @@ function analyzeAboutFrontmatter(
     effectiveLang: isSupportedLanguage(normalizeLang(nextData.lang)) ? normalizeLang(nextData.lang) as Language : expectedLang,
     findings,
     fixesApplied,
+    normalizedData: nextData,
   }
 }
 
@@ -1145,7 +1467,7 @@ async function collectTargetFiles(filePatterns: string[], scope: ContentScope) {
     }))
 }
 
-async function lintFile(target: LintTargetFile, options: Required<PostLintOptions>) {
+async function lintFile(target: LintTargetFile, options: Required<PostLintOptions>): Promise<LintFileResult> {
   const { filePath, profile } = target
   const originalSource = normalizeLineEndings(await readFile(filePath, 'utf8'))
   const { frontmatter, body, hasFrontmatter } = splitMarkdownContent(originalSource)
@@ -1154,6 +1476,7 @@ async function lintFile(target: LintTargetFile, options: Required<PostLintOption
   let nextBody = body
   let effectiveLang: FocusLang | undefined
   let fixesApplied = 0
+  let metadataSnapshot: MetadataSnapshot | undefined
   const bodyStartLine = hasFrontmatter ? frontmatter.split('\n').length + 3 : 1
 
   if (!hasFrontmatter) {
@@ -1175,6 +1498,15 @@ async function lintFile(target: LintTargetFile, options: Required<PostLintOption
         : analyzeAboutFrontmatter(filePath, frontmatter, bodyPlainText)
       nextFrontmatter = metadataResult.frontmatter
       effectiveLang = metadataResult.effectiveLang
+      if (metadataResult.normalizedData) {
+        metadataSnapshot = buildMetadataSnapshot(
+          filePath,
+          profile,
+          metadataResult.frontmatter,
+          metadataResult.normalizedData,
+          metadataResult.effectiveLang,
+        )
+      }
       initialFindings.push(...metadataResult.findings)
       fixesApplied += metadataResult.fixesApplied
     }
@@ -1206,6 +1538,7 @@ async function lintFile(target: LintTargetFile, options: Required<PostLintOption
       changed: false,
       findings: initialFindings,
       fixesApplied: 0,
+      snapshot: metadataSnapshot,
     }
   }
 
@@ -1214,6 +1547,7 @@ async function lintFile(target: LintTargetFile, options: Required<PostLintOption
       changed: false,
       findings: initialFindings,
       fixesApplied,
+      snapshot: metadataSnapshot,
     }
   }
 
@@ -1259,6 +1593,7 @@ async function lintFile(target: LintTargetFile, options: Required<PostLintOption
     changed: true,
     findings: finalFindings,
     fixesApplied,
+    snapshot: metadataSnapshot,
   }
 }
 
@@ -1273,16 +1608,28 @@ export async function runPostLint(options: PostLintOptions = {}): Promise<PostLi
   const files = await collectTargetFiles(resolvedOptions.filePatterns, resolvedOptions.scope)
   const findings: PostLintFinding[] = []
   const changedFiles: string[] = []
+  const metadataSnapshots: MetadataSnapshot[] = []
   let fixesApplied = 0
 
   for (const file of files) {
     const result = await lintFile(file, resolvedOptions)
     findings.push(...result.findings)
     fixesApplied += result.fixesApplied
+    if (result.snapshot) {
+      metadataSnapshots.push(result.snapshot)
+    }
 
     if (result.changed) {
       changedFiles.push(file.filePath)
     }
+  }
+
+  if (resolvedOptions.includeMetadata && metadataSnapshots.length > 0) {
+    const pairingSnapshots = await collectPairingSnapshots(metadataSnapshots)
+    findings.push(...collectBilingualPairingFindings(
+      pairingSnapshots,
+      new Set(files.map(file => normalizeFilePathKey(file.filePath))),
+    ))
   }
 
   const errors = findings.filter(finding => finding.severity === 'error').length
