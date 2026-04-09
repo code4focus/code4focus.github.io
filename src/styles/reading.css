@@ -1,0 +1,45 @@
+/* Reading Tools */
+#reading-tools {
+  --at-apply: 'sticky top-4 z-20 mb-6 overflow-hidden uno-round-border border border-secondary/10 bg-background/88 px-4 py-3 shadow-sm backdrop-blur';
+}
+.reading-progress-track {
+  --at-apply: 'mb-3 h-1 w-full overflow-hidden rounded-full bg-secondary/10';
+}
+#reading-progress-bar {
+  --at-apply: 'block h-full rounded-full bg-primary';
+  width: 0%;
+  transition: width 0.2s ease-out;
+}
+.reading-tools-grid {
+  --at-apply: 'flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between';
+}
+.reading-tools-stats {
+  --at-apply: 'grid gap-2 sm:grid-cols-2 sm:gap-6';
+}
+.reading-tools-stats dt {
+  --at-apply: 'mb-0.8 text-xs uppercase tracking-[0.18em] c-secondary/60';
+}
+.reading-tools-stats dd {
+  --at-apply: 'm-0 text-sm font-semibold c-primary';
+}
+#reading-focus-toggle {
+  --at-apply: 'inline-flex w-full items-center justify-center rounded-full border border-secondary/15 bg-secondary/6 px-4 py-2 text-sm font-semibold c-primary transition-colors ease-out hover:(border-primary/20 bg-primary/6) sm:w-auto';
+}
+
+/* Reading Focus Mode */
+body[data-page-kind='post'].reading-focus-mode :is(header, nav[aria-label='Site Navigation'], footer, [data-site-actions], #back-button) {
+  display: none;
+}
+body[data-page-kind='post'].reading-focus-mode #reading-focus-toggle {
+  --at-apply: 'border-primary/0 bg-primary c-background';
+}
+
+@media (min-width: 1024px) {
+  body[data-page-kind='post'].reading-focus-mode [data-site-shell] {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: min(88vw, 52rem);
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

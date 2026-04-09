@@ -10,6 +10,7 @@ import SeriesContext from '@/components/Semantic/SeriesContext.astro'
 import TagList from '@/components/TagList.astro'
 import BackButton from '@/components/Widgets/BackButton.astro'
 import CitationPreview from '@/components/Widgets/CitationPreview.astro'
+import ReadingTools from '@/components/Widgets/ReadingTools.astro'
 import TOC from '@/components/Widgets/TOC.astro'
 import { getLangFromLocale } from '@/i18n/lang'
 import Layout from '@/layouts/Layout.astro'
@@ -55,7 +56,10 @@ const hasPostDiscovery = Boolean(previousPost || nextPost || relatedPosts.length
   postTags={post.data.tags}
   supportedLangs={supportedLangs}
 >
-  <article class="heti">
+  <article
+    class="heti reading-article"
+    data-reading-article
+  >
     <div class="relative">
       <!-- Go Back Button On Desktop -->
       <BackButton />
@@ -89,10 +93,14 @@ const hasPostDiscovery = Boolean(previousPost || nextPost || relatedPosts.length
       group={seriesGroup}
       lang={currentLang}
     />
+    <ReadingTools minutes={remarkPluginFrontmatter.minutes} />
     <!-- TOC -->
     {post.data.toc && <TOC headings={headings} />}
     <!-- Content -->
-    <div id="post-content">
+    <div
+      id="post-content"
+      tabindex="-1"
+    >
       <Content />
       <!-- Copyright -->
       <div id="post-copyright" />

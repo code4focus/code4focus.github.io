@@ -16,45 +16,33 @@ const filteredHeadings = headings.filter(heading => heading.depth >= 2 && headin
 ---
 
 {filteredHeadings.length > 0 && (
-  // TOC Container
-  <div
+  <details
     id="toc-container"
+    data-toc
+    open
     class="mb-6 uno-round-border bg-secondary/5 2xl:(fixed left-0 top-44.5 max-w-[min(calc(50vw-38rem),13rem)] border-none bg-secondary/0)"
   >
-    {/* Hidden Checkbox */}
-    <input
-      type="checkbox"
-      id="toc-toggle"
-      hidden
-    />
-    {/* TOC Toggle */}
-    <div class="relative h-12 w-full">
-      <label
-        for="toc-toggle"
-        class="absolute inset-0 flex cursor-pointer items-center 2xl:(static flex c-secondary/60 transition-colors ease-out hover:c-primary)"
-      >
-        {/* Title on Mobile */}
-        <span id="toc-mobile-text">
-          {currentUI.toc}
-        </span>
+    <summary
+      id="toc-summary"
+      class="relative h-12 w-full 2xl:(c-secondary/60 transition-colors ease-out hover:c-primary)"
+    >
+      <span id="toc-mobile-text">
+        {currentUI.toc}
+      </span>
 
-        {/* Icon on Desktop */}
-        <TocIcon
-          id="toc-desktop-icon"
-          aria-hidden="true"
-          class="ml-4 hidden aspect-square w-4.2 2xl:(mt-4 block origin-center active:scale-90!)"
-          fill="currentColor"
-        />
-      </label>
-    </div>
+      <TocIcon
+        id="toc-desktop-icon"
+        aria-hidden="true"
+        class="ml-4 hidden aspect-square w-4.2 2xl:(mt-4 block origin-center active:scale-90!)"
+        fill="currentColor"
+      />
+    </summary>
 
-    {/* Expandable Content Wrapper with Accordion Animation */}
     <div id="toc-accordion-wrapper">
       <nav
         id="toc-accordion-content"
-        aria-label="Table of Contents"
+        aria-label={currentUI.toc}
       >
-        {/* TOC List */}
         <ul id="toc-links-list">
           {filteredHeadings.map(heading => (
             <li
@@ -66,6 +54,8 @@ const filteredHeadings = headings.filter(heading => heading.depth >= 2 && headin
             >
               <a
                 href={`#${heading.slug}`}
+                data-toc-link
+                data-heading-slug={heading.slug}
                 class:list={[
                   { 'no-heti toc-links-h2': heading.depth === 2 },
                   { 'no-heti toc-links-h3': heading.depth === 3 },
@@ -79,59 +69,159 @@ const filteredHeadings = headings.filter(heading => heading.depth >= 2 && headin
         </ul>
       </nav>
     </div>
-  </div>
+  </details>
 )}
 
 <script>
-const is2xl = window.matchMedia('(min-width: 1536px)')
+const desktopMedia = window.matchMedia('(min-width: 1536px)')
+const reducedMotionMedia = window.matchMedia('(prefers-reduced-motion: reduce)')
 
-let ticking = false
-let lastLink: Element | null = null
+let cleanupToc = () => {}
 
-// Find and scroll to the active link
-function scrollToActiveLink() {
-  const tocList = document.getElementById('toc-links-list')
-  if (!tocList) {
-    ticking = false
+function scrollActiveLinkIntoView(activeLink: HTMLElement | null) {
+  if (!activeLink || !desktopMedia.matches) {
     return
   }
 
-  const activeLink = tocList.querySelector('a:target-current')
-  if (activeLink && activeLink !== lastLink) {
-    activeLink.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
-    lastLink = activeLink
-  }
-
-  ticking = false
+  activeLink.scrollIntoView({
+    behavior: reducedMotionMedia.matches ? 'auto' : 'smooth',
+    block: 'nearest',
+  })
 }
 
-// Throttle scroll events
-function handleScroll() {
-  if (!ticking && is2xl.matches) {
-    window.requestAnimationFrame(scrollToActiveLink)
-    ticking = true
+function resolveActiveHeadingId(headings: HTMLElement[]) {
+  if (headings.length === 0) {
+    return ''
   }
+
+  const threshold = Math.max(108, window.innerHeight * 0.2)
+  let activeHeading = headings[0]
+
+  for (const heading of headings) {
+    if (heading.getBoundingClientRect().top <= threshold) {
+      activeHeading = heading
+      continue
+    }
+
+    break
+  }
+
+  if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 8) {
+    return headings.at(-1)?.id ?? activeHeading.id
+  }
+
+  return activeHeading.id
 }
 
-// Initialize scroll listener
-function setupAutoScroll() {
-  ticking = false
-  lastLink = null
+function setupToc() {
+  cleanupToc()
 
-  const tocList = document.getElementById('toc-links-list')
-  if (!tocList || !CSS.supports('selector(:target-current)')) {
+  const tocEl = document.querySelector('[data-toc]')
+  const tocListEl = document.getElementById('toc-links-list')
+  if (!(tocEl instanceof HTMLDetailsElement) || !(tocListEl instanceof HTMLElement)) {
     return
   }
 
-  document.addEventListener('scroll', handleScroll, { passive: true })
+  const toc = tocEl
+  const tocList = tocListEl
+  const links: HTMLAnchorElement[] = Array.from(tocList.querySelectorAll('a[data-toc-link]'))
+  const headings: HTMLElement[] = links
+    .map((link) => {
+      const slug = link.getAttribute('data-heading-slug')
+      if (!slug) {
+        return null
+      }
+
+      return document.getElementById(slug)
+    })
+    .filter(heading => heading instanceof HTMLElement)
+
+  if (headings.length === 0) {
+    return
+  }
+
+  let frameId = 0
+  let lastActiveSlug = ''
+
+  function setDesktopState() {
+    toc.open = desktopMedia.matches
+  }
+
+  function updateActiveLink() {
+    frameId = 0
+
+    const activeSlug = resolveActiveHeadingId(headings)
+    if (!activeSlug || activeSlug === lastActiveSlug) {
+      return
+    }
+
+    let nextActiveLink: HTMLAnchorElement | null = null
+
+    for (const link of links) {
+      const isActive = link.getAttribute('data-heading-slug') === activeSlug
+      link.toggleAttribute('data-active', isActive)
+
+      if (isActive) {
+        link.setAttribute('aria-current', 'location')
+        nextActiveLink = link
+      }
+      else {
+        link.removeAttribute('aria-current')
+      }
+    }
+
+    scrollActiveLinkIntoView(nextActiveLink)
+    lastActiveSlug = activeSlug
+  }
+
+  function queueActiveLinkUpdate() {
+    if (frameId) {
+      return
+    }
+
+    frameId = window.requestAnimationFrame(updateActiveLink)
+  }
+
+  function handleMediaChange() {
+    setDesktopState()
+    queueActiveLinkUpdate()
+  }
+
+  function handleTocClick(event: MouseEvent) {
+    const link = event.target instanceof Element
+      ? event.target.closest('[data-toc-link]')
+      : null
+
+    if (!link || desktopMedia.matches) {
+      return
+    }
+
+    window.requestAnimationFrame(() => {
+      toc.open = false
+    })
+  }
+
+  setDesktopState()
+  queueActiveLinkUpdate()
+
+  window.addEventListener('scroll', queueActiveLinkUpdate, { passive: true })
+  window.addEventListener('resize', queueActiveLinkUpdate)
+  desktopMedia.addEventListener('change', handleMediaChange)
+  toc.addEventListener('click', handleTocClick)
+
+  cleanupToc = () => {
+    window.removeEventListener('scroll', queueActiveLinkUpdate)
+    window.removeEventListener('resize', queueActiveLinkUpdate)
+    desktopMedia.removeEventListener('change', handleMediaChange)
+    toc.removeEventListener('click', handleTocClick)
+
+    if (frameId) {
+      window.cancelAnimationFrame(frameId)
+      frameId = 0
+    }
+  }
 }
 
-// Cleanup listener and reset state
-function cleanupAutoScroll() {
-  document.removeEventListener('scroll', handleScroll)
-  lastLink = null
-}
-
-document.addEventListener('astro:page-load', setupAutoScroll)
-document.addEventListener('astro:before-swap', cleanupAutoScroll)
+document.addEventListener('astro:page-load', setupToc)
+document.addEventListener('astro:before-swap', cleanupToc)
 </script>
