@@ -239,6 +239,24 @@ export async function getRelatedPosts(currentPost: CollectionEntry<'posts'>, lan
   return buildRelatedPosts(relatedSource, posts, limit)
 }
 
+export async function getAdjacentPosts(currentPost: CollectionEntry<'posts'>, lang?: Language) {
+  const posts = await getPosts(lang)
+  const currentSlug = getPostSlug(currentPost)
+  const currentIndex = posts.findIndex(post => getPostSlug(post) === currentSlug)
+
+  if (currentIndex < 0) {
+    return {
+      next: null,
+      previous: null,
+    }
+  }
+
+  return {
+    next: currentIndex < posts.length - 1 ? posts[currentIndex + 1] : null,
+    previous: currentIndex > 0 ? posts[currentIndex - 1] : null,
+  }
+}
+
 /**
  * Get all non-pinned posts
  *

@@ -1,0 +1,58 @@
+---
+import type { Language } from '@/i18n/config'
+import type { Post } from '@/types'
+import PostDate from '@/components/PostDate.astro'
+import { getPostPath } from '@/i18n/path'
+import { ui } from '@/i18n/ui'
+import { getPostDescription } from '@/utils/description'
+
+interface Props {
+  lang: Language
+  posts: Post[]
+}
+
+const { lang, posts } = Astro.props
+
+if (posts.length === 0) {
+  return null
+}
+
+const currentUI = ui[lang]
+---
+
+<section class="no-heti mt-6.4 lg:mt-7.2">
+  <h2 class="text-4.4 c-primary font-semibold lg:text-4.8 cjk:tracking-wide">
+    {currentUI.relatedReading}
+  </h2>
+
+  <div class="mt-3.8 border border-secondary/15 rounded-3xl bg-secondary/4 px-4.6 py-4.6">
+    <ul class="space-y-4.6">
+      {posts.map((post) => {
+        const slug = post.data.abbrlink || post.id
+
+        return (
+          <li class="border-b border-secondary/12 pb-4.6 last:border-b-0 last:pb-0">
+            <a
+              href={getPostPath(slug, lang)}
+              class="inline-block text-4.35 font-semibold leading-1.4em transition-colors lg:text-4.75 hover:c-primary cjk:tracking-wide"
+            >
+              {post.data.title}
+            </a>
+
+            <div class="mt-1.8 text-3.1 c-secondary/78 font-time">
+              <PostDate
+                date={post.data.published}
+                updatedDate={post.data.updated}
+                minutes={post.remarkPluginFrontmatter.minutes}
+              />
+            </div>
+
+            <p class="mt-2.2 text-3.45 c-secondary/88 leading-1.58em cjk:text-justify">
+              {getPostDescription(post, 'list')}
+            </p>
+          </li>
+        )
+      })}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,73 @@
+---
+import type { Language } from '@/i18n/config'
+import type { Post } from '@/types'
+import PostDate from '@/components/PostDate.astro'
+import { getPostPath } from '@/i18n/path'
+import { ui } from '@/i18n/ui'
+
+interface Props {
+  lang: Language
+  nextPost: Post | null
+  previousPost: Post | null
+}
+
+const { lang, nextPost, previousPost } = Astro.props
+
+if (!previousPost && !nextPost) {
+  return null
+}
+
+const currentUI = ui[lang]
+const adjacentPosts = [
+  previousPost
+    ? {
+        label: currentUI.previousArticle,
+        post: previousPost,
+      }
+    : null,
+  nextPost
+    ? {
+        label: currentUI.nextArticle,
+        post: nextPost,
+      }
+    : null,
+].filter(entry => entry !== null)
+---
+
+<nav
+  class="no-heti mt-6.4 lg:mt-7.2"
+  aria-label={currentUI.continueReading}
+>
+  <h2 class="text-4.4 c-primary font-semibold lg:text-4.8 cjk:tracking-wide">
+    {currentUI.continueReading}
+  </h2>
+
+  <div class="grid mt-3.8 gap-3.4 lg:grid-cols-2 lg:gap-4">
+    {adjacentPosts.map(({ label, post }) => {
+      const slug = post.data.abbrlink || post.id
+
+      return (
+        <a
+          href={getPostPath(slug, lang)}
+          class="block border border-secondary/15 rounded-3xl bg-secondary/4 px-4.6 py-4.5 transition-[border-color,background-color,color] ease-out hover:(border-secondary/28 bg-secondary/6 c-primary)"
+        >
+          <div class="text-3 c-secondary/72 font-navbar">
+            {label}
+          </div>
+
+          <h3 class="mt-2.1 text-4.45 font-semibold leading-1.4em lg:text-4.85 cjk:tracking-wide">
+            {post.data.title}
+          </h3>
+
+          <div class="mt-2.2 text-3.1 c-secondary/78 font-time">
+            <PostDate
+              date={post.data.published}
+              updatedDate={post.data.updated}
+              minutes={post.remarkPluginFrontmatter.minutes}
+            />
+          </div>
+        </a>
+      )
+    })}
+  </div>
+</nav>
