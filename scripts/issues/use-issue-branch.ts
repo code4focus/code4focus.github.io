@@ -3,7 +3,7 @@
  *
  * Usage:
  *   pnpm issue-branch --issue 9
- *   pnpm issue-branch --issue 2 --slug workflow-baseline --base user/code4focus
+ *   pnpm issue-branch --issue 2 --slug workflow-baseline --base main
  *   pnpm issue-branch --issue 4 --dry-run
  */
 

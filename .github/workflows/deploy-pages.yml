@@ -3,7 +3,7 @@ name: Deploy site to GitHub Pages and Cloudflare Pages
 on:
   push:
     branches:
-      - user/code4focus
+      - main
   workflow_dispatch:
 
 permissions:
@@ -21,7 +21,7 @@ concurrency:
 
 jobs:
   build:
-    if: github.ref_name == 'user/code4focus'
+    if: github.ref_name == 'main'
     runs-on: ubuntu-latest
 
     steps:

@@ -3,7 +3,7 @@
  *
  * Usage:
  *   pnpm pr-open --title "..." --body-file /tmp/pr.md
- *   pnpm pr-open --base user/code4focus --title "..." --body "..." --draft
+ *   pnpm pr-open --base main --title "..." --body "..." --draft
  *   pnpm pr-open --allow-existing --dry-run --title "..." --body "..."
  */
 

@@ -3,7 +3,7 @@
  *
  * Usage:
  *   pnpm pr-update --pr 19 --title "..." --body-file /tmp/pr.md
- *   pnpm pr-update --branch user/issue-2-workflow-baseline --base user/code4focus
+ *   pnpm pr-update --branch user/issue-2-workflow-baseline --base main
  *   pnpm pr-update --pr 19 --body "..." --dry-run
  */
 

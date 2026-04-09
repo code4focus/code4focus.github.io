@@ -3,7 +3,7 @@
  *
  * Usage:
  *   pnpm pr-context
- *   pnpm pr-context --base origin/master --format json
+ *   pnpm pr-context --base origin/main --format json
  */
 
 import { execFileSync } from 'node:child_process'
@@ -105,13 +105,10 @@ function resolveBaseRef(preferred?: string): string {
     return preferred
   }
 
-  const originHead = tryGit(['symbolic-ref', '--quiet', 'refs/remotes/origin/HEAD'])
   const candidates = [
-    originHead?.replace(/^refs\/remotes\//, ''),
-    'origin/master',
-    'master',
     'origin/main',
     'main',
+    tryGit(['symbolic-ref', '--quiet', 'refs/remotes/origin/HEAD'])?.replace(/^refs\/remotes\//, ''),
   ].filter((value): value is string => Boolean(value))
 
   for (const candidate of candidates) {

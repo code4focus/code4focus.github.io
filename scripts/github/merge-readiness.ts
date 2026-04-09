@@ -218,11 +218,9 @@ function resolveBaseRef(preferred: string | undefined, pr: PullRequestPayload | 
   const candidates = requested
     ? [`origin/${requested}`, requested]
     : [
-        tryRun('git', ['symbolic-ref', '--quiet', 'refs/remotes/origin/HEAD'])?.replace(/^refs\/remotes\//, ''),
-        'origin/master',
-        'master',
         'origin/main',
         'main',
+        tryRun('git', ['symbolic-ref', '--quiet', 'refs/remotes/origin/HEAD'])?.replace(/^refs\/remotes\//, ''),
       ]
 
   for (const candidate of candidates) {
