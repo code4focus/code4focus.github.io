@@ -72,6 +72,7 @@ const frontmatterOrder = [
   'description',
   'updated',
   'tags',
+  'series',
   'draft',
   'pin',
   'toc',

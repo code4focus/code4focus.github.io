@@ -1,10 +1,12 @@
 import type { CollectionEntry } from 'astro:content'
 import type { Language } from '@/i18n/config'
 import type { Post } from '@/types'
+import type { PostSemanticGroup, PostSeriesKind } from '@/utils/content-semantics'
 import { getCollection, render } from 'astro:content'
 import { allLocales, base, defaultLocale } from '@/config'
 import { getLangRouteParam } from '@/i18n/lang'
 import { memoize } from '@/utils/cache'
+import { buildRelatedPosts, buildSemanticGroups } from '@/utils/content-semantics'
 
 const metaCache = new Map<string, { minutes: number, hasCitations: boolean, hasCitationPreview: boolean }>()
 
@@ -175,6 +177,56 @@ async function _getPosts(lang?: Language) {
 }
 
 export const getPosts = memoize(_getPosts)
+
+async function _getSemanticGroups(lang?: Language): Promise<PostSemanticGroup<Post>[]> {
+  const posts = await getPosts(lang)
+  return buildSemanticGroups(posts)
+}
+
+export const getSemanticGroups = memoize(_getSemanticGroups)
+
+async function _getSemanticGroupsByKind(kind: PostSeriesKind, lang?: Language) {
+  const groups = await getSemanticGroups(lang)
+  return groups.filter(group => group.kind === kind)
+}
+
+export const getSemanticGroupsByKind = memoize(_getSemanticGroupsByKind)
+
+async function _getSemanticGroup(seriesId: string, lang?: Language) {
+  const groups = await getSemanticGroups(lang)
+  return groups.find(group => group.id === seriesId) ?? null
+}
+
+export const getSemanticGroup = memoize(_getSemanticGroup)
+
+async function _getSemanticSupportedLangs(seriesId: string): Promise<Language[]> {
+  const posts = await getCollection(
+    'posts',
+    ({ data }) =>
+      !data.draft
+      && data.series?.id === seriesId,
+  )
+
+  return allLocales.filter(locale =>
+    posts.some(post =>
+      post.data.lang === locale || post.data.lang === '',
+    ),
+  )
+}
+
+export const getSemanticSupportedLangs = memoize(_getSemanticSupportedLangs)
+
+export async function getRelatedPosts(currentPost: CollectionEntry<'posts'>, lang?: Language, limit = 3) {
+  const posts = await getPosts(lang)
+  const currentSlug = getPostSlug(currentPost)
+  const relatedSource = posts.find(post => getPostSlug(post) === currentSlug)
+
+  if (!relatedSource) {
+    return []
+  }
+
+  return buildRelatedPosts(relatedSource, posts, limit)
+}
 
 /**
  * Get all non-pinned posts
