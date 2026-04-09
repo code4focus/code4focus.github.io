@@ -1,0 +1,68 @@
+---
+import type { Language } from '@/i18n/config'
+import type { Post } from '@/types'
+import PostDate from '@/components/PostDate.astro'
+import { getPostPath } from '@/i18n/path'
+import { getPostDescription } from '@/utils/description'
+
+interface Props {
+  lang: Language
+  postsByYear: Map<number, Post[]>
+}
+
+const { lang, postsByYear } = Astro.props
+const years = Array.from(postsByYear.entries())
+---
+
+<div class="uno-decorative-line" />
+
+<div class="mt-5.5 lg:mt-6.5">
+  {years.map(([year, posts]) => (
+    <section class="mb-8.5 last:mb-0 lg:mb-11">
+      <div class="lg:grid lg:grid-cols-[4.75rem_1fr] lg:gap-6.2">
+        <div class="mb-3.6 text-5.7 c-primary font-time lg:(mb-0 pt-0.8 text-6.4)">
+          {year}
+        </div>
+
+        <ol class="relative border-l border-secondary/15 pl-5.1 lg:pl-6.2">
+          {posts.map((post) => {
+            const slug = post.data.abbrlink || post.id
+
+            return (
+              <li class="relative pb-6.3 last:pb-0 lg:pb-8.2">
+                <span class="absolute left--6.05 top-1.2 h-2.4 w-2.4 flex items-center justify-center rounded-full bg-background ring-1 ring-secondary/22 lg:left--7.12">
+                  <span class="h-0.95 w-0.95 rounded-full bg-secondary/55" />
+                </span>
+
+                <div
+                  class="text-3.2 c-secondary/78 font-time"
+                  transition:name={`time-${slug}${lang ? `-${lang}` : ''}`}
+                  data-disable-theme-toggle-transition
+                >
+                  <PostDate
+                    date={post.data.published}
+                    minutes={post.remarkPluginFrontmatter.minutes}
+                  />
+                </div>
+
+                <h2 class="mt-1.25 inline text-4.7 font-semibold leading-1.34em transition-colors lg:text-5.1 hover:c-primary cjk:tracking-wide">
+                  <a
+                    href={getPostPath(slug, lang)}
+                    transition:name={`post-${slug}${lang ? `-${lang}` : ''}`}
+                    data-disable-theme-toggle-transition
+                  >
+                    {post.data.title}
+                  </a>
+                </h2>
+
+                <div class="heti mt-2 hidden lg:block">
+                  <p>{getPostDescription(post, 'list')}</p>
+                </div>
+              </li>
+            )
+          })}
+        </ol>
+      </div>
+    </section>
+  ))}
+</div>
