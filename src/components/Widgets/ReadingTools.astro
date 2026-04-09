@@ -1,0 +1,170 @@
+---
+import { ui } from '@/i18n/ui'
+import { getPageInfo } from '@/utils/page'
+
+interface Props {
+  minutes: number
+}
+
+const { minutes } = Astro.props
+const { currentLang } = getPageInfo(Astro.url.pathname)
+const currentUI = ui[currentLang as keyof typeof ui] ?? ui.zh
+
+function formatMinutes(value: number) {
+  return `${value} ${currentUI.minutesShort}`
+}
+---
+
+<section
+  id="reading-tools"
+  class="no-heti"
+  aria-label={currentUI.readingTools}
+  data-reading-tools
+  data-total-minutes={minutes}
+  data-label-focus-on={currentUI.focusMode}
+  data-label-focus-off={currentUI.exitFocusMode}
+  data-label-minutes={currentUI.minutesShort}
+>
+  <div class="reading-progress-track" aria-hidden="true">
+    <span id="reading-progress-bar" />
+  </div>
+
+  <div class="reading-tools-grid">
+    <dl class="reading-tools-stats">
+      <div>
+        <dt>{currentUI.readingProgress}</dt>
+        <dd id="reading-progress-value">0%</dd>
+      </div>
+      <div>
+        <dt>{currentUI.readingRemaining}</dt>
+        <dd id="reading-remaining-value">{formatMinutes(minutes)}</dd>
+      </div>
+    </dl>
+
+    <button
+      id="reading-focus-toggle"
+      type="button"
+      aria-pressed="false"
+    >
+      <span data-focus-toggle-label>{currentUI.focusMode}</span>
+    </button>
+  </div>
+</section>
+
+<script>
+const focusModeStorageKey = 'reading-focus-mode'
+
+let cleanupReadingTools = () => {}
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(Math.max(value, min), max)
+}
+
+function readStoredFocusMode() {
+  try {
+    return localStorage.getItem(focusModeStorageKey) === 'true'
+  }
+  catch {
+    return false
+  }
+}
+
+function writeStoredFocusMode(enabled: boolean) {
+  try {
+    localStorage.setItem(focusModeStorageKey, String(enabled))
+  }
+  catch {
+    // Ignore storage errors in private browsing contexts.
+  }
+}
+
+function setupReadingTools() {
+  cleanupReadingTools()
+
+  const toolsEl = document.querySelector('[data-reading-tools]')
+  const articleEl = document.querySelector('[data-reading-article]')
+  const progressValueEl = document.getElementById('reading-progress-value')
+  const remainingValueEl = document.getElementById('reading-remaining-value')
+  const progressBarEl = document.getElementById('reading-progress-bar')
+  const focusToggleEl = document.getElementById('reading-focus-toggle')
+  const focusToggleLabelEl = focusToggleEl?.querySelector('[data-focus-toggle-label]')
+
+  if (!(toolsEl instanceof HTMLElement)
+    || !(articleEl instanceof HTMLElement)
+    || !(progressValueEl instanceof HTMLElement)
+    || !(remainingValueEl instanceof HTMLElement)
+    || !(progressBarEl instanceof HTMLElement)
+    || !(focusToggleEl instanceof HTMLButtonElement)
+    || !(focusToggleLabelEl instanceof HTMLElement)) {
+    return
+  }
+
+  const tools = toolsEl
+  const article = articleEl
+  const progressValue = progressValueEl
+  const remainingValue = remainingValueEl
+  const progressBar = progressBarEl
+  const focusToggle = focusToggleEl
+  const focusToggleLabel = focusToggleLabelEl
+  const totalMinutes = Math.max(1, Number.parseInt(tools.dataset.totalMinutes || '0', 10))
+  let frameId = 0
+
+  function applyFocusMode(enabled: boolean) {
+    document.body.classList.toggle('reading-focus-mode', enabled)
+    focusToggle.setAttribute('aria-pressed', String(enabled))
+    focusToggleLabel.textContent = enabled
+      ? tools.dataset.labelFocusOff || 'Exit focus mode'
+      : tools.dataset.labelFocusOn || 'Focus mode'
+
+    writeStoredFocusMode(enabled)
+  }
+
+  function updateReadingState() {
+    frameId = 0
+
+    const articleTop = window.scrollY + article.getBoundingClientRect().top
+    const start = articleTop - window.innerHeight * 0.18
+    const end = articleTop + article.offsetHeight - window.innerHeight * 0.72
+    const progress = clamp((window.scrollY - start) / Math.max(end - start, 1), 0, 1)
+    const progressPercent = Math.round(progress * 100)
+    const remainingMinutes = Math.max(0, Math.ceil(totalMinutes * (1 - progress)))
+
+    progressValue.textContent = `${progressPercent}%`
+    remainingValue.textContent = `${remainingMinutes} ${tools.dataset.labelMinutes || 'min'}`
+    progressBar.style.width = `${progressPercent}%`
+  }
+
+  function queueReadingStateUpdate() {
+    if (frameId) {
+      return
+    }
+
+    frameId = window.requestAnimationFrame(updateReadingState)
+  }
+
+  function handleFocusToggle() {
+    applyFocusMode(!document.body.classList.contains('reading-focus-mode'))
+  }
+
+  applyFocusMode(readStoredFocusMode())
+  queueReadingStateUpdate()
+
+  focusToggle.addEventListener('click', handleFocusToggle)
+  window.addEventListener('scroll', queueReadingStateUpdate, { passive: true })
+  window.addEventListener('resize', queueReadingStateUpdate)
+
+  cleanupReadingTools = () => {
+    focusToggle.removeEventListener('click', handleFocusToggle)
+    window.removeEventListener('scroll', queueReadingStateUpdate)
+    window.removeEventListener('resize', queueReadingStateUpdate)
+
+    if (frameId) {
+      window.cancelAnimationFrame(frameId)
+      frameId = 0
+    }
+  }
+}
+
+document.addEventListener('astro:page-load', setupReadingTools)
+document.addEventListener('astro:before-swap', cleanupReadingTools)
+</script>

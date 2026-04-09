@@ -21,6 +21,14 @@ interface Translation {
   kindSeries: string
   kindTimeline: string
   kindEvergreen: string
+  skipToContent: string
+  skipToArticle: string
+  readingTools: string
+  readingProgress: string
+  readingRemaining: string
+  focusMode: string
+  exitFocusMode: string
+  minutesShort: string
 }
 
 export const ui: Record<Language, Translation> = {
@@ -45,6 +53,14 @@ export const ui: Record<Language, Translation> = {
     kindSeries: 'Series',
     kindTimeline: 'Timeline',
     kindEvergreen: 'Evergreen',
+    skipToContent: 'Skip to content',
+    skipToArticle: 'Skip to article',
+    readingTools: 'Reading tools',
+    readingProgress: 'Progress',
+    readingRemaining: 'Time left',
+    focusMode: 'Focus mode',
+    exitFocusMode: 'Exit focus mode',
+    minutesShort: 'min',
   },
   zh: {
     title: 'Code4Focus',
@@ -67,5 +83,13 @@ export const ui: Record<Language, Translation> = {
     kindSeries: '系列',
     kindTimeline: '时间线',
     kindEvergreen: '长青',
+    skipToContent: '跳到正文',
+    skipToArticle: '跳到文章内容',
+    readingTools: '阅读工具',
+    readingProgress: '阅读进度',
+    readingRemaining: '剩余时间',
+    focusMode: '专注模式',
+    exitFocusMode: '退出专注模式',
+    minutesShort: '分钟',
   },
 }

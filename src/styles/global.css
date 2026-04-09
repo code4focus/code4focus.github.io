@@ -15,6 +15,25 @@ body::selection {
   --at-apply: 'bg-highlight';
 }
 
+/* Skip Link */
+.skip-link {
+  --at-apply: 'fixed left-4 top-4 z-1001 rounded-full bg-primary px-4 py-2 c-background font-navbar text-sm font-semibold no-underline shadow-lg';
+  transform: translateY(-220%);
+  transition: transform 0.2s ease-out;
+}
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+.skip-link-secondary {
+  left: auto;
+  right: 4rem;
+}
+
+/* Focus Visible */
+:where(a, button, summary, input, select, textarea):focus-visible {
+  --at-apply: 'outline-none ring-2 ring-primary/30 ring-offset-3 ring-offset-background';
+}
+
 /* Highlight Hover Animation >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 .highlight-static,
 .highlight-hover {
@@ -35,7 +54,7 @@ body::selection {
 
 /* Heading Anchor Link >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 .heading-anchor-link {
-  --at-apply: 'inline-block translate-y-0.1em';
+  --at-apply: 'inline-flex items-center rounded-1 translate-y-0.1em no-underline!';
 }
 h1:hover .heading-anchor-link svg,
 h2:hover .heading-anchor-link svg,
@@ -46,11 +65,28 @@ h4:hover .heading-anchor-link svg {
 .heading-anchor-link svg {
   --at-apply: 'ml-0.4em aspect-square w-0.9em op-0 transition-opacity ease-out active:scale-90';
 }
+h1:focus-within .heading-anchor-link svg,
+h2:focus-within .heading-anchor-link svg,
+h3:focus-within .heading-anchor-link svg,
+h4:focus-within .heading-anchor-link svg,
+h1:target .heading-anchor-link svg,
+h2:target .heading-anchor-link svg,
+h3:target .heading-anchor-link svg,
+h4:target .heading-anchor-link svg,
+.heading-anchor-link:focus-visible svg {
+  --at-apply: 'op-80';
+}
 h1:hover .heading-anchor-link svg:hover,
 h2:hover .heading-anchor-link svg:hover,
 h3:hover .heading-anchor-link svg:hover,
 h4:hover .heading-anchor-link svg:hover {
   --at-apply: 'op-80';
+}
+
+@media (hover: none) {
+  .heading-anchor-link svg {
+    --at-apply: 'op-30';
+  }
 }
 
 /* Image Zoom >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */

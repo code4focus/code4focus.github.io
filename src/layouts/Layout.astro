@@ -10,6 +10,7 @@ import ImageZoom from '@/components/Widgets/ImageZoom.astro'
 import MediaEmbed from '@/components/Widgets/MediaEmbed.astro'
 import SoundEffect from '@/components/Widgets/SoundEffect.astro'
 import { themeConfig } from '@/config'
+import { ui } from '@/i18n/ui'
 import Head from '@/layouts/Head.astro'
 import { getPageInfo } from '@/utils/page'
 import '@/styles/comment.css'
@@ -18,6 +19,7 @@ import '@/styles/font.css'
 import '@/styles/global.css'
 import '@/styles/lqip.css'
 import '@/styles/markdown.css'
+import '@/styles/reading.css'
 import '@/styles/transition.css'
 
 interface Props {
@@ -41,7 +43,8 @@ const {
   postTags,
   supportedLangs = [],
 } = Astro.props
-const { isPost } = getPageInfo(Astro.url.pathname)
+const { currentLang, isPost } = getPageInfo(Astro.url.pathname)
+const currentUI = ui[currentLang as keyof typeof ui] ?? ui.zh
 const fontStyle = themeConfig.global.fontStyle === 'serif' ? 'font-serif' : 'font-sans'
 const MarginBottom = isPost && themeConfig.comment.enabled
   ? 'mb-10' // Post page with comment
@@ -65,20 +68,40 @@ const MarginBottom = isPost && themeConfig.comment.enabled
     {postTags}
     {supportedLangs}
   />
-  <body>
+  <body data-page-kind={isPost ? 'post' : 'default'}>
+    <a
+      class="skip-link"
+      href="#main-content"
+    >
+      {currentUI.skipToContent}
+    </a>
+    {isPost && (
+      <a
+        class="skip-link skip-link-secondary"
+        href="#post-content"
+      >
+        {currentUI.skipToArticle}
+      </a>
+    )}
     <div
+      data-site-shell
       class="mx-auto max-w-205.848 min-h-vh w-full min-h-dvh"
       p="x-[min(7.25vw,3.731rem)] y-10"
       lg="mx-[max(5.75rem,calc(50vw-34.25rem))] my-20 max-w-[min(calc(75vw-16rem),44rem)] min-h-full p-0"
     >
       <Header />
       <Navbar />
-      <main class={MarginBottom}>
+      <main
+        id="main-content"
+        class={MarginBottom}
+      >
         <slot />
       </main>
       <Footer />
     </div>
-    <Button supportedLangs={supportedLangs} />
+    <div data-site-actions>
+      <Button supportedLangs={supportedLangs} />
+    </div>
     <SoundEffect />
     <CodeCopyButton />
     <GithubCard />
