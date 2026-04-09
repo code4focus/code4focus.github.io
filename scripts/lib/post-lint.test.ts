@@ -1,13 +1,18 @@
 /* eslint-disable test/no-import-node-test */
 
 import assert from 'node:assert/strict'
+import { execFile } from 'node:child_process'
 import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import { afterEach, test } from 'node:test'
+import { fileURLToPath } from 'node:url'
+import { promisify } from 'node:util'
 import { runPostLint } from './post-lint'
 
 const tempRoots: string[] = []
+const execFileAsync = promisify(execFile)
+const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..', '..')
 
 afterEach(async () => {
   while (tempRoots.length > 0) {
@@ -114,4 +119,53 @@ test('runPostLint compares targeted files against their sibling locale metadata'
     ['bilingual-pair-abbrlink'],
   )
   assert.equal(result.findings[0]?.filePath, enFile)
+})
+
+test('post-lint import does not depend on PUBLIC_SITE_URL validation', async () => {
+  await execFileAsync(
+    process.execPath,
+    [
+      '--input-type=module',
+      '--import',
+      'tsx',
+      '--eval',
+      'await import("./scripts/lib/post-lint.ts")',
+    ],
+    {
+      cwd: repoRoot,
+      env: {
+        ...process.env,
+        PUBLIC_SITE_URL: 'not-a-valid-absolute-url',
+      },
+    },
+  )
+})
+
+test('runPostLint does not report a missing locale when the sibling file exists but has invalid frontmatter', async () => {
+  const { contentDir } = await createTempSiteDir()
+  const enFile = join(contentDir, 'hello-world-en.md')
+  const zhFile = join(contentDir, 'hello-world-zh.md')
+
+  await writeMarkdown(enFile, createPostSource({
+    title: 'Hello world',
+    description: 'A short English summary for the lint test.',
+    lang: 'en',
+    abbrlink: 'hello-world',
+  }))
+  await writeMarkdown(zhFile, `---
+title: [broken
+lang: zh
+---
+
+坏掉的 frontmatter
+`)
+
+  const result = await runPostLint({
+    scope: 'posts',
+    includeBody: false,
+    includeMetadata: true,
+    filePatterns: [enFile],
+  })
+
+  assert.deepEqual(result.findings.map(finding => finding.code), [])
 })

@@ -4,7 +4,7 @@ import { basename } from 'node:path'
 import { format as autocorrectFormat } from 'autocorrect-node'
 import fg from 'fast-glob'
 import { parseDocument, stringify } from 'yaml'
-import { themeConfig } from '../../src/config'
+import { defaultGlobalToc } from '../../src/config/shared'
 import { langMap } from '../../src/i18n/config'
 import { extractExcerptFromMarkdown, extractPlainTextFromMarkdown } from '../../src/utils/post-excerpt'
 
@@ -67,6 +67,7 @@ interface MetadataSnapshot {
   lang?: FocusLang
   fieldLines: Partial<Record<ComparablePostField | 'lang', number>>
   values: Partial<Record<ComparablePostField, string | number | boolean>>
+  hasComparableMetadata: boolean
 }
 
 interface LintFileResult {
@@ -576,7 +577,7 @@ function getComparablePostFieldValue(field: ComparablePostField, rawValue: unkno
     case 'pin':
       return normalizeInteger(rawValue)
     case 'toc':
-      return normalizeBoolean(rawValue, themeConfig.global.toc)
+      return normalizeBoolean(rawValue, defaultGlobalToc)
   }
 }
 
@@ -618,6 +619,23 @@ function buildMetadataSnapshot(
     lang: resolvedLang,
     fieldLines,
     values,
+    hasComparableMetadata: true,
+  }
+}
+
+function buildPresenceSnapshot(
+  filePath: string,
+  profile: ContentProfile,
+  lang?: FocusLang,
+): MetadataSnapshot {
+  return {
+    filePath,
+    profile,
+    pairKey: getPairKey(filePath),
+    lang,
+    fieldLines: {},
+    values: {},
+    hasComparableMetadata: false,
   }
 }
 
@@ -636,21 +654,27 @@ function getPairLabel(pairKey: string, profile: ContentProfile) {
 }
 
 async function readMetadataSnapshot(filePath: string): Promise<MetadataSnapshot | null> {
+  const profile = inferContentProfile(filePath)
+  const fallbackLang = getFilenameLang(filePath)
+
   try {
     const source = normalizeLineEndings(await readFile(filePath, 'utf8'))
     const { frontmatter, body, hasFrontmatter } = splitMarkdownContent(source)
     if (!hasFrontmatter) {
-      return null
+      return buildPresenceSnapshot(filePath, profile, fallbackLang)
     }
 
-    const profile = inferContentProfile(filePath)
     const bodyPlainText = extractPlainTextFromMarkdown(body)
     const metadataResult = profile === 'post'
       ? analyzePostFrontmatter(filePath, frontmatter, body, bodyPlainText)
       : analyzeAboutFrontmatter(filePath, frontmatter, bodyPlainText)
 
     if (!metadataResult.normalizedData) {
-      return null
+      return buildPresenceSnapshot(
+        filePath,
+        profile,
+        metadataResult.effectiveLang ?? fallbackLang,
+      )
     }
 
     return buildMetadataSnapshot(
@@ -783,8 +807,12 @@ function collectBilingualPairingFindings(
     }
 
     const uniqueSnapshots = supportedLanguages
-      .map(lang => byLang.get(lang)?.[0])
+      .map(lang => byLang.get(lang)?.find(snapshot => snapshot.hasComparableMetadata))
       .filter((snapshot): snapshot is MetadataSnapshot => Boolean(snapshot))
+
+    if (uniqueSnapshots.length !== supportedLanguages.length) {
+      continue
+    }
 
     const comparableFields: ComparablePostField[] = ['published', 'updated', 'draft', 'pin', 'toc', 'abbrlink']
     comparableFields.forEach((field) => {
