@@ -28,12 +28,7 @@ Retypeset は、日本語では「再組版」と呼ばれる、[Astro](https://
 
 ## パフォーマンス
 
-<br>
-<p align="center">
-  <a href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fretypeset.radishzz.cc%2Fja%2F&form_factor=desktop">
-    <img width="710" alt="Retypeset Lighthouse Score" src="../images/retypeset-lighthouse-score.svg">
-  <a>
-</p>
+- [PageSpeed Insights（デスクトップ）](https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fcode4focus.github.io%2F&form_factor=desktop)：現在の GitHub Pages 本番トップページ。
 
 ## はじめに
 

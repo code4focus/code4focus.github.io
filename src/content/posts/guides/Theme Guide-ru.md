@@ -31,7 +31,7 @@ site: {
   // имя автора
   author: 'radishzz'
   // адрес сайта
-  url: 'https://retypeset.radishzz.cc'
+  url: 'https://code4focus.github.io'
   // базовый путь
   // корневая директория для всех страниц и ресурсов
   base: '/' // например, '/blog', '/docs'
@@ -262,7 +262,7 @@ const excerptLengths: Record<ExcerptScene, {
 
 ### Open Graph
 
-Стили [карточек Open Graph для социальных сетей](https://orcascan.com/tools/open-graph-validator?url=https%3A%2F%2Fretypeset.radishzz.cc%2Fru%2Fposts%2Ftheme-guide%2F).
+Стили [карточек Open Graph для социальных сетей](https://orcascan.com/tools/open-graph-validator?url=https%3A%2F%2Fcode4focus.github.io%2Fen%2Fposts%2Ftheme-guide%2F).
 
 ```ts
 // src/pages/og/[...image].ts
@@ -291,7 +291,7 @@ getImageOptions: (_path, page) => ({
 
 ### RSS-лента
 
-Стили [страницы RSS-ленты](https://retypeset.radishzz.cc/ru/atom.xml).
+Стили [страницы RSS-ленты](https://code4focus.github.io/en/atom.xml).
 
 ```html
 <!-- public/feeds/xxx-style.xsl -->

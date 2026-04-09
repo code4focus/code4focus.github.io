@@ -31,7 +31,7 @@ site: {
   // 著者名
   author: 'radishzz'
   // サイト URL
-  url: 'https://retypeset.radishzz.cc'
+  url: 'https://code4focus.github.io'
   // ベースパス
   // すべてのページとアセットのルートディレクトリ
   base: '/' // 例：'/blog', '/docs'
@@ -262,7 +262,7 @@ const excerptLengths: Record<ExcerptScene, {
 
 ### Open Graph
 
-[Open Graph ソーシャルカード](https://orcascan.com/tools/open-graph-validator?url=https%3A%2F%2Fretypeset.radishzz.cc%2Fja%2Fposts%2Ftheme-guide%2F) スタイル。
+[Open Graph ソーシャルカード](https://orcascan.com/tools/open-graph-validator?url=https%3A%2F%2Fcode4focus.github.io%2Fen%2Fposts%2Ftheme-guide%2F) スタイル。
 
 ```ts
 // src/pages/og/[...image].ts
@@ -291,7 +291,7 @@ getImageOptions: (_path, page) => ({
 
 ### RSS フィード
 
-[RSS フィードページ](https://retypeset.radishzz.cc/ja/atom.xml) スタイル。
+[RSS フィードページ](https://code4focus.github.io/en/atom.xml) スタイル。
 
 ```html
 <!-- public/feeds/xxx-style.xsl -->

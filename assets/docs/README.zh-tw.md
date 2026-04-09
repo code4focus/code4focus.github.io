@@ -28,12 +28,7 @@ Retypeset 是一款基於 [Astro](https://astro.build/) 框架的靜態部落格
 
 ## 效能
 
-<br>
-<p align="center">
-  <a href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fretypeset.radishzz.cc%2Fzh-tw%2F&form_factor=desktop">
-    <img width="710" alt="Retypeset Lighthouse Score" src="../images/retypeset-lighthouse-score.svg">
-  <a>
-</p>
+- [PageSpeed Insights（桌面版）](https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fcode4focus.github.io%2F&form_factor=desktop)：目前 GitHub Pages 首頁。
 
 ## 開始使用
 
