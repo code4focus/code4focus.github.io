@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content'
 import type { Language } from '@/i18n/config'
 import { render } from 'astro:content'
 import Comment from '@/components/Comment/Index.astro'
+import AdjacentArticleNavigation from '@/components/Post/AdjacentArticleNavigation.astro'
 import PostDate from '@/components/PostDate.astro'
 import SeriesContext from '@/components/Semantic/SeriesContext.astro'
 import TagList from '@/components/TagList.astro'
@@ -11,7 +12,7 @@ import CitationPreview from '@/components/Widgets/CitationPreview.astro'
 import TOC from '@/components/Widgets/TOC.astro'
 import { getLangFromLocale } from '@/i18n/lang'
 import Layout from '@/layouts/Layout.astro'
-import { getPostPath, getPostStaticPaths, getSemanticGroup } from '@/utils/content'
+import { getAdjacentPosts, getPostPath, getPostStaticPaths, getSemanticGroup } from '@/utils/content'
 import { getPostDescription } from '@/utils/description'
 import '@/styles/citation.css'
 
@@ -33,6 +34,7 @@ const { Content, headings, remarkPluginFrontmatter } = await render(post)
 const seriesGroup = post.data.series?.id
   ? await getSemanticGroup(post.data.series.id, currentLang)
   : null
+const { next: nextPost, previous: previousPost } = await getAdjacentPosts(post, currentLang)
 ---
 
 <Layout
@@ -93,6 +95,16 @@ const seriesGroup = post.data.series?.id
           tags={post.data.tags}
           lang={currentLang}
         />
+      )}
+      {(previousPost || nextPost) && (
+        <>
+          <div class="mt-12.6 uno-decorative-line" />
+          <AdjacentArticleNavigation
+            previousPost={previousPost}
+            nextPost={nextPost}
+            lang={currentLang}
+          />
+        </>
       )}
       <!-- Comment -->
       <Comment />
