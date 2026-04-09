@@ -7,6 +7,11 @@ tags:
   - Astro
   - Blogging
   - Typography
+series:
+  id: site-foundations
+  kind: series
+  order: "1"
+  title: Site Foundations
 draft: false
 pin: 1
 toc: true
@@ -51,3 +56,4 @@ The official [Astro documentation](https://astro.build) presents Astro as a fram
 ::cite-def[retypeset-demo]{short="Retypeset demo site"}
 The original [Retypeset demo](https://retypeset.radishzz.cc/en/) shows the typography, spacing, and long-form reading experience that made this theme a strong fit for a writing-focused site.
 ::
+

@@ -1,0 +1,86 @@
+---
+import type { Language } from '@/i18n/config'
+import SemanticKindBadge from '@/components/Semantic/SemanticKindBadge.astro'
+import SemanticPostSequence from '@/components/Semantic/SemanticPostSequence.astro'
+import { getLangFromLocale, getLangRouteParam } from '@/i18n/lang'
+import { ui } from '@/i18n/ui'
+import Layout from '@/layouts/Layout.astro'
+import { getAllSemanticGroups, getSemanticGroup, getSemanticSupportedLangs } from '@/utils/content'
+import { getPostDescription } from '@/utils/description'
+
+export async function getStaticPaths() {
+  const groups = await getAllSemanticGroups()
+  const paths = await Promise.all(groups.map(async (group) => {
+    const supportedLangs = await getSemanticSupportedLangs(group.id)
+
+    return supportedLangs.map(routeLang => ({
+      params: {
+        lang: getLangRouteParam(routeLang),
+        seriesId: group.id,
+      },
+      props: {
+        seriesId: group.id,
+        supportedLangs,
+      },
+    }))
+  }))
+
+  return paths.flat()
+}
+
+interface Props {
+  seriesId: string
+  supportedLangs: Language[]
+}
+
+const { seriesId, supportedLangs } = Astro.props
+const currentLang = getLangFromLocale(Astro.currentLocale)
+const currentUI = ui[currentLang]
+const group = await getSemanticGroup(seriesId, currentLang)
+
+if (!group) {
+  throw new Error(`Series group "${seriesId}" was not found for language "${currentLang}".`)
+}
+
+const latestPost = group.posts.at(-1)
+const pageDescription = latestPost
+  ? `${group.title} · ${group.posts.length} ${currentUI.entries}. ${getPostDescription(latestPost, 'meta')}`
+  : currentUI.seriesDescription
+---
+
+<Layout
+  postTitle={group.title}
+  postDescription={pageDescription}
+  supportedLangs={supportedLangs}
+>
+  <div class="uno-decorative-line" />
+
+  <section class="mt-5.5 lg:mt-6.5">
+    <div class="flex flex-wrap items-center gap-2.2">
+      <SemanticKindBadge
+        kind={group.kind}
+        lang={currentLang}
+      />
+      <span class="text-3.05 c-secondary/75 font-navbar">
+        {group.posts.length} {currentUI.entries}
+      </span>
+    </div>
+
+    <h2 class="mt-2.6 text-7.2 c-primary font-bold leading-1.18em lg:text-8.3 cjk:tracking-wide">
+      {group.title}
+    </h2>
+
+    {latestPost && (
+      <p class="mt-2.8 text-3.7 c-secondary/86 leading-1.65em lg:max-w-50rem cjk:text-justify lg:text-3.85">
+        {getPostDescription(latestPost, 'meta')}
+      </p>
+    )}
+
+    <div class="mt-5.2 border border-secondary/15 rounded-3xl bg-secondary/3 px-4.6 py-4.8 lg:mt-6.4 lg:px-5.2 lg:py-5.2">
+      <SemanticPostSequence
+        posts={group.posts}
+        lang={currentLang}
+      />
+    </div>
+  </section>
+</Layout>

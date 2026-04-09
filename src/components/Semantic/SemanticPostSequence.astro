@@ -1,0 +1,75 @@
+---
+import type { Language } from '@/i18n/config'
+import type { Post } from '@/types'
+import PostDate from '@/components/PostDate.astro'
+import { getPostPath } from '@/i18n/path'
+
+interface Props {
+  posts: Post[]
+  lang: Language
+  compact?: boolean
+  currentPostId?: string
+  showDate?: boolean
+}
+
+const {
+  posts,
+  lang,
+  compact = false,
+  currentPostId = '',
+  showDate = true,
+} = Astro.props
+---
+
+<ol class:list={[compact ? 'space-y-2.6' : 'space-y-4.8 lg:space-y-6.2']}>
+  {posts.map((post, index) => {
+    const slug = post.data.abbrlink || post.id
+    const isCurrent = currentPostId === post.id
+
+    return (
+      <li class:list={[
+        'relative pl-9',
+        compact ? 'min-h-6.5' : 'min-h-8.5',
+      ]}
+      >
+        <span class="absolute left-0 top-0.15 text-2.95 c-secondary/55 font-time">
+          {String(index + 1).padStart(2, '0')}
+        </span>
+
+        <div>
+          {isCurrent
+            ? (
+                <span class:list={[
+                  'inline-block c-primary',
+                  compact ? 'text-3.6 font-medium' : 'text-4.4 font-semibold lg:text-4.8',
+                ]}
+                >
+                  {post.data.title}
+                </span>
+              )
+            : (
+                <a
+                  href={getPostPath(slug, lang)}
+                  class:list={[
+                    'inline-block transition-colors hover:c-primary',
+                    compact ? 'text-3.6 font-medium' : 'text-4.4 font-semibold lg:text-4.8',
+                  ]}
+                >
+                  {post.data.title}
+                </a>
+              )}
+
+          {showDate && (
+            <div class="mt-0.8 text-3.15 c-secondary/78 font-time">
+              <PostDate
+                date={post.data.published}
+                updatedDate={post.data.updated}
+                minutes={post.remarkPluginFrontmatter.minutes}
+              />
+            </div>
+          )}
+        </div>
+      </li>
+    )
+  })}
+</ol>

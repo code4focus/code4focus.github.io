@@ -1,0 +1,62 @@
+---
+import type { Language } from '@/i18n/config'
+import type { Post } from '@/types'
+import type { PostSemanticGroup } from '@/utils/content-semantics'
+import SemanticKindBadge from '@/components/Semantic/SemanticKindBadge.astro'
+import SemanticPostSequence from '@/components/Semantic/SemanticPostSequence.astro'
+import { getSeriesPath } from '@/i18n/path'
+import { ui } from '@/i18n/ui'
+
+interface Props {
+  currentPostId: string
+  group: PostSemanticGroup<Post> | null
+  lang: Language
+}
+
+const { currentPostId, group, lang } = Astro.props
+
+if (!group) {
+  return null
+}
+
+const currentUI = ui[lang]
+const currentIndex = group.posts.findIndex(post => post.id === currentPostId)
+const currentStep = currentIndex >= 0 ? currentIndex + 1 : null
+---
+
+<section class="no-heti my-8 border border-secondary/15 rounded-3xl bg-secondary/4 px-4.6 py-4.6">
+  <div class="flex flex-wrap items-center gap-2.2">
+    <SemanticKindBadge
+      kind={group.kind}
+      lang={lang}
+    />
+    <span class="text-3.05 c-secondary/78 font-navbar">
+      {currentUI.inSeries}
+    </span>
+  </div>
+
+  <div class="mt-2.4 flex flex-wrap items-baseline gap-x-3 gap-y-1.6">
+    <h2 class="text-4.9 c-primary font-semibold lg:text-5.3 cjk:tracking-wide">
+      <a
+        href={getSeriesPath(group.id, lang)}
+        class="transition-colors hover:c-primary"
+      >
+        {group.title}
+      </a>
+    </h2>
+
+    <span class="text-3.1 c-secondary/68 font-time">
+      {currentStep ? `${currentStep} / ${group.posts.length}` : group.posts.length} {currentUI.entries}
+    </span>
+  </div>
+
+  <div class="mt-3.4">
+    <SemanticPostSequence
+      posts={group.posts}
+      lang={lang}
+      compact={true}
+      currentPostId={currentPostId}
+      showDate={false}
+    />
+  </div>
+</section>

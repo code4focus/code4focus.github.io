@@ -4,13 +4,14 @@ import type { Language } from '@/i18n/config'
 import { render } from 'astro:content'
 import Comment from '@/components/Comment/Index.astro'
 import PostDate from '@/components/PostDate.astro'
+import SeriesContext from '@/components/Semantic/SeriesContext.astro'
 import TagList from '@/components/TagList.astro'
 import BackButton from '@/components/Widgets/BackButton.astro'
 import CitationPreview from '@/components/Widgets/CitationPreview.astro'
 import TOC from '@/components/Widgets/TOC.astro'
 import { getLangFromLocale } from '@/i18n/lang'
 import Layout from '@/layouts/Layout.astro'
-import { getPostPath, getPostStaticPaths } from '@/utils/content'
+import { getPostPath, getPostStaticPaths, getSemanticGroup } from '@/utils/content'
 import { getPostDescription } from '@/utils/description'
 import '@/styles/citation.css'
 
@@ -29,6 +30,9 @@ const slug = post.data.abbrlink || post.id
 const description = getPostDescription(post, 'meta')
 const markdownExportPath = getPostPath(slug, currentLang, 'markdown')
 const { Content, headings, remarkPluginFrontmatter } = await render(post)
+const seriesGroup = post.data.series?.id
+  ? await getSemanticGroup(post.data.series.id, currentLang)
+  : null
 ---
 
 <Layout
@@ -69,6 +73,12 @@ const { Content, headings, remarkPluginFrontmatter } = await render(post)
         minutes={remarkPluginFrontmatter.minutes}
       />
     </div>
+    <!-- Series Context -->
+    <SeriesContext
+      currentPostId={post.id}
+      group={seriesGroup}
+      lang={currentLang}
+    />
     <!-- TOC -->
     {post.data.toc && <TOC headings={headings} />}
     <!-- Content -->
