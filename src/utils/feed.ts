@@ -9,6 +9,7 @@ import sanitizeHtml from 'sanitize-html'
 import { base, defaultLocale, themeConfig } from '@/config'
 import { ui } from '@/i18n/ui'
 import { renderStaticCitationHtml } from '@/utils/citation'
+import { getPostSlug } from '@/utils/content'
 import { getPostDescription } from '@/utils/description'
 import { getAbsolutePostImageUrl } from '@/utils/post-assets'
 
@@ -112,7 +113,7 @@ export async function generateFeed({ lang }: { lang?: Language } = {}) {
 
   // Add posts to feed
   for (const post of recentPosts) {
-    const slug = post.data.abbrlink || post.id
+    const slug = getPostSlug(post)
     const link = new URL(`posts/${slug}/`, siteURL).toString()
 
     // Optimize content processing

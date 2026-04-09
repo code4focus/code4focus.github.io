@@ -7,6 +7,7 @@ import { parseDocument, stringify } from 'yaml'
 import { defaultGlobalToc } from '../../src/config/shared'
 import { langMap } from '../../src/i18n/config'
 import { extractExcerptFromMarkdown, extractPlainTextFromMarkdown } from '../../src/utils/post-excerpt'
+import { getPairedPostKey, getPairedPostSiblingCandidatePaths } from '../../src/utils/post-pairing'
 
 type FocusLang = Language
 type Severity = 'error' | 'warning'
@@ -560,7 +561,11 @@ function getLineNumberForKey(frontmatter: string, key: string) {
   return index >= 0 ? index + 2 : 2
 }
 
-function getPairKey(filePath: string) {
+function getPairKey(filePath: string, profile: ContentProfile) {
+  if (profile === 'post') {
+    return getPairedPostKey(filePath)
+  }
+
   return normalizeFilePathKey(filePath)
     .replace(/\.(?:md|mdx)$/i, '')
     .replace(filenameLangSuffixPattern, '')
@@ -615,7 +620,7 @@ function buildMetadataSnapshot(
   return {
     filePath,
     profile,
-    pairKey: getPairKey(filePath),
+    pairKey: getPairKey(filePath, profile),
     lang: resolvedLang,
     fieldLines,
     values,
@@ -631,7 +636,7 @@ function buildPresenceSnapshot(
   return {
     filePath,
     profile,
-    pairKey: getPairKey(filePath),
+    pairKey: getPairKey(filePath, profile),
     lang,
     fieldLines: {},
     values: {},
@@ -703,14 +708,16 @@ async function collectPairingSnapshots(targetSnapshots: MetadataSnapshot[]) {
   })
 
   for (const snapshot of targetSnapshots) {
-    const candidatePaths = [
-      `${snapshot.pairKey}.md`,
-      `${snapshot.pairKey}.mdx`,
-      ...supportedLanguages.flatMap(lang => [
-        `${snapshot.pairKey}-${lang}.md`,
-        `${snapshot.pairKey}-${lang}.mdx`,
-      ]),
-    ]
+    const candidatePaths = snapshot.profile === 'post'
+      ? getPairedPostSiblingCandidatePaths(snapshot.filePath)
+      : [
+          `${snapshot.pairKey}.md`,
+          `${snapshot.pairKey}.mdx`,
+          ...supportedLanguages.flatMap(lang => [
+            `${snapshot.pairKey}-${lang}.md`,
+            `${snapshot.pairKey}-${lang}.mdx`,
+          ]),
+        ]
 
     for (const candidatePath of candidatePaths) {
       const normalizedCandidate = normalizeFilePathKey(candidatePath)

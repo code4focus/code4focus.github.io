@@ -4,6 +4,7 @@ import type { Post } from '@/types'
 import PostDate from '@/components/PostDate.astro'
 import { getPostPath } from '@/i18n/path'
 import { ui } from '@/i18n/ui'
+import { getPostSlug } from '@/utils/content'
 
 interface Props {
   lang: Language
@@ -44,7 +45,7 @@ const adjacentPosts = [
 
   <div class="grid mt-3.8 gap-3.4 lg:grid-cols-2 lg:gap-4">
     {adjacentPosts.map(({ label, post }) => {
-      const slug = post.data.abbrlink || post.id
+      const slug = getPostSlug(post)
 
       return (
         <a

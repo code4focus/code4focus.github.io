@@ -3,6 +3,7 @@ import type { Language } from '@/i18n/config'
 import type { Post } from '@/types'
 import PostDate from '@/components/PostDate.astro'
 import { getPostPath } from '@/i18n/path'
+import { getPostSlug } from '@/utils/content'
 import { getPostDescription } from '@/utils/description'
 
 interface Props {
@@ -26,7 +27,7 @@ const years = Array.from(postsByYear.entries())
 
         <ol class="relative border-l border-secondary/15 pl-5.1 lg:pl-6.2">
           {posts.map((post) => {
-            const slug = post.data.abbrlink || post.id
+            const slug = getPostSlug(post)
 
             return (
               <li class="relative pb-6.3 last:pb-0 lg:pb-8.2">
