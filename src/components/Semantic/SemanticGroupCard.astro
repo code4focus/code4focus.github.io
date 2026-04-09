@@ -6,6 +6,7 @@ import PostDate from '@/components/PostDate.astro'
 import SemanticKindBadge from '@/components/Semantic/SemanticKindBadge.astro'
 import { getPostPath, getSeriesPath } from '@/i18n/path'
 import { ui } from '@/i18n/ui'
+import { getPostSlug } from '@/utils/content'
 
 interface Props {
   group: PostSemanticGroup<Post>
@@ -50,7 +51,7 @@ const latestPost = group.posts.at(-1)
       <p class="mt-2.4 text-3.5 c-secondary/88 leading-1.55em cjk:text-justify">
         <span class="c-secondary/70 font-navbar">{currentUI.latest}: </span>
         <a
-          href={getPostPath(latestPost.data.abbrlink || latestPost.id, lang)}
+          href={getPostPath(getPostSlug(latestPost), lang)}
           class="transition-colors hover:c-primary"
         >
           {latestPost.data.title}

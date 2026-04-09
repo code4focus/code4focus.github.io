@@ -4,6 +4,7 @@ import type { Post } from '@/types'
 import PostDate from '@/components/PostDate.astro'
 import { getPostPath } from '@/i18n/path'
 import { ui } from '@/i18n/ui'
+import { getPostSlug } from '@/utils/content'
 import { getPostDescription } from '@/utils/description'
 
 interface Props {
@@ -28,7 +29,7 @@ const currentUI = ui[lang]
   <div class="mt-3.8 border border-secondary/15 rounded-3xl bg-secondary/4 px-4.6 py-4.6">
     <ul class="space-y-4.6">
       {posts.map((post) => {
-        const slug = post.data.abbrlink || post.id
+        const slug = getPostSlug(post)
 
         return (
           <li class="border-b border-secondary/12 pb-4.6 last:border-b-0 last:pb-0">

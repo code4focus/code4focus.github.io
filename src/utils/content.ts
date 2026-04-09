@@ -7,6 +7,7 @@ import { allLocales, base, defaultLocale } from '@/config'
 import { getLangRouteParam } from '@/i18n/lang'
 import { memoize } from '@/utils/cache'
 import { buildRelatedPosts, buildSemanticGroups } from '@/utils/content-semantics'
+import { getPairedPostSlug } from '@/utils/post-pairing'
 
 const metaCache = new Map<string, { minutes: number, hasCitations: boolean, hasCitationPreview: boolean }>()
 
@@ -48,7 +49,7 @@ async function addMetaToPost(post: CollectionEntry<'posts'>): Promise<Post> {
 }
 
 export function getPostSlug(post: CollectionEntry<'posts'>) {
-  return post.data.abbrlink || post.id
+  return getPairedPostSlug(post)
 }
 
 export function getPostPath(
@@ -77,7 +78,7 @@ export async function checkPostSlugDuplication(posts: CollectionEntry<'posts'>[]
 
   posts.forEach((post) => {
     const lang = post.data.lang
-    const slug = post.data.abbrlink || post.id
+    const slug = getPostSlug(post)
 
     let slugSet = slugMap.get(lang)
     if (!slugSet) {

@@ -13,7 +13,7 @@ import CitationPreview from '@/components/Widgets/CitationPreview.astro'
 import TOC from '@/components/Widgets/TOC.astro'
 import { getLangFromLocale } from '@/i18n/lang'
 import Layout from '@/layouts/Layout.astro'
-import { getAdjacentPosts, getPostPath, getPostStaticPaths, getRelatedPosts, getSemanticGroup } from '@/utils/content'
+import { getAdjacentPosts, getPostPath, getPostSlug, getPostStaticPaths, getRelatedPosts, getSemanticGroup } from '@/utils/content'
 import { getPostDescription } from '@/utils/description'
 import '@/styles/citation.css'
 
@@ -28,7 +28,7 @@ interface Props {
 
 const { post, supportedLangs } = Astro.props
 const currentLang = getLangFromLocale(Astro.currentLocale)
-const slug = post.data.abbrlink || post.id
+const slug = getPostSlug(post)
 const description = getPostDescription(post, 'meta')
 const markdownExportPath = getPostPath(slug, currentLang, 'markdown')
 const { Content, headings, remarkPluginFrontmatter } = await render(post)
