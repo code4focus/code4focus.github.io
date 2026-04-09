@@ -23,7 +23,16 @@ const posts = defineCollection({
         'Series IDs can only contain lowercase letters, numbers and hyphens',
       ),
       kind: z.enum(postSeriesKinds).optional().default('series'),
-      order: z.number().int().positive().optional(),
+      order: z.preprocess((value) => {
+        if (typeof value === 'string') {
+          const normalized = value.trim()
+          if (/^\d+$/.test(normalized)) {
+            return Number(normalized)
+          }
+        }
+
+        return value
+      }, z.number().int().positive().optional()),
       title: z.string().trim().min(1).optional(),
     }).strict().optional(),
     // Advanced
