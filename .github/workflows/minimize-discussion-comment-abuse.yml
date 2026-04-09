@@ -1,0 +1,64 @@
+name: Minimize obvious discussion comment abuse
+
+on:
+  discussion_comment:
+    types:
+      - created
+      - edited
+
+permissions:
+  contents: read
+  discussions: write
+
+jobs:
+  minimize-obvious-abuse:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Classify discussion comment
+        id: classify
+        run: node scripts/github/moderate-discussion-comment.mjs
+
+      - name: Minimize flagged comment
+        if: steps.classify.outputs.should_minimize == 'true'
+        uses: actions/github-script@v8
+        env:
+          SUBJECT_ID: ${{ steps.classify.outputs.subject_id }}
+          CLASSIFIER: ${{ steps.classify.outputs.classifier }}
+          COMMENT_URL: ${{ steps.classify.outputs.comment_url }}
+          MATCH_REASON: ${{ steps.classify.outputs.match_reason }}
+        with:
+          script: |
+            const subjectId = process.env.SUBJECT_ID
+            const classifier = process.env.CLASSIFIER
+            const commentUrl = process.env.COMMENT_URL || 'unknown discussion comment'
+            const matchReason = process.env.MATCH_REASON || 'No reason provided.'
+
+            const mutation = `
+              mutation MinimizeComment($subjectId: ID!, $classifier: ReportedContentClassifiers!) {
+                minimizeComment(input: {subjectId: $subjectId, classifier: $classifier}) {
+                  minimizedComment {
+                    isMinimized
+                    minimizedReason
+                    url
+                  }
+                }
+              }
+            `
+
+            const result = await github.graphql(mutation, { subjectId, classifier })
+            const minimized = result.minimizeComment.minimizedComment
+
+            core.notice(`Minimized ${commentUrl} as ${classifier}`)
+            await core.summary
+              .addHeading('Discussion comment minimized')
+              .addList([
+                `Comment: ${commentUrl}`,
+                `Classifier: ${classifier}`,
+                `Platform reason: ${minimized.minimizedReason ?? 'n/a'}`,
+                `Automation reason: ${matchReason}`,
+              ])
+              .write()
