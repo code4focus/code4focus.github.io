@@ -43,7 +43,6 @@ jobs:
                   minimizedComment {
                     isMinimized
                     minimizedReason
-                    url
                   }
                 }
               }
