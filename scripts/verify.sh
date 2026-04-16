@@ -81,4 +81,5 @@ fi
 
 if [[ $run_build -eq 1 ]]; then
   run_step "astro build" ./node_modules/.bin/astro build
+  run_step "standalone pages build" pnpm build:standalone-pages
 fi

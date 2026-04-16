@@ -34,6 +34,8 @@
     "complete-issues": "node --import tsx scripts/issues/complete-issues-from-json.ts",
     "pr-context": "node --import tsx scripts/pr/collect-pr-context.ts",
     "verify:repo": "bash scripts/verify.sh",
+    "build:standalone-pages": "node --import tsx scripts/build-standalone-pages.ts",
+    "test:standalone-pages": "node --import tsx --test scripts/build-standalone-pages.test.ts",
     "apply-lqip": "node --import tsx scripts/apply-lqip.ts",
     "format-posts": "node --import tsx scripts/format-posts.ts",
     "update-theme": "node --import tsx scripts/update-theme.ts"
