@@ -11,6 +11,7 @@ Code4Focus is the source repository for the Code4Focus writing site. The project
 
 - [Primary site](https://code4focus.github.io/)
 - [Mirror](https://code4focus.pages.dev/)
+- [Standalone pages host](https://mimeadow.pages.dev/)
 
 ## Repository Scope
 
@@ -43,6 +44,16 @@ pnpm dev
 - Set `PUBLIC_SITE_URL` in your deployment environment to the primary site origin, for example `https://code4focus.github.io`.
 - This repository may also mirror the same build to `https://code4focus.pages.dev`, but GitHub Pages remains the default canonical/feed/site URL unless a separate issue changes the primary domain.
 - See [.env.example](.env.example) for the expected variable name.
+
+## Standalone Pages Publishing
+
+- `https://mimeadow.pages.dev/` is a separate Cloudflare Pages Direct Upload project for standalone self-contained HTML experiences.
+- Add source files at `standalone-pages-src/<slug>.html`.
+- Filenames are the URL contract and must use lowercase letters, numbers, and hyphens only.
+- The standalone-pages builder maps each source file to `standalone-pages-dist/<slug>/index.html`, so `standalone-pages-src/lorica.html` publishes to `https://mimeadow.pages.dev/lorica/`.
+- The builder also generates `standalone-pages-dist/index.html` as the root index for the standalone host.
+- Deployments are handled by `.github/workflows/deploy-mimeadow-pages.yml` and reuse the Cloudflare account secrets already configured for Actions.
+- This host does not participate in the blog canonical/feed configuration, does not use Git integration, and in v1 only supports single-file self-contained HTML pages.
 
 ## Attribution And License
 

@@ -1,0 +1,57 @@
+name: Deploy standalone pages to mimeadow
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - standalone-pages-src/**
+      - scripts/build-standalone-pages.ts
+      - .github/workflows/deploy-mimeadow-pages.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  CLOUDFLARE_PAGES_PROJECT_NAME: mimeadow
+
+concurrency:
+  group: mimeadow-pages-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy-mimeadow-pages:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build standalone pages
+        run: pnpm build:standalone-pages
+
+      - name: Deploy to Cloudflare Pages
+        id: deployment
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: >-
+            pages deploy standalone-pages-dist
+            --project-name=${{ env.CLOUDFLARE_PAGES_PROJECT_NAME }}
+            --branch=main
