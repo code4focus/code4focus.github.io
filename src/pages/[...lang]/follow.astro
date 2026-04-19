@@ -1,0 +1,120 @@
+---
+import { allLocales } from '@/config'
+import { getLangFromLocale, getLangRouteParam } from '@/i18n/lang'
+import { getLocalizedPath } from '@/i18n/path'
+import { ui } from '@/i18n/ui'
+import Layout from '@/layouts/Layout.astro'
+import { getPostPath, getPosts, getPostSlug } from '@/utils/content'
+import { getFeedPath } from '@/utils/distribution'
+
+export async function getStaticPaths() {
+  return allLocales.map(lang => ({
+    params: { lang: getLangRouteParam(lang) },
+  }))
+}
+
+const currentLang = getLangFromLocale(Astro.currentLocale)
+const currentUI = ui[currentLang]
+const rssPath = getFeedPath(currentLang, 'rss')
+const atomPath = getFeedPath(currentLang, 'atom')
+const postsPath = getLocalizedPath('/', currentLang)
+const actionLinkClass = 'inline-flex items-center rounded-full border border-solid px-4 py-2 text-3 font-navbar leading-none transition-colors hover:c-primary'
+const recentPosts = (await getPosts(currentLang)).slice(0, 3)
+---
+
+<Layout postTitle={currentUI.follow.pageTitle} postDescription={currentUI.follow.pageDescription}>
+  <section class="mb-7.5 border rounded-5 border-solid px-5 py-6">
+    <p class="mb-2 text-2.8 c-secondary tracking-[0.24em] font-navbar uppercase">
+      {currentUI.follow.nav}
+    </p>
+    <h1 class="mb-3 text-7 c-primary font-title lg:text-8.4">
+      {currentUI.follow.heroTitle}
+    </h1>
+    <p class="max-w-2xl text-3.3 c-secondary leading-1.8">
+      {currentUI.follow.heroBody}
+    </p>
+  </section>
+
+  <section class="grid mb-7.5 gap-4 md:grid-cols-2">
+    <article class="border rounded-5 border-solid px-5 py-5">
+      <h2 class="mb-2 text-4.6 c-primary font-title">
+        {currentUI.follow.rssTitle}
+      </h2>
+      <p class="mb-4 text-3.1 c-secondary leading-1.7">
+        {currentUI.follow.rssDescription}
+      </p>
+      <a href={rssPath} class={`${actionLinkClass} c-primary`} target="_blank" rel="noopener noreferrer">
+        {currentUI.follow.rssAction}
+      </a>
+    </article>
+
+    <article class="border rounded-5 border-solid px-5 py-5">
+      <h2 class="mb-2 text-4.6 c-primary font-title">
+        {currentUI.follow.atomTitle}
+      </h2>
+      <p class="mb-4 text-3.1 c-secondary leading-1.7">
+        {currentUI.follow.atomDescription}
+      </p>
+      <a href={atomPath} class={`${actionLinkClass} c-primary`} target="_blank" rel="noopener noreferrer">
+        {currentUI.follow.atomAction}
+      </a>
+    </article>
+
+    <article class="border rounded-5 border-solid px-5 py-5 md:col-span-2">
+      <h2 class="mb-2 text-4.6 c-primary font-title">
+        {currentUI.follow.markdownTitle}
+      </h2>
+      <p class="mb-4 max-w-2xl text-3.1 c-secondary leading-1.7">
+        {currentUI.follow.markdownDescription}
+      </p>
+      <a href={postsPath} class={`${actionLinkClass} c-primary`}>
+        {currentUI.follow.browsePostsAction}
+      </a>
+    </article>
+  </section>
+
+  <section class="mb-7.5">
+    <div class="mb-4">
+      <h2 class="mb-2 text-5.2 c-primary font-title">
+        {currentUI.follow.recentExportsTitle}
+      </h2>
+      <p class="max-w-2xl text-3.1 c-secondary leading-1.7">
+        {currentUI.follow.recentExportsDescription}
+      </p>
+    </div>
+
+    <ul class="grid gap-3">
+      {recentPosts.map((post) => {
+        const slug = getPostSlug(post)
+        const postPath = getPostPath(slug, currentLang)
+        const markdownPath = getPostPath(slug, currentLang, 'markdown')
+
+        return (
+          <li class="border rounded-5 border-solid px-5 py-4">
+            <div class="lg:flex lg:items-center lg:justify-between lg:gap-5">
+              <div class="max-w-2xl">
+                <h3 class="text-4.2 c-primary font-title">
+                  {post.data.title}
+                </h3>
+                {post.data.description && (
+                  <p class="mt-1.5 text-3 c-secondary leading-1.7">
+                    {post.data.description}
+                  </p>
+                )}
+              </div>
+
+              <div class="mt-4 flex flex-wrap gap-2.5 lg:mt-0 lg:shrink-0">
+                <a href={postPath} class={`${actionLinkClass} c-secondary`}>
+                  {currentUI.follow.viewPostAction}
+                </a>
+                <a href={markdownPath} download class={`${actionLinkClass} c-primary`}>
+                  {currentUI.follow.markdownAction}
+                </a>
+              </div>
+            </div>
+          </li>
+        )
+      })}
+    </ul>
+  </section>
+</Layout>
