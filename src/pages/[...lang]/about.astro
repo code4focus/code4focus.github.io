@@ -1,8 +1,11 @@
 ---
 import { getCollection, render } from 'astro:content'
-import { allLocales } from '@/config'
+import { allLocales, themeConfig } from '@/config'
 import { getLangFromLocale, getLangRouteParam } from '@/i18n/lang'
+import { getLocalizedPath } from '@/i18n/path'
+import { ui } from '@/i18n/ui'
 import Layout from '@/layouts/Layout.astro'
+import { createBreadcrumbSchema, createWebPageSchema, getSiteOrigin } from '@/utils/seo'
 
 export async function getStaticPaths() {
   return allLocales.map(lang => ({
@@ -11,14 +14,36 @@ export async function getStaticPaths() {
 }
 
 const currentLang = getLangFromLocale(Astro.currentLocale)
+const currentUI = ui[currentLang]
 // Get about page content with different language
 const allAboutEntries = await getCollection('about')
 const aboutEntry = allAboutEntries.find(entry => entry.data.lang === currentLang)
   ?? allAboutEntries.find(entry => entry.data.lang === '')
 const { Content } = aboutEntry ? await render(aboutEntry) : { Content: null }
+const siteOrigin = getSiteOrigin(Astro.site ?? themeConfig.site.url)
+const pageDescription = currentUI.seo.aboutDescription
+const structuredData = [
+  createWebPageSchema({
+    type: 'AboutPage',
+    name: currentUI.seo.aboutTitle,
+    description: pageDescription,
+    path: Astro.url.pathname,
+    lang: currentLang,
+    siteOrigin,
+  }),
+  createBreadcrumbSchema([
+    { name: currentUI.title, path: getLocalizedPath('/', currentLang) },
+    { name: currentUI.about, path: Astro.url.pathname },
+  ], siteOrigin),
+]
 ---
 
-<Layout>
+<Layout
+  pageTitle={currentUI.seo.aboutTitle}
+  pageDescription={pageDescription}
+  structuredData={structuredData}
+  supportedLangs={allLocales}
+>
   <!-- Decorative Line -->
   <div class="uno-decorative-line" />
   <!-- About Page Content -->

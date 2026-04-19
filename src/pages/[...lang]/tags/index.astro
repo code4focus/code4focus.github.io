@@ -1,9 +1,12 @@
 ---
 import TagList from '@/components/TagList.astro'
-import { allLocales } from '@/config'
+import { allLocales, themeConfig } from '@/config'
 import { getLangFromLocale, getLangRouteParam } from '@/i18n/lang'
+import { getLocalizedPath } from '@/i18n/path'
+import { ui } from '@/i18n/ui'
 import Layout from '@/layouts/Layout.astro'
 import { getAllTags } from '@/utils/content'
+import { createBreadcrumbSchema, createItemListSchema, createTagListItems, createWebPageSchema, getSiteOrigin } from '@/utils/seo'
 
 export async function getStaticPaths() {
   return allLocales.map(lang => ({
@@ -12,10 +15,35 @@ export async function getStaticPaths() {
 }
 
 const currentLang = getLangFromLocale(Astro.currentLocale)
+const currentUI = ui[currentLang]
 const allTags = await getAllTags(currentLang)
+const siteOrigin = getSiteOrigin(Astro.site ?? themeConfig.site.url)
+const pageDescription = currentUI.seo.tagsDescription
+const structuredData = [
+  createWebPageSchema({
+    type: 'CollectionPage',
+    name: currentUI.seo.tagsTitle,
+    description: pageDescription,
+    path: Astro.url.pathname,
+    lang: currentLang,
+    siteOrigin,
+  }),
+  ...(allTags.length > 0
+    ? [createItemListSchema(createTagListItems(allTags, currentLang), siteOrigin, currentUI.tags)]
+    : []),
+  createBreadcrumbSchema([
+    { name: currentUI.title, path: getLocalizedPath('/', currentLang) },
+    { name: currentUI.tags, path: Astro.url.pathname },
+  ], siteOrigin),
+]
 ---
 
-<Layout>
+<Layout
+  pageTitle={currentUI.seo.tagsTitle}
+  pageDescription={pageDescription}
+  structuredData={structuredData}
+  supportedLangs={allLocales}
+>
   <!-- Decorative Line -->
   <div class="uno-decorative-line" />
   <!-- Tag List -->

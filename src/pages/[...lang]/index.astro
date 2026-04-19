@@ -1,10 +1,12 @@
 ---
 import HomeTimeline from '@/components/HomeTimeline.astro'
 import PostList from '@/components/PostList.astro'
-import { allLocales } from '@/config'
+import { allLocales, themeConfig } from '@/config'
 import { getLangFromLocale, getLangRouteParam } from '@/i18n/lang'
+import { ui } from '@/i18n/ui'
 import Layout from '@/layouts/Layout.astro'
 import { getPinnedPosts, getPostsByYear } from '@/utils/content'
+import { createItemListSchema, createPostListItems, createWebSiteSchema, getSiteOrigin } from '@/utils/seo'
 
 export async function getStaticPaths() {
   return allLocales.map(lang => ({
@@ -13,11 +15,30 @@ export async function getStaticPaths() {
 }
 
 const currentLang = getLangFromLocale(Astro.currentLocale)
+const currentUI = ui[currentLang]
 const pinnedPosts = await getPinnedPosts(currentLang)
 const postsByYear = await getPostsByYear(currentLang)
+const listedPosts = [...pinnedPosts, ...Array.from(postsByYear.values()).flat()]
+const siteOrigin = getSiteOrigin(Astro.site ?? themeConfig.site.url)
+const structuredData = [
+  createWebSiteSchema({
+    name: currentUI.title,
+    description: currentUI.seo.homeDescription,
+    lang: currentLang,
+    siteOrigin,
+  }),
+  ...(listedPosts.length > 0
+    ? [createItemListSchema(createPostListItems(listedPosts, currentLang), siteOrigin, currentUI.posts)]
+    : []),
+]
 ---
 
-<Layout>
+<Layout
+  pageTitle={currentUI.seo.homeTitle}
+  pageDescription={currentUI.seo.homeDescription}
+  structuredData={structuredData}
+  supportedLangs={allLocales}
+>
   <!-- Pinned Posts -->
   {pinnedPosts.length > 0 && (
     <section class="mb-7.5">
